@@ -63,11 +63,71 @@ def extract_invoice_fields(text):
     return fields
 
 
-# This line calls the function and sends invoice_text to it.
+# This function checks if the invoice has all important fields.
+# It returns the invoice status.
+def validate_invoice(fields):
+    # This list has all required fields for an invoice.
+    # Required means the field is important and cannot be empty.
+    required_fields = [
+        "invoice_number",
+        "supplier_name",
+        "invoice_date",
+        "due_date",
+        "total",
+        "vat_number",
+    ]
+
+    # This list will save fields that are missing.
+    # Missing means the data is not in the invoice.
+    missing_fields = []
+
+    # This loop checks one required field at a time.
+    for field in required_fields:
+
+        # This condition checks if the field is not in the dictionary.
+        # If the field is missing, Python saves it in missing_fields.
+        if field not in fields or fields[field] == "":
+            missing_fields.append(field)
+
+    # If missing_fields has data, the invoice needs review.
+    if missing_fields:
+        return {
+            "status": "needs_review",
+            "missing_fields": missing_fields,
+        }
+
+    # If no field is missing, the invoice is approved.
+    return {
+        "status": "approved",
+        "missing_fields": [],
+    }
+
+
+# This line calls the extract function.
 # The result is saved in invoice_fields.
 invoice_fields = extract_invoice_fields(invoice_text)
 
+# This line calls the validate function.
+# The result is saved in validation_result.
+validation_result = validate_invoice(invoice_fields)
+
+# This title makes the terminal result easier to read.
+print("INVOICE FIELDS")
+print("--------------")
+
 # This loop shows one invoice field per line.
-# It makes the result easier to read.
 for field_name, field_value in invoice_fields.items():
     print(f"{field_name}: {field_value}")
+
+# This empty print creates a blank line.
+print()
+
+# This title shows the validation result.
+print("VALIDATION RESULT")
+print("-----------------")
+
+# This line shows the invoice status.
+print(f"status: {validation_result['status']}")
+
+# This line shows missing fields.
+print(f"missing_fields: {validation_result['missing_fields']}")
