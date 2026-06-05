@@ -63,11 +63,10 @@ def extract_invoice_fields(text):
     return fields
 
 
-# This function checks if the invoice has all important fields.
-# It returns the invoice status.
+# This function checks if the invoice has problems.
+# It returns status, risk score, and reasons.
 def validate_invoice(fields):
     # This list has all required fields for an invoice.
-    # Required means the field is important and cannot be empty.
     required_fields = [
         "invoice_number",
         "supplier_name",
@@ -78,28 +77,63 @@ def validate_invoice(fields):
     ]
 
     # This list will save fields that are missing.
-    # Missing means the data is not in the invoice.
     missing_fields = []
+
+    # This list will save the reasons for the result.
+    reasons = []
+
+    # Risk score starts at zero.
+    # Zero means no risk.
+    risk_score = 0
 
     # This loop checks one required field at a time.
     for field in required_fields:
 
-        # This condition checks if the field is not in the dictionary.
-        # If the field is missing, Python saves it in missing_fields.
+        # This condition checks if the field is missing or empty.
         if field not in fields or fields[field] == "":
             missing_fields.append(field)
 
-    # If missing_fields has data, the invoice needs review.
+    # If there are missing fields, we add risk points.
     if missing_fields:
-        return {
-            "status": "needs_review",
-            "missing_fields": missing_fields,
-        }
+        risk_score = risk_score + (len(missing_fields) * 15)
+        reasons.append(f"Missing fields: {missing_fields}")
 
-    # If no field is missing, the invoice is approved.
+    # This gets the total text from the fields.
+    # Example: "1250.00 EUR"
+    total_text = fields.get("total", "0 EUR")
+
+    # This gets only the first part of total_text.
+    # Example: "1250.00 EUR" becomes "1250.00"
+    total_number_text = total_text.split()[0]
+
+    # This converts text to number.
+    # Example: "1250.00" becomes 1250.00
+    total_amount = float(total_number_text)
+
+    # If the total is high, we add risk points.
+    if total_amount > 5000:
+        risk_score = risk_score + 25
+        reasons.append("High invoice amount")
+
+    # If risk_score is zero, the invoice is approved.
+    if risk_score == 0:
+        status = "approved"
+        reasons.append("All required fields are present")
+
+    # If risk_score is lower than 50, the invoice needs review.
+    elif risk_score < 50:
+        status = "needs_review"
+
+    # If risk_score is 50 or more, the invoice is high risk.
+    else:
+        status = "high_risk"
+
+    # This returns all validation results.
     return {
-        "status": "approved",
-        "missing_fields": [],
+        "status": status,
+        "risk_score": risk_score,
+        "missing_fields": missing_fields,
+        "reasons": reasons,
     }
 
 
@@ -129,5 +163,11 @@ print("-----------------")
 # This line shows the invoice status.
 print(f"status: {validation_result['status']}")
 
+# This line shows the risk score.
+print(f"risk_score: {validation_result['risk_score']}")
+
 # This line shows missing fields.
 print(f"missing_fields: {validation_result['missing_fields']}")
+
+# This line shows the reasons.
+print(f"reasons: {validation_result['reasons']}")
