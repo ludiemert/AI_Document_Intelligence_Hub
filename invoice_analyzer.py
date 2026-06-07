@@ -187,11 +187,20 @@ def show_result(fields, validation):
     # This line shows the reasons.
     print(f"reasons: {validation['reasons']}")
 
-# This line extracts fields from the invoice text.
-invoice_fields = extract_invoice_fields(invoice_text)
+# This function controls the program flow.
+# It calls the other functions in the correct order.
+def main():
+    # This line extracts fields from the invoice text.
+    invoice_fields = extract_invoice_fields(invoice_text)
 
-# This line validates the extracted fields.
-validation_result = validate_invoice(invoice_fields)
+    # This line validates the extracted fields.
+    validation_result = validate_invoice(invoice_fields)
 
-# This line shows the final result.
-show_result(invoice_fields, validation_result)
+    # This line shows the final result.
+    show_result(invoice_fields, validation_result)
+
+
+# This condition starts the program.
+# It runs main() only when we run this file directly.
+if __name__ == "__main__":
+    main()
