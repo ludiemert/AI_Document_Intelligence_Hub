@@ -5,16 +5,34 @@
 # We use date to check if the invoice is overdue.
 from datetime import date
 
-# This variable saves the invoice text.
-# A variable is a name that stores a value.
-invoice_text = """
+# This list saves many invoice texts.
+# A list can store many items.
+invoice_texts = [
+    """
 Invoice Number: INV-2026-001
 Supplier: ABC Logistics
 Invoice Date: 2026-06-01
 Due Date: 2026-06-20
 Total: 1250.00 EUR
 VAT Number: IE1234567A
-"""
+""",
+    """
+Invoice Number: INV-2026-002
+Supplier: Northwind Office Supplies
+Invoice Date: 2026-06-01
+Due Date: 2026-05-01
+Total: 980.00 EUR
+VAT Number: IE7654321B
+""",
+    """
+Invoice Number: INV-2026-003
+Supplier: Contoso Industrial
+Invoice Date: 2026-06-02
+Due Date: 2026-06-30
+Total: 8900.00 EUR
+VAT Number: IE9999999C
+""",
+]
 
 
 # This function finds invoice data in the text.
@@ -188,8 +206,24 @@ def show_result(fields, validation):
     print(f"reasons: {validation['reasons']}")
 
 # This function controls the program flow.
-# It calls the other functions in the correct order.
+# It processes many invoices, one by one.
 def main():
+    # This loop reads one invoice text at a time.
+    for invoice_text in invoice_texts:
+        # This line extracts fields from one invoice text.
+        invoice_fields = extract_invoice_fields(invoice_text)
+
+        # This line validates the extracted fields.
+        validation_result = validate_invoice(invoice_fields)
+
+        # This line shows the final result.
+        show_result(invoice_fields, validation_result)
+
+        # This line separates one invoice result from the next.
+        print()
+        print("=" * 50)
+        print()
+
     # This line extracts fields from the invoice text.
     invoice_fields = extract_invoice_fields(invoice_text)
 
