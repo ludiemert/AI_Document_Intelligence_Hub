@@ -1,6 +1,10 @@
 # This project analyzes business invoices.
 # This is the first small step of the AI Document Intelligence Hub.
 
+# This imports date from Python.
+# We use date to check if the invoice is overdue.
+from datetime import date
+
 # This variable saves the invoice text.
 # A variable is a name that stores a value.
 invoice_text = """
@@ -115,6 +119,23 @@ def validate_invoice(fields):
         risk_score = risk_score + 25
         reasons.append("High invoice amount")
 
+    # This gets the due date from the invoice fields.
+    # Example: "2026-06-20" becomes a Python date.
+    due_date_text = fields.get("due_date", "")
+
+    # This checks if due_date exists.
+    if due_date_text:
+
+        # This converts text to a real date.
+        # Example: "2026-06-20" becomes a Python date.
+        due_date = date.fromisoformat(due_date_text)
+
+        # This checks if the due date is before today.
+        # If it is before today, the invoice is overdue.
+        if due_date < date.today():
+            risk_score = risk_score + 30
+            reasons.append("Due date is overdue")
+
     # If risk_score is zero, the invoice is approved.
     if risk_score == 0:
         status = "approved"
@@ -136,38 +157,41 @@ def validate_invoice(fields):
         "reasons": reasons,
     }
 
+# This function shows the invoice result in the terminal.
+# It makes the result easy to read.
+def show_result(fields, validation):
+    # This title shows the extracted invoice data.
+    print("INVOICE FIELDS")
+    print("--------------")
 
-# This line calls the extract function.
-# The result is saved in invoice_fields.
+    # This loop shows one field per line.
+    for field_name, field_value in fields.items():
+        print(f"{field_name}: {field_value}")
+
+    # This empty print creates a blank line.
+    print()
+
+    # This title shows the validation result.
+    print("VALIDATION RESULT")
+    print("-----------------")
+
+    # This line shows the invoice status.
+    print(f"status: {validation['status']}")
+
+    # This line shows the risk score.
+    print(f"risk_score: {validation['risk_score']}")
+
+    # This line shows missing fields.
+    print(f"missing_fields: {validation['missing_fields']}")
+
+    # This line shows the reasons.
+    print(f"reasons: {validation['reasons']}")
+
+# This line extracts fields from the invoice text.
 invoice_fields = extract_invoice_fields(invoice_text)
 
-# This line calls the validate function.
-# The result is saved in validation_result.
+# This line validates the extracted fields.
 validation_result = validate_invoice(invoice_fields)
 
-# This title makes the terminal result easier to read.
-print("INVOICE FIELDS")
-print("--------------")
-
-# This loop shows one invoice field per line.
-for field_name, field_value in invoice_fields.items():
-    print(f"{field_name}: {field_value}")
-
-# This empty print creates a blank line.
-print()
-
-# This title shows the validation result.
-print("VALIDATION RESULT")
-print("-----------------")
-
-# This line shows the invoice status.
-print(f"status: {validation_result['status']}")
-
-# This line shows the risk score.
-print(f"risk_score: {validation_result['risk_score']}")
-
-# This line shows missing fields.
-print(f"missing_fields: {validation_result['missing_fields']}")
-
-# This line shows the reasons.
-print(f"reasons: {validation_result['reasons']}")
+# This line shows the final result.
+show_result(invoice_fields, validation_result)
