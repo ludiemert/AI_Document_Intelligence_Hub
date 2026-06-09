@@ -205,9 +205,62 @@ def show_result(fields, validation):
     # This line shows the reasons.
     print(f"reasons: {validation['reasons']}")
 
+# This function shows a summary of all processed invoices.
+# A summary is a short report with important numbers.
+def show_summary(results):
+    # This counts how many invoices were processed.
+    total_invoices = len(results)
+
+    # This variable counts approved invoices.
+    approved_count = 0
+
+    # This variable counts invoices that need review.
+    needs_review_count = 0
+
+    # This variable counts high risk invoices.
+    high_risk_count = 0
+
+    # This variable sums all risk scores.
+    total_risk_score = 0
+
+    # This loop reads one result at a time.
+    for result in results:
+        # This adds the risk score to the total.
+        total_risk_score = total_risk_score + result["risk_score"]
+
+        # This checks if the invoice is approved.
+        if result["status"] == "approved":
+            approved_count = approved_count + 1
+
+        # This checks if the invoice needs review.
+        elif result["status"] == "needs_review":
+            needs_review_count = needs_review_count + 1
+
+        # This checks if the invoice is high risk.
+        elif result["status"] == "high_risk":
+            high_risk_count = high_risk_count + 1
+
+    # This calculates the average risk score.
+    average_risk_score = total_risk_score / total_invoices
+
+    # This title shows the summary section.
+    print("SUMMARY REPORT")
+    print("--------------")
+
+    # These lines show the summary numbers.
+    print(f"total_invoices: {total_invoices}")
+    print(f"approved: {approved_count}")
+    print(f"needs_review: {needs_review_count}")
+    print(f"high_risk: {high_risk_count}")
+    print(f"average_risk_score: {average_risk_score}")
+
 # This function controls the program flow.
 # It processes many invoices, one by one.
 def main():
+    # This list saves all validation results.
+    # Later, we use this list to create a summary.
+    all_results = []
+
     # This loop reads one invoice text at a time.
     for invoice_text in invoice_texts:
         # This line extracts fields from one invoice text.
@@ -215,6 +268,9 @@ def main():
 
         # This line validates the extracted fields.
         validation_result = validate_invoice(invoice_fields)
+
+        # This line saves the result in the all_results list.
+        all_results.append(validation_result)
 
         # This line shows the final result.
         show_result(invoice_fields, validation_result)
@@ -224,15 +280,8 @@ def main():
         print("=" * 50)
         print()
 
-    # This line extracts fields from the invoice text.
-    invoice_fields = extract_invoice_fields(invoice_text)
-
-    # This line validates the extracted fields.
-    validation_result = validate_invoice(invoice_fields)
-
-    # This line shows the final result.
-    show_result(invoice_fields, validation_result)
-
+    # This line shows the final summary report.
+    show_summary(all_results)
 
 # This condition starts the program.
 # It runs main() only when we run this file directly.
