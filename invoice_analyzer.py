@@ -243,6 +243,11 @@ def show_summary(results):
     # This calculates the average risk score.
     average_risk_score = total_risk_score / total_invoices
 
+    # This rounds the average risk score to 2 decimal places.
+    # Example: 18.333333 becomes 18.33
+    average_risk_score = round(average_risk_score, 2)
+
+
     # This title shows the summary section.
     print("SUMMARY REPORT")
     print("--------------")
