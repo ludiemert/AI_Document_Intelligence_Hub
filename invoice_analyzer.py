@@ -70,10 +70,20 @@ def extract_invoice_fields(text):
         if line.startswith("Due Date:"):
             fields["due_date"] = line.replace("Due Date:", "").strip()
 
-        # This condition checks if the line starts with "Total:".
-        # If it is true, Python saves the total amount and currency.
+            # This condition checks if the line starts with "Total:".
+        # If it is true, Python saves amount and currency.
         if line.startswith("Total:"):
-            fields["total"] = line.replace("Total:", "").strip()
+            total_text = line.replace("Total:", "").strip()
+
+            # This splits total into two parts.
+            # Example: "1250.00 EUR" becomes ["1250.00", "EUR"]
+            total_parts = total_text.split()
+
+            # This saves the amount as text.
+            fields["total_amount"] = total_parts[0]
+
+            # This saves the currency as text.
+            fields["currency"] = total_parts[1]
 
         # This condition checks if the line starts with "VAT Number:".
         # If it is true, Python saves the VAT number.
@@ -94,7 +104,8 @@ def validate_invoice(fields):
         "supplier_name",
         "invoice_date",
         "due_date",
-        "total",
+        "total_amount",
+        "currency",
         "vat_number",
     ]
 
@@ -120,13 +131,9 @@ def validate_invoice(fields):
         risk_score = risk_score + (len(missing_fields) * 15)
         reasons.append(f"Missing fields: {missing_fields}")
 
-    # This gets the total text from the fields.
-    # Example: "1250.00 EUR"
-    total_text = fields.get("total", "0 EUR")
-
-    # This gets only the first part of total_text.
-    # Example: "1250.00 EUR" becomes "1250.00"
-    total_number_text = total_text.split()[0]
+    # This gets the total amount from the fields.
+    # Example: "1250.00"
+    total_number_text = fields.get("total_amount", "0")
 
     # This converts text to number.
     # Example: "1250.00" becomes 1250.00
@@ -173,7 +180,9 @@ def validate_invoice(fields):
         "risk_score": risk_score,
         "missing_fields": missing_fields,
         "reasons": reasons,
+        "total_amount": total_amount,
     }
+
 
 # This function shows the invoice result in the terminal.
 # It makes the result easy to read.
@@ -205,6 +214,7 @@ def show_result(fields, validation):
     # This line shows the reasons.
     print(f"reasons: {validation['reasons']}")
 
+
 # This function shows a summary of all processed invoices.
 # A summary is a short report with important numbers.
 def show_summary(results):
@@ -223,10 +233,15 @@ def show_summary(results):
     # This variable sums all risk scores.
     total_risk_score = 0
 
+    # This variable sums all invoice amounts.
+    total_invoice_amount = 0
+
     # This loop reads one result at a time.
     for result in results:
         # This adds the risk score to the total.
         total_risk_score = total_risk_score + result["risk_score"]
+        # This adds the invoice amount to the total amount.
+        total_invoice_amount = total_invoice_amount + result["total_amount"]
 
         # This checks if the invoice is approved.
         if result["status"] == "approved":
@@ -247,7 +262,6 @@ def show_summary(results):
     # Example: 18.333333 becomes 18.33
     average_risk_score = round(average_risk_score, 2)
 
-
     # This title shows the summary section.
     print("SUMMARY REPORT")
     print("--------------")
@@ -258,6 +272,9 @@ def show_summary(results):
     print(f"needs_review: {needs_review_count}")
     print(f"high_risk: {high_risk_count}")
     print(f"average_risk_score: {average_risk_score}")
+    # This line shows the total amount of all invoices.
+    print(f"total_invoice_amount: {total_invoice_amount}")
+
 
 # This function controls the program flow.
 # It processes many invoices, one by one.
@@ -287,6 +304,7 @@ def main():
 
     # This line shows the final summary report.
     show_summary(all_results)
+
 
 # This condition starts the program.
 # It runs main() only when we run this file directly.
