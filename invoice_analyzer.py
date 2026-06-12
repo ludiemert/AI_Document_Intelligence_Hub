@@ -1,6 +1,10 @@
 # This project analyzes business invoices.
 # This is the first small step of the AI Document Intelligence Hub.
 
+# This imports csv from Python.
+# We use csv to save invoice results in a table file.
+import csv
+
 # This imports date from Python.
 # We use date to check if the invoice is overdue.
 from datetime import date
@@ -302,6 +306,23 @@ def main():
 
         # This line saves the result in the all_results list.
         all_results.append(validation_result)
+
+        # This dictionary joins invoice fields and validation result.
+        # We use it later to save data in CSV.
+        processed_invoice = {
+            "invoice_number": invoice_fields.get("invoice_number", ""),
+            "supplier_name": invoice_fields.get("supplier_name", ""),
+            "invoice_date": invoice_fields.get("invoice_date", ""),
+            "due_date": invoice_fields.get("due_date", ""),
+            "total_amount": validation_result["total_amount"],
+            "currency": validation_result["currency"],
+            "status": validation_result["status"],
+            "risk_score": validation_result["risk_score"],
+            "reasons": "; ".join(validation_result["reasons"]),
+        }
+
+        # This line saves the processed invoice in the all_results list.
+        all_results.append(processed_invoice)
 
         # This line shows the final result.
         show_result(invoice_fields, validation_result)
