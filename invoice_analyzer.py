@@ -304,9 +304,6 @@ def main():
         # This line validates the extracted fields.
         validation_result = validate_invoice(invoice_fields)
 
-        # This line saves the result in the all_results list.
-        all_results.append(validation_result)
-
         # This dictionary joins invoice fields and validation result.
         # We use it later to save data in CSV.
         processed_invoice = {
@@ -334,6 +331,9 @@ def main():
 
     # This line shows the final summary report.
     show_summary(all_results)
+
+    # This line saves all processed invoices in a CSV file.
+    save_results_to_csv(all_results)
 
 
 # This function saves processed invoices in a CSV file.
