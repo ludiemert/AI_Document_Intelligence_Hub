@@ -336,6 +336,41 @@ def main():
     show_summary(all_results)
 
 
+# This function saves processed invoices in a CSV file.
+# CSV is a table file that Excel and Pandas can read.
+def save_results_to_csv(results):
+    # This is the CSV file name.
+    file_name = "invoice_results.csv"
+
+    # These are the CSV column names.
+    fieldnames = [
+        "invoice_number",
+        "supplier_name",
+        "invoice_date",
+        "due_date",
+        "total_amount",
+        "currency",
+        "status",
+        "risk_score",
+        "reasons",
+    ]
+
+    # This opens the CSV file in write mode.
+    # newline="" helps avoid blank lines in Windows.
+    with open(file_name, mode="w", newline="", encoding="utf-8") as csv_file:
+        # This creates a CSV writer that uses dictionary keys.
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        # This writes the first row with column names.
+        writer.writeheader()
+
+        # This writes all processed invoice rows.
+        writer.writerows(results)
+
+    # This message tells the user the CSV was created.
+    print(f"CSV file created: {file_name}")
+
+
 # This condition starts the program.
 # It runs main() only when we run this file directly.
 if __name__ == "__main__":
