@@ -181,6 +181,7 @@ def validate_invoice(fields):
         "missing_fields": missing_fields,
         "reasons": reasons,
         "total_amount": total_amount,
+        "currency": fields.get("currency", ""),
     }
 
 
@@ -236,12 +237,20 @@ def show_summary(results):
     # This variable sums all invoice amounts.
     total_invoice_amount = 0
 
+    # This variable saves the currency for the summary.
+    summary_currency = ""
+
     # This loop reads one result at a time.
     for result in results:
         # This adds the risk score to the total.
         total_risk_score = total_risk_score + result["risk_score"]
         # This adds the invoice amount to the total amount.
         total_invoice_amount = total_invoice_amount + result["total_amount"]
+
+        # This saves the first currency found.
+        # Example: EUR
+        if summary_currency == "":
+            summary_currency = result["currency"]
 
         # This checks if the invoice is approved.
         if result["status"] == "approved":
@@ -272,8 +281,8 @@ def show_summary(results):
     print(f"needs_review: {needs_review_count}")
     print(f"high_risk: {high_risk_count}")
     print(f"average_risk_score: {average_risk_score}")
-    # This line shows the total amount of all invoices.
-    print(f"total_invoice_amount: {total_invoice_amount}")
+    # This line shows the total amount with 2 decimal places and currency.
+    print(f"total_invoice_amount: {total_invoice_amount:.2f} {summary_currency}")
 
 
 # This function controls the program flow.
