@@ -44,3 +44,29 @@ print("BUSINESS METRICS")
 print("----------------")
 print(f"total_invoice_amount: {total_invoice_amount:.2f} EUR")
 print(f"average_risk_score: {average_risk_score}")
+
+# This dictionary saves the business metrics.
+# We use it to create a summary CSV file.
+summary_data = {
+    "total_invoices": len(df),
+    "approved": status_counts.get("approved", 0),
+    "needs_review": status_counts.get("needs_review", 0),
+    "high_risk": status_counts.get("high_risk", 0),
+    "average_risk_score": average_risk_score,
+    "total_invoice_amount": total_invoice_amount,
+    "currency": "EUR",
+}
+
+# This converts the summary dictionary into a DataFrame.
+# Pandas needs a list to create one row.
+summary_df = pd.DataFrame([summary_data])
+
+# This is the summary CSV file name.
+summary_file_name = "invoice_summary.csv"
+
+# This saves the summary DataFrame as a CSV file.
+# index=False avoids an extra number column.
+summary_df.to_csv(summary_file_name, index=False)
+
+# This message tells the user the summary CSV was created.
+print(f"Summary CSV created: {summary_file_name}")

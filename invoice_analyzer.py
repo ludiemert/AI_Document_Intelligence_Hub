@@ -74,7 +74,7 @@ def extract_invoice_fields(text):
         if line.startswith("Due Date:"):
             fields["due_date"] = line.replace("Due Date:", "").strip()
 
-            # This condition checks if the line starts with "Total:".
+        # This condition checks if the line starts with "Total:".
         # If it is true, Python saves amount and currency.
         if line.startswith("Total:"):
             total_text = line.replace("Total:", "").strip()
