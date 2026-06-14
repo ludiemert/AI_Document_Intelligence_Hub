@@ -9,8 +9,8 @@ import pandas as pd
 file_name = "invoice_results.csv"
 
 # This reads the CSV file and creates a DataFrame.
-# A DataFrame is a table in Pandas.
-df = pd.read_csv(file_name)
+# sep=";" means the CSV uses semicolon as separator.
+df = pd.read_csv(file_name, sep=";")
 
 # This shows all invoice data in the terminal.
 print("INVOICE DATA")
@@ -65,8 +65,9 @@ summary_df = pd.DataFrame([summary_data])
 summary_file_name = "invoice_summary.csv"
 
 # This saves the summary DataFrame as a CSV file.
+# sep=";" helps Excel open columns correctly in Europe.
 # index=False avoids an extra number column.
-summary_df.to_csv(summary_file_name, index=False)
+summary_df.to_csv(summary_file_name, sep=";", index=False)
 
 # This message tells the user the summary CSV was created.
 print(f"Summary CSV created: {summary_file_name}")

@@ -359,7 +359,8 @@ def save_results_to_csv(results):
     # newline="" helps avoid blank lines in Windows.
     with open(file_name, mode="w", newline="", encoding="utf-8") as csv_file:
         # This creates a CSV writer that uses dictionary keys.
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        # delimiter=";" helps Excel open columns correctly in Europe.
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, delimiter=";")
 
         # This writes the first row with column names.
         writer.writeheader()
