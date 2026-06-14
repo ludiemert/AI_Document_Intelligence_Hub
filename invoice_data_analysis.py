@@ -1,6 +1,9 @@
+# This imports json from Python.
+# We use json to save data for web apps and APIs.
+import json
+
 # This project analyzes invoice results with Pandas.
 # Pandas helps us work with table data.
-
 # This imports pandas.
 # We use pandas to read and analyze CSV files.
 import pandas as pd
@@ -46,14 +49,14 @@ print(f"total_invoice_amount: {total_invoice_amount:.2f} EUR")
 print(f"average_risk_score: {average_risk_score}")
 
 # This dictionary saves the business metrics.
-# We use it to create a summary CSV file.
+# We convert Pandas numbers to normal Python numbers.
 summary_data = {
-    "total_invoices": len(df),
-    "approved": status_counts.get("approved", 0),
-    "needs_review": status_counts.get("needs_review", 0),
-    "high_risk": status_counts.get("high_risk", 0),
-    "average_risk_score": average_risk_score,
-    "total_invoice_amount": total_invoice_amount,
+    "total_invoices": int(len(df)),
+    "approved": int(status_counts.get("approved", 0)),
+    "needs_review": int(status_counts.get("needs_review", 0)),
+    "high_risk": int(status_counts.get("high_risk", 0)),
+    "average_risk_score": float(average_risk_score),
+    "total_invoice_amount": float(total_invoice_amount),
     "currency": "EUR",
 }
 
@@ -71,3 +74,16 @@ summary_df.to_csv(summary_file_name, sep=";", index=False)
 
 # This message tells the user the summary CSV was created.
 print(f"Summary CSV created: {summary_file_name}")
+
+# This is the summary JSON file name.
+summary_json_file_name = "invoice_summary.json"
+
+# This opens the JSON file in write mode.
+# encoding="utf-8" helps save text correctly.
+with open(summary_json_file_name, mode="w", encoding="utf-8") as json_file:
+    # This saves the summary data in JSON format.
+    # indent=4 makes the JSON easy to read.
+    json.dump(summary_data, json_file, indent=4)
+
+# This message tells the user the summary JSON was created.
+print(f"Summary JSON created: {summary_json_file_name}")
