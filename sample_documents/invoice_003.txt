@@ -1,0 +1,6 @@
+Invoice Number: INV-2026-003
+Supplier: Contoso Industrial
+Invoice Date: 2026-06-02
+Due Date: 2026-06-30
+Total: 8900.00 EUR
+VAT Number: IE9999999C

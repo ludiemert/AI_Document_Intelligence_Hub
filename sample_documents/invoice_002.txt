@@ -1,0 +1,6 @@
+Invoice Number: INV-2026-002
+Supplier: Northwind Office Supplies
+Invoice Date: 2026-06-01
+Due Date: 2026-05-01
+Total: 980.00 EUR
+VAT Number: IE7654321B
