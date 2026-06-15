@@ -23,39 +23,11 @@ REPORTS_FOLDER.mkdir(exist_ok=True)
 # The app reads invoice text files from this folder.
 SAMPLE_DOCUMENTS_FOLDER = Path("sample_documents")
 
-# This list saves many invoice texts.
-# A list can store many items.
-invoice_texts = [
-    """
-Invoice Number: INV-2026-001
-Supplier: ABC Logistics
-Invoice Date: 2026-06-01
-Due Date: 2026-06-20
-Total: 1250.00 EUR
-VAT Number: IE1234567A
-""",
-    """
-Invoice Number: INV-2026-002
-Supplier: Northwind Office Supplies
-Invoice Date: 2026-06-01
-Due Date: 2026-05-01
-Total: 980.00 EUR
-VAT Number: IE7654321B
-""",
-    """
-Invoice Number: INV-2026-003
-Supplier: Contoso Industrial
-Invoice Date: 2026-06-02
-Due Date: 2026-06-30
-Total: 8900.00 EUR
-VAT Number: IE9999999C
-""",
-]
-
 
 # This function finds invoice data in the text.
 # A function is a block of code that we can use many times.
 def extract_invoice_fields(text):
+    """Extract invoice fields from text."""
     # This dictionary will save the invoice fields.
     # A dictionary stores data with key and value.
     fields = {}
@@ -116,6 +88,7 @@ def extract_invoice_fields(text):
 # This function checks if the invoice has problems.
 # It returns status, risk score, and reasons.
 def validate_invoice(fields):
+    """Check invoice fields and return status, risk score, and reasons."""
     # This list has all required fields for an invoice.
     required_fields = [
         "invoice_number",
@@ -206,6 +179,7 @@ def validate_invoice(fields):
 # This function shows the invoice result in the terminal.
 # It makes the result easy to read.
 def show_result(fields, validation):
+    """Show invoice fields and validation result in the terminal."""
     # This title shows the extracted invoice data.
     print("INVOICE FIELDS")
     print("--------------")
@@ -237,6 +211,7 @@ def show_result(fields, validation):
 # This function shows a summary of all processed invoices.
 # A summary is a short report with important numbers.
 def show_summary(results):
+    """Show a summary report for all processed invoices."""
     # This counts how many invoices were processed.
     total_invoices = len(results)
 
@@ -306,6 +281,7 @@ def show_summary(results):
 # This function reads invoice text files from the sample documents folder.
 # It returns a list with invoice texts.
 def load_invoice_texts():
+    """Load invoice text files from the sample documents folder."""
     # This list will save all invoice texts.
     invoice_texts_from_files = []
 
@@ -324,6 +300,7 @@ def load_invoice_texts():
 # This function controls the program flow.
 # It processes many invoices, one by one.
 def main():
+    """Run the invoice analysis workflow."""
     # This list saves all validation results.
     # Later, we use this list to create a summary.
     all_results = []
@@ -374,6 +351,7 @@ def main():
 # This function saves processed invoices in a CSV file.
 # CSV is a table file that Excel and Pandas can read.
 def save_results_to_csv(results):
+    """Save processed invoice results to a CSV file."""
     # This is the CSV file path inside the reports folder.
     file_name = REPORTS_FOLDER / "invoice_results.csv"
 
