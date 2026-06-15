@@ -8,6 +8,10 @@ import json
 # We use pandas to read and analyze CSV files.
 import pandas as pd
 
+# This imports matplotlib.
+# We use matplotlib to create charts.
+import matplotlib.pyplot as plt
+
 # This is the CSV file created by invoice_analyzer.py.
 file_name = "invoice_results.csv"
 
@@ -87,3 +91,56 @@ with open(summary_json_file_name, mode="w", encoding="utf-8") as json_file:
 
 # This message tells the user the summary JSON was created.
 print(f"Summary JSON created: {summary_json_file_name}")
+
+# This creates a bar chart with invoice status counts.
+# A bar chart helps compare categories.
+status_counts.plot(kind="bar", color=["orange", "green"])
+
+# This adds a chart title.
+plt.title("Invoice Status Counts")
+
+# This adds a label to the x axis.
+plt.xlabel("Status")
+
+# This adds a label to the y axis.
+plt.ylabel("Number of Invoices")
+
+# This keeps the labels easy to read.
+plt.xticks(rotation=0)
+
+# This adjusts the chart layout.
+plt.tight_layout()
+
+# This saves the chart as an image file.
+plt.savefig("status_counts.png")
+
+# This clears the chart memory before the next chart.
+plt.clf()
+
+# This message tells the user the chart was created.
+print("Chart created: status_counts.png")
+
+# This creates a bar chart with risk score by invoice.
+# It helps us see invoice risk levels.
+plt.bar(df["invoice_number"], df["risk_score"], color="steelblue")
+
+# This adds a chart title.
+plt.title("Risk Score by Invoice")
+
+# This adds a label to the x axis.
+plt.xlabel("Invoice Number")
+
+# This adds a label to the y axis.
+plt.ylabel("Risk Score")
+
+# This adjusts the chart layout.
+plt.tight_layout()
+
+# This saves the chart as an image file.
+plt.savefig("risk_scores.png")
+
+# This clears the chart memory.
+plt.clf()
+
+# This message tells the user the chart was created.
+print("Chart created: risk_scores.png")
