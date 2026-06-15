@@ -9,6 +9,17 @@ import csv
 # We use date to check if the invoice is overdue.
 from datetime import date
 
+# This imports Path from Python.
+# We use Path to work with folder and file paths.
+from pathlib import Path
+
+# This is the reports folder path.
+# The app saves output files in this folder.
+REPORTS_FOLDER = Path("reports")
+
+# This creates the reports folder if it does not exist.
+REPORTS_FOLDER.mkdir(exist_ok=True)
+
 # This list saves many invoice texts.
 # A list can store many items.
 invoice_texts = [
@@ -339,8 +350,8 @@ def main():
 # This function saves processed invoices in a CSV file.
 # CSV is a table file that Excel and Pandas can read.
 def save_results_to_csv(results):
-    # This is the CSV file name.
-    file_name = "invoice_results.csv"
+    # This is the CSV file path inside the reports folder.
+    file_name = REPORTS_FOLDER / "invoice_results.csv"
 
     # These are the CSV column names.
     fieldnames = [

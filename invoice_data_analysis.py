@@ -12,8 +12,19 @@ import pandas as pd
 # We use matplotlib to create charts.
 import matplotlib.pyplot as plt
 
+# This imports Path from Python.
+# We use Path to work with folder and file paths.
+from pathlib import Path
+
+# This is the reports folder path.
+# The app reads and saves report files in this folder.
+REPORTS_FOLDER = Path("reports")
+
+# This creates the reports folder if it does not exist.
+REPORTS_FOLDER.mkdir(exist_ok=True)
+
 # This is the CSV file created by invoice_analyzer.py.
-file_name = "invoice_results.csv"
+file_name = REPORTS_FOLDER / "invoice_results.csv"
 
 # This reads the CSV file and creates a DataFrame.
 # sep=";" means the CSV uses semicolon as separator.
@@ -68,8 +79,8 @@ summary_data = {
 # Pandas needs a list to create one row.
 summary_df = pd.DataFrame([summary_data])
 
-# This is the summary CSV file name.
-summary_file_name = "invoice_summary.csv"
+# This is the summary CSV file path.
+summary_file_name = REPORTS_FOLDER / "invoice_summary.csv"
 
 # This saves the summary DataFrame as a CSV file.
 # sep=";" helps Excel open columns correctly in Europe.
@@ -79,8 +90,8 @@ summary_df.to_csv(summary_file_name, sep=";", index=False)
 # This message tells the user the summary CSV was created.
 print(f"Summary CSV created: {summary_file_name}")
 
-# This is the summary JSON file name.
-summary_json_file_name = "invoice_summary.json"
+# This is the summary JSON file path.
+summary_json_file_name = REPORTS_FOLDER / "invoice_summary.json"
 
 # This opens the JSON file in write mode.
 # encoding="utf-8" helps save text correctly.
@@ -111,8 +122,8 @@ plt.xticks(rotation=0)
 # This adjusts the chart layout.
 plt.tight_layout()
 
-# This saves the chart as an image file.
-plt.savefig("status_counts.png")
+# This saves the chart inside the reports folder.
+plt.savefig(REPORTS_FOLDER / "status_counts.png")
 
 # This clears the chart memory before the next chart.
 plt.clf()
@@ -136,8 +147,8 @@ plt.ylabel("Risk Score")
 # This adjusts the chart layout.
 plt.tight_layout()
 
-# This saves the chart as an image file.
-plt.savefig("risk_scores.png")
+# This saves the chart inside the reports folder.
+plt.savefig(REPORTS_FOLDER / "risk_scores.png")
 
 # This clears the chart memory.
 plt.clf()
