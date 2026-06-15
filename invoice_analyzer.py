@@ -16,9 +16,12 @@ from pathlib import Path
 # This is the reports folder path.
 # The app saves output files in this folder.
 REPORTS_FOLDER = Path("reports")
-
 # This creates the reports folder if it does not exist.
 REPORTS_FOLDER.mkdir(exist_ok=True)
+
+# This is the sample documents folder path.
+# The app reads invoice text files from this folder.
+SAMPLE_DOCUMENTS_FOLDER = Path("sample_documents")
 
 # This list saves many invoice texts.
 # A list can store many items.
@@ -300,12 +303,33 @@ def show_summary(results):
     print(f"total_invoice_amount: {total_invoice_amount:.2f} {summary_currency}")
 
 
+# This function reads invoice text files from the sample documents folder.
+# It returns a list with invoice texts.
+def load_invoice_texts():
+    # This list will save all invoice texts.
+    invoice_texts_from_files = []
+
+    # This loop finds all .txt files in the sample documents folder.
+    for file_path in SAMPLE_DOCUMENTS_FOLDER.glob("*.txt"):
+        # This reads the text from one invoice file.
+        invoice_text = file_path.read_text(encoding="utf-8")
+
+        # This saves the invoice text in the list.
+        invoice_texts_from_files.append(invoice_text)
+
+    # This returns all invoice texts.
+    return invoice_texts_from_files
+
+
 # This function controls the program flow.
 # It processes many invoices, one by one.
 def main():
     # This list saves all validation results.
     # Later, we use this list to create a summary.
     all_results = []
+
+    # This line loads invoice texts from .txt files.
+    invoice_texts = load_invoice_texts()
 
     # This loop reads one invoice text at a time.
     for invoice_text in invoice_texts:
