@@ -282,22 +282,28 @@ def show_summary(results):
 
 
 # This function reads invoice text files from the sample documents folder.
-# It returns a list with invoice texts.
+# It returns a list with invoice text and file path.
 def load_invoice_texts():
-    """Load invoice text files from the sample documents folder."""
-    # This list will save all invoice texts.
-    invoice_texts_from_files = []
+    """Load invoice text files and source file paths."""
+    # This list will save all invoice documents.
+    invoice_documents = []
 
-    # This loop finds all .txt files in the sample documents folder.
-    for file_path in SAMPLE_DOCUMENTS_FOLDER.glob("*.txt"):
+    # This loop finds all .txt files in this folder and subfolders.
+    # rglob means recursive search.
+    for file_path in SAMPLE_DOCUMENTS_FOLDER.rglob("*.txt"):
         # This reads the text from one invoice file.
         invoice_text = file_path.read_text(encoding="utf-8")
 
-        # This saves the invoice text in the list.
-        invoice_texts_from_files.append(invoice_text)
+        # This saves the invoice text and the file path.
+        invoice_documents.append(
+            {
+                "text": invoice_text,
+                "source_file": str(file_path),
+            }
+        )
 
-    # This returns all invoice texts.
-    return invoice_texts_from_files
+    # This returns all invoice documents.
+    return invoice_documents
 
 
 # This function controls the program flow.
@@ -308,18 +314,24 @@ def main():
     # Later, we use this list to create a summary.
     all_results = []
 
-    # This line loads invoice texts from .txt files.
-    invoice_texts = load_invoice_texts()
+    # This line loads invoice documents from .txt files.
+    invoice_documents = load_invoice_texts()
 
     # This checks if there are no invoice files.
     # If the list is empty, the app stops with a clear message.
-    if not invoice_texts:
+    if not invoice_documents:
         print("No invoice files found.")
         print("Please add .txt files to the sample_documents folder.")
         return
 
-    # This loop reads one invoice text at a time.
-    for invoice_text in invoice_texts:
+    # This loop reads one invoice document at a time.
+    for invoice_document in invoice_documents:
+        # This gets the invoice text from the document.
+        invoice_text = invoice_document["text"]
+
+        # This gets the file path from the document.
+        source_file = invoice_document["source_file"]
+
         # This line extracts fields from one invoice text.
         invoice_fields = extract_invoice_fields(invoice_text)
 
@@ -329,6 +341,7 @@ def main():
         # This dictionary joins invoice fields and validation result.
         # We use it later to save data in CSV.
         processed_invoice = {
+            "source_file": source_file,
             "invoice_number": invoice_fields.get("invoice_number", ""),
             "supplier_name": invoice_fields.get("supplier_name", ""),
             "invoice_date": invoice_fields.get("invoice_date", ""),
@@ -367,6 +380,7 @@ def save_results_to_csv(results):
 
     # These are the CSV column names.
     fieldnames = [
+        "source_file",
         "invoice_number",
         "supplier_name",
         "invoice_date",
