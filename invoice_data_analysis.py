@@ -30,6 +30,18 @@ file_name = REPORTS_FOLDER / "invoice_results.csv"
 # sep=";" means the CSV uses semicolon as separator.
 df = pd.read_csv(file_name, sep=";")
 
+# This converts invoice_date from text to date.
+# Dates help us create year and month reports.
+df["invoice_date"] = pd.to_datetime(df["invoice_date"])
+
+# This creates a new column with the invoice year.
+# Example: 2026-06-01 becomes 2026.
+df["invoice_year"] = df["invoice_date"].dt.year
+
+# This creates a new column with the invoice month.
+# Example: 2026-06-01 becomes 6.
+df["invoice_month"] = df["invoice_date"].dt.month
+
 # This shows all invoice data in the terminal.
 print("INVOICE DATA")
 print("------------")
@@ -62,6 +74,36 @@ print("BUSINESS METRICS")
 print("----------------")
 print(f"total_invoice_amount: {total_invoice_amount:.2f} EUR")
 print(f"average_risk_score: {average_risk_score}")
+
+# This creates a monthly summary.
+# It groups invoices by year and month.
+monthly_summary = (
+    df.groupby(["invoice_year", "invoice_month"])
+    .agg(
+        total_invoices=("invoice_number", "count"),
+        total_invoice_amount=("total_amount", "sum"),
+        average_risk_score=("risk_score", "mean"),
+    )
+    .reset_index()
+)
+
+# This rounds the average risk score to 2 decimal places.
+monthly_summary["average_risk_score"] = monthly_summary["average_risk_score"].round(2)
+
+print()
+print("MONTHLY SUMMARY")
+print("---------------")
+print(monthly_summary)
+
+# This is the monthly summary CSV file path.
+monthly_summary_file_name = REPORTS_FOLDER / "invoice_monthly_summary.csv"
+
+# This saves the monthly summary as a CSV file.
+# sep=";" helps Excel open columns correctly in Europe.
+monthly_summary.to_csv(monthly_summary_file_name, sep=";", index=False)
+
+# This message tells the user the monthly summary CSV was created.
+print(f"Monthly summary CSV created: {monthly_summary_file_name}")
 
 # This dictionary saves the business metrics.
 # We convert Pandas numbers to normal Python numbers.
