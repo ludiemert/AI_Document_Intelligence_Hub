@@ -23,6 +23,9 @@ REPORTS_FOLDER.mkdir(exist_ok=True)
 # The app reads invoice text files from this folder.
 SAMPLE_DOCUMENTS_FOLDER = Path("sample_documents")
 
+# This creates the sample documents folder if it does not exist.
+SAMPLE_DOCUMENTS_FOLDER.mkdir(exist_ok=True)
+
 
 # This function finds invoice data in the text.
 # A function is a block of code that we can use many times.
@@ -307,6 +310,13 @@ def main():
 
     # This line loads invoice texts from .txt files.
     invoice_texts = load_invoice_texts()
+
+    # This checks if there are no invoice files.
+    # If the list is empty, the app stops with a clear message.
+    if not invoice_texts:
+        print("No invoice files found.")
+        print("Please add .txt files to the sample_documents folder.")
+        return
 
     # This loop reads one invoice text at a time.
     for invoice_text in invoice_texts:
