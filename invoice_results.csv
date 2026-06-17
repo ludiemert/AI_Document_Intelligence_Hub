@@ -1,4 +1,0 @@
-invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;status;risk_score;reasons
-INV-2026-001;ABC Logistics;2026-06-01;2026-06-20;1250.0;EUR;approved;0;All required fields are present
-INV-2026-002;Northwind Office Supplies;2026-06-01;2026-05-01;980.0;EUR;needs_review;30;Due date is overdue
-INV-2026-003;Contoso Industrial;2026-06-02;2026-06-30;8900.0;EUR;needs_review;25;High invoice amount

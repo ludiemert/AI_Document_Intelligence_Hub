@@ -1,9 +1,0 @@
-{
-    "total_invoices": 3,
-    "approved": 1,
-    "needs_review": 2,
-    "high_risk": 0,
-    "average_risk_score": 18.33,
-    "total_invoice_amount": 11130.0,
-    "currency": "EUR"
-}
