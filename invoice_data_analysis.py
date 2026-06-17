@@ -105,6 +105,30 @@ monthly_summary.to_csv(monthly_summary_file_name, sep=";", index=False)
 # This message tells the user the monthly summary CSV was created.
 print(f"Monthly summary CSV created: {monthly_summary_file_name}")
 
+# This creates a monthly status summary.
+# It groups invoices by year, month, and status.
+monthly_status_summary = (
+    df.groupby(["invoice_year", "invoice_month", "status"])
+    .agg(total_invoices=("invoice_number", "count"))
+    .reset_index()
+)
+
+print()
+print("MONTHLY STATUS SUMMARY")
+print("----------------------")
+print(monthly_status_summary)
+
+# This is the monthly status summary CSV file path.
+monthly_status_file_name = REPORTS_FOLDER / "invoice_monthly_status_summary.csv"
+
+# This saves the monthly status summary as a CSV file.
+# sep=";" helps Excel open columns correctly in Europe.
+monthly_status_summary.to_csv(monthly_status_file_name, sep=";", index=False)
+
+# This message tells the user the monthly status summary CSV was created.
+print(f"Monthly status summary CSV created: {monthly_status_file_name}")
+
+
 # This dictionary saves the business metrics.
 # We convert Pandas numbers to normal Python numbers.
 summary_data = {
