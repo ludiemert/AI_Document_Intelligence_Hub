@@ -75,6 +75,39 @@ print("----------------")
 print(f"total_invoice_amount: {total_invoice_amount:.2f} EUR")
 print(f"average_risk_score: {average_risk_score}")
 
+# This calculates how many invoices need review.
+needs_review_count = int(status_counts.get("needs_review", 0))
+
+# This calculates the percentage of invoices that need review.
+needs_review_percentage = (needs_review_count / len(df)) * 100
+
+# This rounds the percentage to 2 decimal places.
+needs_review_percentage = round(needs_review_percentage, 2)
+
+# This creates a simple business recommendation.
+# A recommendation helps the company decide what to do.
+if needs_review_percentage > 50:
+    recommendation = (
+        "More than 50% of invoices need review. "
+        "The finance team should check invoice quality and supplier deadlines."
+    )
+elif average_risk_score > 30:
+    recommendation = (
+        "The average risk score is high. "
+        "The company should review high-risk invoices first."
+    )
+else:
+    recommendation = (
+        "Invoice risk is under control. "
+        "The team should continue monitoring the process."
+    )
+
+print()
+print("BUSINESS RECOMMENDATION")
+print("-----------------------")
+print(f"needs_review_percentage: {needs_review_percentage}%")
+print(f"recommendation: {recommendation}")
+
 # This creates a monthly summary.
 # It groups invoices by year and month.
 monthly_summary = (
@@ -173,6 +206,8 @@ summary_data = {
     "high_risk": int(status_counts.get("high_risk", 0)),
     "average_risk_score": float(average_risk_score),
     "total_invoice_amount": float(total_invoice_amount),
+    "needs_review_percentage": float(needs_review_percentage),
+    "recommendation": recommendation,
     "currency": "EUR",
 }
 

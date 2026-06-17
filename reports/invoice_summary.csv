@@ -1,2 +1,2 @@
-total_invoices;approved;needs_review;high_risk;average_risk_score;total_invoice_amount;currency
-3;1;2;0;18.33;11130.0;EUR
+total_invoices;approved;needs_review;high_risk;average_risk_score;total_invoice_amount;needs_review_percentage;recommendation;currency
+3;1;2;0;18.33;11130.0;66.67;More than 50% of invoices need review. The finance team should check invoice quality and supplier deadlines.;EUR
