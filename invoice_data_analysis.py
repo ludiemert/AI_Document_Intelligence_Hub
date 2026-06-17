@@ -128,6 +128,41 @@ monthly_status_summary.to_csv(monthly_status_file_name, sep=";", index=False)
 # This message tells the user the monthly status summary CSV was created.
 print(f"Monthly status summary CSV created: {monthly_status_file_name}")
 
+# This creates a chart with monthly status counts.
+# It helps compare invoice status in each month.
+monthly_status_chart = monthly_status_summary.pivot_table(
+    index=["invoice_year", "invoice_month"],
+    columns="status",
+    values="total_invoices",
+    fill_value=0,
+)
+
+# This creates a bar chart from the monthly status table.
+monthly_status_chart.plot(kind="bar")
+
+# This adds a chart title.
+plt.title("Monthly Invoice Status Counts")
+
+# This adds a label to the x axis.
+plt.xlabel("Year and Month")
+
+# This adds a label to the y axis.
+plt.ylabel("Number of Invoices")
+
+# This keeps the labels easy to read.
+plt.xticks(rotation=0)
+
+# This adjusts the chart layout.
+plt.tight_layout()
+
+# This saves the chart inside the reports folder.
+plt.savefig(REPORTS_FOLDER / "monthly_status_counts.png")
+
+# This clears the chart memory.
+plt.clf()
+
+# This message tells the user the chart was created.
+print("Chart created: monthly_status_counts.png")
 
 # This dictionary saves the business metrics.
 # We convert Pandas numbers to normal Python numbers.
