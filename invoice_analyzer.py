@@ -75,8 +75,10 @@ def extract_invoice_fields(text):
             # This saves the amount as text.
             fields["total_amount"] = total_parts[0]
 
-            # This saves the currency as text.
-            fields["currency"] = total_parts[1]
+            # This checks if the currency exists.
+            # If it exists, Python saves it.
+            if len(total_parts) > 1:
+                fields["currency"] = total_parts[1]
 
         # This condition checks if the line starts with "VAT Number:".
         # If it is true, Python saves the VAT number.
