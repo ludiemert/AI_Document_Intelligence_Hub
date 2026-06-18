@@ -217,6 +217,12 @@ def show_result(fields, validation):
 # A summary is a short report with important numbers.
 def show_summary(results):
     """Show a summary report for all processed invoices."""
+    # This checks if there are no results.
+    # If there are no results, the summary stops safely.
+    if not results:
+        print("No results to summarize.")
+        return
+
     # This counts how many invoices were processed.
     total_invoices = len(results)
 
