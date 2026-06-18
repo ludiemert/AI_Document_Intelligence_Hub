@@ -2,19 +2,17 @@
 # We use json to save data for web apps and APIs.
 import json
 
-# This project analyzes invoice results with Pandas.
-# Pandas helps us work with table data.
-# This imports pandas.
-# We use pandas to read and analyze CSV files.
-import pandas as pd
+# This imports Path from Python.
+# We use Path to work with folder and file paths.
+from pathlib import Path
 
 # This imports matplotlib.
 # We use matplotlib to create charts.
 import matplotlib.pyplot as plt
 
-# This imports Path from Python.
-# We use Path to work with folder and file paths.
-from pathlib import Path
+# This imports pandas.
+# We use pandas to read and analyze CSV files.
+import pandas as pd
 
 # This is the reports folder path.
 # The app reads and saves report files in this folder.
@@ -23,271 +21,307 @@ REPORTS_FOLDER = Path("reports")
 # This creates the reports folder if it does not exist.
 REPORTS_FOLDER.mkdir(exist_ok=True)
 
-# This is the CSV file created by invoice_analyzer.py.
-file_name = REPORTS_FOLDER / "invoice_results.csv"
 
-# This reads the CSV file and creates a DataFrame.
-# sep=";" means the CSV uses semicolon as separator.
-df = pd.read_csv(file_name, sep=";")
+def load_invoice_data():
+    """Load invoice results from CSV."""
+    # This is the CSV file created by invoice_analyzer.py.
+    file_name = REPORTS_FOLDER / "invoice_results.csv"
 
-# This converts invoice_date from text to date.
-# Dates help us create year and month reports.
-df["invoice_date"] = pd.to_datetime(df["invoice_date"])
+    # This reads the CSV file and creates a DataFrame.
+    # sep=";" means the CSV uses semicolon as separator.
+    df = pd.read_csv(file_name, sep=";")
 
-# This creates a new column with the invoice year.
-# Example: 2026-06-01 becomes 2026.
-df["invoice_year"] = df["invoice_date"].dt.year
+    # This returns the invoice table.
+    return df
 
-# This creates a new column with the invoice month.
-# Example: 2026-06-01 becomes 6.
-df["invoice_month"] = df["invoice_date"].dt.month
 
-# This shows all invoice data in the terminal.
-print("INVOICE DATA")
-print("------------")
-print(df)
+def add_date_columns(df):
+    """Add year and month columns to the invoice data."""
+    # This converts invoice_date from text to date.
+    df["invoice_date"] = pd.to_datetime(df["invoice_date"])
 
-# This creates a blank line in the terminal.
-print()
+    # This creates a new column with the invoice year.
+    df["invoice_year"] = df["invoice_date"].dt.year
 
-# This counts invoices by status.
-# Example: approved, needs_review, high_risk.
-status_counts = df["status"].value_counts()
+    # This creates a new column with the invoice month.
+    df["invoice_month"] = df["invoice_date"].dt.month
 
-print("STATUS COUNTS")
-print("-------------")
-print(status_counts)
+    # This returns the updated DataFrame.
+    return df
 
-# This creates a blank line in the terminal.
-print()
 
-# This calculates the total invoice amount.
-total_invoice_amount = df["total_amount"].sum()
+def show_invoice_data(df):
+    """Show invoice data in the terminal."""
+    print("INVOICE DATA")
+    print("------------")
+    print(df)
+    print()
 
-# This calculates the average risk score.
-average_risk_score = df["risk_score"].mean()
 
-# This rounds the average risk score to 2 decimal places.
-average_risk_score = round(average_risk_score, 2)
+def calculate_status_counts(df):
+    """Count invoices by status."""
+    # This counts invoices by status.
+    status_counts = df["status"].value_counts()
 
-print("BUSINESS METRICS")
-print("----------------")
-print(f"total_invoice_amount: {total_invoice_amount:.2f} EUR")
-print(f"average_risk_score: {average_risk_score}")
+    print("STATUS COUNTS")
+    print("-------------")
+    print(status_counts)
+    print()
 
-# This calculates how many invoices need review.
-needs_review_count = int(status_counts.get("needs_review", 0))
+    return status_counts
 
-# This calculates the percentage of invoices that need review.
-needs_review_percentage = (needs_review_count / len(df)) * 100
 
-# This rounds the percentage to 2 decimal places.
-needs_review_percentage = round(needs_review_percentage, 2)
+def calculate_business_metrics(df, status_counts):
+    """Calculate main business metrics."""
+    # This calculates the total invoice amount.
+    total_invoice_amount = df["total_amount"].sum()
 
-# This creates a simple business recommendation.
-# A recommendation helps the company decide what to do.
-if needs_review_percentage > 50:
-    recommendation = (
-        "More than 50% of invoices need review. "
-        "The finance team should check invoice quality and supplier deadlines."
+    # This calculates the average risk score.
+    average_risk_score = df["risk_score"].mean()
+
+    # This rounds the average risk score to 2 decimal places.
+    average_risk_score = round(average_risk_score, 2)
+
+    # This calculates how many invoices need review.
+    needs_review_count = int(status_counts.get("needs_review", 0))
+
+    # This calculates the percentage of invoices that need review.
+    needs_review_percentage = (needs_review_count / len(df)) * 100
+
+    # This rounds the percentage to 2 decimal places.
+    needs_review_percentage = round(needs_review_percentage, 2)
+
+    print("BUSINESS METRICS")
+    print("----------------")
+    print(f"total_invoice_amount: {total_invoice_amount:.2f} EUR")
+    print(f"average_risk_score: {average_risk_score}")
+
+    return {
+        "total_invoice_amount": float(total_invoice_amount),
+        "average_risk_score": float(average_risk_score),
+        "needs_review_percentage": float(needs_review_percentage),
+    }
+
+
+def create_recommendation(metrics):
+    """Create a simple business recommendation."""
+    # This gets the needs review percentage.
+    needs_review_percentage = metrics["needs_review_percentage"]
+
+    # This gets the average risk score.
+    average_risk_score = metrics["average_risk_score"]
+
+    # This creates a recommendation based on business rules.
+    if needs_review_percentage > 50:
+        recommendation = (
+            "More than 50% of invoices need review. "
+            "The finance team should check invoice quality and supplier deadlines."
+        )
+    elif average_risk_score > 30:
+        recommendation = (
+            "The average risk score is high. "
+            "The company should review high-risk invoices first."
+        )
+    else:
+        recommendation = (
+            "Invoice risk is under control. "
+            "The team should continue monitoring the process."
+        )
+
+    print()
+    print("BUSINESS RECOMMENDATION")
+    print("-----------------------")
+    print(f"needs_review_percentage: {needs_review_percentage}%")
+    print(f"recommendation: {recommendation}")
+
+    return recommendation
+
+
+def create_monthly_summary(df):
+    """Create a monthly summary report."""
+    # This groups invoices by year and month.
+    monthly_summary = (
+        df.groupby(["invoice_year", "invoice_month"])
+        .agg(
+            total_invoices=("invoice_number", "count"),
+            total_invoice_amount=("total_amount", "sum"),
+            average_risk_score=("risk_score", "mean"),
+        )
+        .reset_index()
     )
-elif average_risk_score > 30:
-    recommendation = (
-        "The average risk score is high. "
-        "The company should review high-risk invoices first."
-    )
-else:
-    recommendation = (
-        "Invoice risk is under control. "
-        "The team should continue monitoring the process."
+
+    # This rounds the average risk score to 2 decimal places.
+    monthly_summary["average_risk_score"] = monthly_summary["average_risk_score"].round(
+        2
     )
 
-print()
-print("BUSINESS RECOMMENDATION")
-print("-----------------------")
-print(f"needs_review_percentage: {needs_review_percentage}%")
-print(f"recommendation: {recommendation}")
+    print()
+    print("MONTHLY SUMMARY")
+    print("---------------")
+    print(monthly_summary)
 
-# This creates a monthly summary.
-# It groups invoices by year and month.
-monthly_summary = (
-    df.groupby(["invoice_year", "invoice_month"])
-    .agg(
-        total_invoices=("invoice_number", "count"),
-        total_invoice_amount=("total_amount", "sum"),
-        average_risk_score=("risk_score", "mean"),
+    return monthly_summary
+
+
+def create_monthly_status_summary(df):
+    """Create a monthly status summary report."""
+    # This groups invoices by year, month, and status.
+    monthly_status_summary = (
+        df.groupby(["invoice_year", "invoice_month", "status"])
+        .agg(total_invoices=("invoice_number", "count"))
+        .reset_index()
     )
-    .reset_index()
-)
 
-# This rounds the average risk score to 2 decimal places.
-monthly_summary["average_risk_score"] = monthly_summary["average_risk_score"].round(2)
+    print()
+    print("MONTHLY STATUS SUMMARY")
+    print("----------------------")
+    print(monthly_status_summary)
 
-print()
-print("MONTHLY SUMMARY")
-print("---------------")
-print(monthly_summary)
+    return monthly_status_summary
 
-# This is the monthly summary CSV file path.
-monthly_summary_file_name = REPORTS_FOLDER / "invoice_monthly_summary.csv"
 
-# This saves the monthly summary as a CSV file.
-# sep=";" helps Excel open columns correctly in Europe.
-monthly_summary.to_csv(monthly_summary_file_name, sep=";", index=False)
+def save_monthly_reports(monthly_summary, monthly_status_summary):
+    """Save monthly reports as CSV files."""
+    # This is the monthly summary CSV file path.
+    monthly_summary_file_name = REPORTS_FOLDER / "invoice_monthly_summary.csv"
 
-# This message tells the user the monthly summary CSV was created.
-print(f"Monthly summary CSV created: {monthly_summary_file_name}")
+    # This saves the monthly summary as a CSV file.
+    monthly_summary.to_csv(monthly_summary_file_name, sep=";", index=False)
 
-# This creates a monthly status summary.
-# It groups invoices by year, month, and status.
-monthly_status_summary = (
-    df.groupby(["invoice_year", "invoice_month", "status"])
-    .agg(total_invoices=("invoice_number", "count"))
-    .reset_index()
-)
+    print(f"Monthly summary CSV created: {monthly_summary_file_name}")
 
-print()
-print("MONTHLY STATUS SUMMARY")
-print("----------------------")
-print(monthly_status_summary)
+    # This is the monthly status summary CSV file path.
+    monthly_status_file_name = REPORTS_FOLDER / "invoice_monthly_status_summary.csv"
 
-# This is the monthly status summary CSV file path.
-monthly_status_file_name = REPORTS_FOLDER / "invoice_monthly_status_summary.csv"
+    # This saves the monthly status summary as a CSV file.
+    monthly_status_summary.to_csv(monthly_status_file_name, sep=";", index=False)
 
-# This saves the monthly status summary as a CSV file.
-# sep=";" helps Excel open columns correctly in Europe.
-monthly_status_summary.to_csv(monthly_status_file_name, sep=";", index=False)
+    print(f"Monthly status summary CSV created: {monthly_status_file_name}")
 
-# This message tells the user the monthly status summary CSV was created.
-print(f"Monthly status summary CSV created: {monthly_status_file_name}")
 
-# This creates a chart with monthly status counts.
-# It helps compare invoice status in each month.
-monthly_status_chart = monthly_status_summary.pivot_table(
-    index=["invoice_year", "invoice_month"],
-    columns="status",
-    values="total_invoices",
-    fill_value=0,
-)
+def save_summary_files(df, status_counts, metrics, recommendation):
+    """Save general summary as CSV and JSON."""
+    # This dictionary saves the business metrics.
+    summary_data = {
+        "total_invoices": int(len(df)),
+        "approved": int(status_counts.get("approved", 0)),
+        "needs_review": int(status_counts.get("needs_review", 0)),
+        "high_risk": int(status_counts.get("high_risk", 0)),
+        "average_risk_score": float(metrics["average_risk_score"]),
+        "total_invoice_amount": float(metrics["total_invoice_amount"]),
+        "needs_review_percentage": float(metrics["needs_review_percentage"]),
+        "recommendation": recommendation,
+        "currency": "EUR",
+    }
 
-# This creates a bar chart from the monthly status table.
-monthly_status_chart.plot(kind="bar")
+    # This converts the summary dictionary into a DataFrame.
+    summary_df = pd.DataFrame([summary_data])
 
-# This adds a chart title.
-plt.title("Monthly Invoice Status Counts")
+    # This saves the summary as a CSV file.
+    summary_file_name = REPORTS_FOLDER / "invoice_summary.csv"
+    summary_df.to_csv(summary_file_name, sep=";", index=False)
+    print(f"Summary CSV created: {summary_file_name}")
 
-# This adds a label to the x axis.
-plt.xlabel("Year and Month")
+    # This saves the summary as a JSON file.
+    summary_json_file_name = REPORTS_FOLDER / "invoice_summary.json"
+    with open(summary_json_file_name, mode="w", encoding="utf-8") as json_file:
+        json.dump(summary_data, json_file, indent=4)
 
-# This adds a label to the y axis.
-plt.ylabel("Number of Invoices")
+    print(f"Summary JSON created: {summary_json_file_name}")
 
-# This keeps the labels easy to read.
-plt.xticks(rotation=0)
 
-# This adjusts the chart layout.
-plt.tight_layout()
+def create_status_chart(status_counts):
+    """Create a chart with invoice status counts."""
+    # This creates a bar chart with invoice status counts.
+    status_counts.plot(kind="bar")
 
-# This saves the chart inside the reports folder.
-plt.savefig(REPORTS_FOLDER / "monthly_status_counts.png")
+    plt.title("Invoice Status Counts")
+    plt.xlabel("Status")
+    plt.ylabel("Number of Invoices")
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plt.savefig(REPORTS_FOLDER / "status_counts.png")
+    plt.clf()
 
-# This clears the chart memory.
-plt.clf()
+    print("Chart created: status_counts.png")
 
-# This message tells the user the chart was created.
-print("Chart created: monthly_status_counts.png")
 
-# This dictionary saves the business metrics.
-# We convert Pandas numbers to normal Python numbers.
-summary_data = {
-    "total_invoices": int(len(df)),
-    "approved": int(status_counts.get("approved", 0)),
-    "needs_review": int(status_counts.get("needs_review", 0)),
-    "high_risk": int(status_counts.get("high_risk", 0)),
-    "average_risk_score": float(average_risk_score),
-    "total_invoice_amount": float(total_invoice_amount),
-    "needs_review_percentage": float(needs_review_percentage),
-    "recommendation": recommendation,
-    "currency": "EUR",
-}
+def create_risk_score_chart(df):
+    """Create a chart with risk score by invoice."""
+    # This creates a bar chart with risk score by invoice.
+    plt.bar(df["invoice_number"], df["risk_score"], color="steelblue")
 
-# This converts the summary dictionary into a DataFrame.
-# Pandas needs a list to create one row.
-summary_df = pd.DataFrame([summary_data])
+    plt.title("Risk Score by Invoice")
+    plt.xlabel("Invoice Number")
+    plt.ylabel("Risk Score")
+    plt.tight_layout()
+    plt.savefig(REPORTS_FOLDER / "risk_scores.png")
+    plt.clf()
 
-# This is the summary CSV file path.
-summary_file_name = REPORTS_FOLDER / "invoice_summary.csv"
+    print("Chart created: risk_scores.png")
 
-# This saves the summary DataFrame as a CSV file.
-# sep=";" helps Excel open columns correctly in Europe.
-# index=False avoids an extra number column.
-summary_df.to_csv(summary_file_name, sep=";", index=False)
 
-# This message tells the user the summary CSV was created.
-print(f"Summary CSV created: {summary_file_name}")
+def create_monthly_status_chart(monthly_status_summary):
+    """Create a chart with monthly status counts."""
+    # This changes rows into columns for the chart.
+    monthly_status_chart = monthly_status_summary.pivot_table(
+        index=["invoice_year", "invoice_month"],
+        columns="status",
+        values="total_invoices",
+        fill_value=0,
+    )
 
-# This is the summary JSON file path.
-summary_json_file_name = REPORTS_FOLDER / "invoice_summary.json"
+    # This creates a bar chart from the monthly status table.
+    monthly_status_chart.plot(kind="bar")
 
-# This opens the JSON file in write mode.
-# encoding="utf-8" helps save text correctly.
-with open(summary_json_file_name, mode="w", encoding="utf-8") as json_file:
-    # This saves the summary data in JSON format.
-    # indent=4 makes the JSON easy to read.
-    json.dump(summary_data, json_file, indent=4)
+    plt.title("Monthly Invoice Status Counts")
+    plt.xlabel("Year and Month")
+    plt.ylabel("Number of Invoices")
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plt.savefig(REPORTS_FOLDER / "monthly_status_counts.png")
+    plt.clf()
 
-# This message tells the user the summary JSON was created.
-print(f"Summary JSON created: {summary_json_file_name}")
+    print("Chart created: monthly_status_counts.png")
 
-# This creates a bar chart with invoice status counts.
-# A bar chart helps compare categories.
-status_counts.plot(kind="bar", color=["orange", "green"])
 
-# This adds a chart title.
-plt.title("Invoice Status Counts")
+def main():
+    """Run the invoice data analysis workflow."""
+    # This loads the invoice data from CSV.
+    df = load_invoice_data()
 
-# This adds a label to the x axis.
-plt.xlabel("Status")
+    # This adds year and month columns.
+    df = add_date_columns(df)
 
-# This adds a label to the y axis.
-plt.ylabel("Number of Invoices")
+    # This shows the invoice data.
+    show_invoice_data(df)
 
-# This keeps the labels easy to read.
-plt.xticks(rotation=0)
+    # This calculates status counts.
+    status_counts = calculate_status_counts(df)
 
-# This adjusts the chart layout.
-plt.tight_layout()
+    # This calculates business metrics.
+    metrics = calculate_business_metrics(df, status_counts)
 
-# This saves the chart inside the reports folder.
-plt.savefig(REPORTS_FOLDER / "status_counts.png")
+    # This creates a business recommendation.
+    recommendation = create_recommendation(metrics)
 
-# This clears the chart memory before the next chart.
-plt.clf()
+    # This creates monthly reports.
+    monthly_summary = create_monthly_summary(df)
+    monthly_status_summary = create_monthly_status_summary(df)
 
-# This message tells the user the chart was created.
-print("Chart created: status_counts.png")
+    # This saves monthly reports.
+    save_monthly_reports(monthly_summary, monthly_status_summary)
 
-# This creates a bar chart with risk score by invoice.
-# It helps us see invoice risk levels.
-plt.bar(df["invoice_number"], df["risk_score"], color="steelblue")
+    # This saves summary CSV and JSON files.
+    save_summary_files(df, status_counts, metrics, recommendation)
 
-# This adds a chart title.
-plt.title("Risk Score by Invoice")
+    # This creates charts.
+    create_status_chart(status_counts)
+    create_risk_score_chart(df)
+    create_monthly_status_chart(monthly_status_summary)
 
-# This adds a label to the x axis.
-plt.xlabel("Invoice Number")
 
-# This adds a label to the y axis.
-plt.ylabel("Risk Score")
-
-# This adjusts the chart layout.
-plt.tight_layout()
-
-# This saves the chart inside the reports folder.
-plt.savefig(REPORTS_FOLDER / "risk_scores.png")
-
-# This clears the chart memory.
-plt.clf()
-
-# This message tells the user the chart was created.
-print("Chart created: risk_scores.png")
+# This condition starts the program.
+# It runs main() only when we run this file directly.
+if __name__ == "__main__":
+    main()
