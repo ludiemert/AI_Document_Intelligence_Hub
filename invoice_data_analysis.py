@@ -17,6 +17,9 @@ import pandas as pd
 # This imports data loading functions.
 from services.analysis_loader import add_date_columns, load_invoice_data
 
+# This imports recommendation functions.
+from services.recommendations import create_recommendation
+
 # This imports analytics functions.
 from services.analytics import (
     calculate_business_metrics,
@@ -30,40 +33,6 @@ REPORTS_FOLDER = Path("reports")
 
 # This creates the reports folder if it does not exist.
 REPORTS_FOLDER.mkdir(exist_ok=True)
-
-
-def create_recommendation(metrics):
-    """Create a simple business recommendation."""
-    # This gets the needs review percentage.
-    needs_review_percentage = metrics["needs_review_percentage"]
-
-    # This gets the average risk score.
-    average_risk_score = metrics["average_risk_score"]
-
-    # This creates a recommendation based on business rules.
-    if needs_review_percentage > 50:
-        recommendation = (
-            "More than 50% of invoices need review. "
-            "The finance team should check invoice quality and supplier deadlines."
-        )
-    elif average_risk_score > 30:
-        recommendation = (
-            "The average risk score is high. "
-            "The company should review high-risk invoices first."
-        )
-    else:
-        recommendation = (
-            "Invoice risk is under control. "
-            "The team should continue monitoring the process."
-        )
-
-    print()
-    print("BUSINESS RECOMMENDATION")
-    print("-----------------------")
-    print(f"needs_review_percentage: {needs_review_percentage}%")
-    print(f"recommendation: {recommendation}")
-
-    return recommendation
 
 
 def create_monthly_summary(df):
