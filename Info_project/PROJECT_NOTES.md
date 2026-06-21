@@ -183,3 +183,15 @@ Built an intelligent document automation system that processes invoices, detects
 6. Adicionar OCR
 7. Adicionar Machine Learning
 ```
+_____________________
+Path precisa ser importado antes de ser usado.
+Imports ficam no topo.
+Constantes vêm depois dos imports.
+Funções vêm depois.
+main() fica no final.
+
+Import first.
+Use after.
+The service loads the data.
+The main file controls the flow.
+___________________
