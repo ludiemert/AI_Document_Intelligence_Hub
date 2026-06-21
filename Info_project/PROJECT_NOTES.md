@@ -195,3 +195,7 @@ Use after.
 The service loads the data.
 The main file controls the flow.
 ___________________
+Metrics are numbers.
+Recommendations are advice.
+The app uses numbers to create advice.
+_____________

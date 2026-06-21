@@ -17,6 +17,9 @@ import pandas as pd
 # This imports data loading functions.
 from services.analysis_loader import add_date_columns, load_invoice_data
 
+# This imports summary functions.
+from services.summaries import create_monthly_status_summary, create_monthly_summary
+
 # This imports recommendation functions.
 from services.recommendations import create_recommendation
 
@@ -33,49 +36,6 @@ REPORTS_FOLDER = Path("reports")
 
 # This creates the reports folder if it does not exist.
 REPORTS_FOLDER.mkdir(exist_ok=True)
-
-
-def create_monthly_summary(df):
-    """Create a monthly summary report."""
-    # This groups invoices by year and month.
-    monthly_summary = (
-        df.groupby(["invoice_year", "invoice_month"])
-        .agg(
-            total_invoices=("invoice_number", "count"),
-            total_invoice_amount=("total_amount", "sum"),
-            average_risk_score=("risk_score", "mean"),
-        )
-        .reset_index()
-    )
-
-    # This rounds the average risk score to 2 decimal places.
-    monthly_summary["average_risk_score"] = monthly_summary["average_risk_score"].round(
-        2
-    )
-
-    print()
-    print("MONTHLY SUMMARY")
-    print("---------------")
-    print(monthly_summary)
-
-    return monthly_summary
-
-
-def create_monthly_status_summary(df):
-    """Create a monthly status summary report."""
-    # This groups invoices by year, month, and status.
-    monthly_status_summary = (
-        df.groupby(["invoice_year", "invoice_month", "status"])
-        .agg(total_invoices=("invoice_number", "count"))
-        .reset_index()
-    )
-
-    print()
-    print("MONTHLY STATUS SUMMARY")
-    print("----------------------")
-    print(monthly_status_summary)
-
-    return monthly_status_summary
 
 
 def save_monthly_reports(monthly_summary, monthly_status_summary):
