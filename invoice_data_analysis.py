@@ -1,26 +1,12 @@
-# This imports json from Python.
-# We use json to save data for web apps and APIs.
-import json
+# This file controls the invoice data analysis workflow.
+# It uses service files to analyze data and create reports.
 
 # This imports Path from Python.
 # We use Path to work with folder and file paths.
 from pathlib import Path
 
-# This imports pandas.
-# We use pandas to read and analyze CSV files.
-import pandas as pd
-
 # This imports data loading functions.
 from services.analysis_loader import add_date_columns, load_invoice_data
-
-# This imports summary functions.
-from services.summaries import create_monthly_status_summary, create_monthly_summary
-
-# This imports report exporter functions.
-from services.report_exporter import save_monthly_reports, save_summary_files
-
-# This imports recommendation functions.
-from services.recommendations import create_recommendation
 
 # This imports analytics functions.
 from services.analytics import (
@@ -36,6 +22,15 @@ from services.chart_builder import (
     create_status_chart,
 )
 
+# This imports recommendation functions.
+from services.recommendations import create_recommendation
+
+# This imports report exporter functions.
+from services.report_exporter import save_monthly_reports, save_summary_files
+
+# This imports summary functions.
+from services.summaries import create_monthly_status_summary, create_monthly_summary
+
 # This is the reports folder path.
 # The app reads and saves report files in this folder.
 REPORTS_FOLDER = Path("reports")
@@ -44,6 +39,8 @@ REPORTS_FOLDER = Path("reports")
 REPORTS_FOLDER.mkdir(exist_ok=True)
 
 
+# This function controls the full data analysis workflow.
+# It calls service functions in the correct order.
 def main():
     """Run the invoice data analysis workflow."""
     # This loads the invoice data from CSV.
@@ -74,7 +71,7 @@ def main():
     # This saves summary CSV and JSON files.
     save_summary_files(REPORTS_FOLDER, df, status_counts, metrics, recommendation)
 
-    # This creates charts.
+    # This creates chart image files.
     create_status_chart(REPORTS_FOLDER, status_counts)
     create_risk_score_chart(REPORTS_FOLDER, df)
     create_monthly_status_chart(REPORTS_FOLDER, monthly_status_summary)
