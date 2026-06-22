@@ -20,6 +20,9 @@ from services.analysis_loader import add_date_columns, load_invoice_data
 # This imports summary functions.
 from services.summaries import create_monthly_status_summary, create_monthly_summary
 
+# This imports report exporter functions.
+from services.report_exporter import save_monthly_reports, save_summary_files
+
 # This imports recommendation functions.
 from services.recommendations import create_recommendation
 
@@ -29,63 +32,6 @@ from services.analytics import (
     calculate_status_counts,
     show_invoice_data,
 )
-
-# This is the reports folder path.
-# The app reads and saves report files in this folder.
-REPORTS_FOLDER = Path("reports")
-
-# This creates the reports folder if it does not exist.
-REPORTS_FOLDER.mkdir(exist_ok=True)
-
-
-def save_monthly_reports(monthly_summary, monthly_status_summary):
-    """Save monthly reports as CSV files."""
-    # This is the monthly summary CSV file path.
-    monthly_summary_file_name = REPORTS_FOLDER / "invoice_monthly_summary.csv"
-
-    # This saves the monthly summary as a CSV file.
-    monthly_summary.to_csv(monthly_summary_file_name, sep=";", index=False)
-
-    print(f"Monthly summary CSV created: {monthly_summary_file_name}")
-
-    # This is the monthly status summary CSV file path.
-    monthly_status_file_name = REPORTS_FOLDER / "invoice_monthly_status_summary.csv"
-
-    # This saves the monthly status summary as a CSV file.
-    monthly_status_summary.to_csv(monthly_status_file_name, sep=";", index=False)
-
-    print(f"Monthly status summary CSV created: {monthly_status_file_name}")
-
-
-def save_summary_files(df, status_counts, metrics, recommendation):
-    """Save general summary as CSV and JSON."""
-    # This dictionary saves the business metrics.
-    summary_data = {
-        "total_invoices": int(len(df)),
-        "approved": int(status_counts.get("approved", 0)),
-        "needs_review": int(status_counts.get("needs_review", 0)),
-        "high_risk": int(status_counts.get("high_risk", 0)),
-        "average_risk_score": float(metrics["average_risk_score"]),
-        "total_invoice_amount": float(metrics["total_invoice_amount"]),
-        "needs_review_percentage": float(metrics["needs_review_percentage"]),
-        "recommendation": recommendation,
-        "currency": "EUR",
-    }
-
-    # This converts the summary dictionary into a DataFrame.
-    summary_df = pd.DataFrame([summary_data])
-
-    # This saves the summary as a CSV file.
-    summary_file_name = REPORTS_FOLDER / "invoice_summary.csv"
-    summary_df.to_csv(summary_file_name, sep=";", index=False)
-    print(f"Summary CSV created: {summary_file_name}")
-
-    # This saves the summary as a JSON file.
-    summary_json_file_name = REPORTS_FOLDER / "invoice_summary.json"
-    with open(summary_json_file_name, mode="w", encoding="utf-8") as json_file:
-        json.dump(summary_data, json_file, indent=4)
-
-    print(f"Summary JSON created: {summary_json_file_name}")
 
 
 def create_status_chart(status_counts):
@@ -117,6 +63,14 @@ def create_risk_score_chart(df):
     plt.clf()
 
     print("Chart created: risk_scores.png")
+
+
+# This is the reports folder path.
+# The app reads and saves report files in this folder.
+REPORTS_FOLDER = Path("reports")
+
+# This creates the reports folder if it does not exist.
+REPORTS_FOLDER.mkdir(exist_ok=True)
 
 
 def create_monthly_status_chart(monthly_status_summary):
@@ -168,10 +122,10 @@ def main():
     monthly_status_summary = create_monthly_status_summary(df)
 
     # This saves monthly reports.
-    save_monthly_reports(monthly_summary, monthly_status_summary)
+    save_monthly_reports(REPORTS_FOLDER, monthly_summary, monthly_status_summary)
 
     # This saves summary CSV and JSON files.
-    save_summary_files(df, status_counts, metrics, recommendation)
+    save_summary_files(REPORTS_FOLDER, df, status_counts, metrics, recommendation)
 
     # This creates charts.
     create_status_chart(status_counts)

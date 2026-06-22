@@ -199,3 +199,7 @@ Metrics are numbers.
 Recommendations are advice.
 The app uses numbers to create advice.
 _____________
+services/summaries.py creates summary tables. Summary means short report.
+The summary file creates report tables.
+The main file calls the summary functions.
+____________
