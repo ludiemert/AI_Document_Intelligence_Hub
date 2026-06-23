@@ -443,3 +443,13 @@ services -> fazem trabalhos específicos
 sample_documents -> entrada
 reports -> saída
 ____________________________________________
+
+No nosso projeto:
+
+Create -> salvar uma invoice processada no banco
+Read -> buscar invoices para relatório/dashboard
+Update -> alterar status de uma invoice
+Delete -> remover uma invoice errada ou duplicada
+
+linha atual: TXT -> Python -> CSV -> Pandas -> JSON -> Charts
+___________________________________
