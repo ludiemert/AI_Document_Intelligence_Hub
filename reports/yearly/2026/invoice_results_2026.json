@@ -1,0 +1,44 @@
+[
+    {
+        "source_file":"sample_documents\\invoice_001.txt",
+        "invoice_number":"INV-2026-001",
+        "supplier_name":"ABC Logistics",
+        "invoice_date":"2026-06-01",
+        "due_date":"2026-06-20",
+        "total_amount":1250.0,
+        "currency":"EUR",
+        "status":"approved",
+        "risk_score":0,
+        "reasons":"All required fields are present",
+        "invoice_year":2026,
+        "invoice_month":6
+    },
+    {
+        "source_file":"sample_documents\\invoice_002.txt",
+        "invoice_number":"INV-2026-002",
+        "supplier_name":"Northwind Office Supplies",
+        "invoice_date":"2026-06-01",
+        "due_date":"2026-05-01",
+        "total_amount":980.0,
+        "currency":"EUR",
+        "status":"needs_review",
+        "risk_score":30,
+        "reasons":"Due date is overdue",
+        "invoice_year":2026,
+        "invoice_month":6
+    },
+    {
+        "source_file":"sample_documents\\invoice_003.txt",
+        "invoice_number":"INV-2026-003",
+        "supplier_name":"Contoso Industrial",
+        "invoice_date":"2026-06-02",
+        "due_date":"2026-06-30",
+        "total_amount":8900.0,
+        "currency":"EUR",
+        "status":"needs_review",
+        "risk_score":25,
+        "reasons":"High invoice amount",
+        "invoice_year":2026,
+        "invoice_month":6
+    }
+]

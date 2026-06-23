@@ -97,3 +97,22 @@ def save_yearly_invoice_results(reports_folder, df):
 
         # This message tells the user the yearly CSV was created.
         print(f"Yearly CSV created: {yearly_file_name}")
+
+        # This creates the yearly JSON file path.
+        yearly_json_file_name = year_folder / f"invoice_results_{invoice_year}.json"
+
+        # This converts date columns to text for JSON.
+        yearly_json_df = yearly_df.copy()
+        yearly_json_df["invoice_date"] = yearly_json_df["invoice_date"].astype(str)
+
+        # This saves the year invoices as a JSON file.
+        # orient="records" creates a list of objects.
+        yearly_json_df.to_json(
+            yearly_json_file_name,
+            orient="records",
+            indent=4,
+            force_ascii=False,
+        )
+
+        # This message tells the user the yearly JSON was created.
+        print(f"Yearly JSON created: {yearly_json_file_name}")

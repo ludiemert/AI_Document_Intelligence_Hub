@@ -453,3 +453,13 @@ Delete -> remover uma invoice errada ou duplicada
 
 linha atual: TXT -> Python -> CSV -> Pandas -> JSON -> Charts
 ___________________________________
+
+CSV is good for tables.
+JSON is good for web apps.
+The dashboard can read JSON.
+__________________________________
+
+JSON needs simple values.
+Date becomes text.
+This helps the web read the data.
+________________________________
