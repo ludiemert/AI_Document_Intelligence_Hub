@@ -105,3 +105,43 @@ def create_monthly_status_chart(reports_folder, monthly_status_summary):
 
     # This message tells the user the chart was created.
     print("Chart created: monthly_status_counts.png")
+
+    # This function creates a chart with total invoice amount by year.
+
+
+# It helps compare business volume between years.
+def create_yearly_amount_chart(reports_folder, yearly_summary):
+    """Create a chart with yearly invoice amount."""
+    # This creates the yearly reports folder path.
+    yearly_folder = reports_folder / "yearly"
+
+    # This creates the folder if it does not exist.
+    yearly_folder.mkdir(exist_ok=True)
+
+    # This creates a bar chart with year and total amount.
+    plt.bar(
+        yearly_summary["invoice_year"].astype(str),
+        yearly_summary["total_invoice_amount"],
+        color="seagreen",
+    )
+
+    # This adds a chart title.
+    plt.title("Yearly Invoice Amount")
+
+    # This adds a label to the x axis.
+    plt.xlabel("Year")
+
+    # This adds a label to the y axis.
+    plt.ylabel("Total Invoice Amount")
+
+    # This adjusts the chart layout.
+    plt.tight_layout()
+
+    # This saves the chart inside the yearly reports folder.
+    plt.savefig(yearly_folder / "yearly_invoice_amount.png")
+
+    # This clears the chart memory.
+    plt.clf()
+
+    # This message tells the user the chart was created.
+    print("Chart created: yearly_invoice_amount.png")

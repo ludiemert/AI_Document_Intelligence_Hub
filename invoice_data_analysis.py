@@ -20,6 +20,7 @@ from services.chart_builder import (
     create_monthly_status_chart,
     create_risk_score_chart,
     create_status_chart,
+    create_yearly_amount_chart,
 )
 
 # This imports recommendation functions.
@@ -33,7 +34,11 @@ from services.report_exporter import (
 )
 
 # This imports summary functions.
-from services.summaries import create_monthly_status_summary, create_monthly_summary
+from services.summaries import (
+    create_monthly_status_summary,
+    create_monthly_summary,
+    create_yearly_summary,
+)
 
 # This is the reports folder path.
 # The app reads and saves report files in this folder.
@@ -69,6 +74,9 @@ def main():
     monthly_summary = create_monthly_summary(df)
     monthly_status_summary = create_monthly_status_summary(df)
 
+    # This creates yearly summary.
+    yearly_summary = create_yearly_summary(df)
+
     # This saves monthly reports.
     save_monthly_reports(REPORTS_FOLDER, monthly_summary, monthly_status_summary)
 
@@ -82,6 +90,9 @@ def main():
     create_status_chart(REPORTS_FOLDER, status_counts)
     create_risk_score_chart(REPORTS_FOLDER, df)
     create_monthly_status_chart(REPORTS_FOLDER, monthly_status_summary)
+
+    # This creates yearly amount chart.
+    create_yearly_amount_chart(REPORTS_FOLDER, yearly_summary)
 
 
 # This condition starts the program.

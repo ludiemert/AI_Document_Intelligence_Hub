@@ -463,3 +463,6 @@ JSON needs simple values.
 Date becomes text.
 This helps the web read the data.
 ________________________________
+
+Toda vez adicionar a chamada no controlador, mas a função o service.
+_________________________________________
