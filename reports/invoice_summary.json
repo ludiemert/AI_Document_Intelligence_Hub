@@ -1,11 +1,11 @@
 {
-    "total_invoices": 3,
+    "total_invoices": 4,
     "approved": 1,
-    "needs_review": 2,
+    "needs_review": 3,
     "high_risk": 0,
-    "average_risk_score": 18.33,
-    "total_invoice_amount": 11130.0,
-    "needs_review_percentage": 66.67,
+    "average_risk_score": 21.25,
+    "total_invoice_amount": 15330.0,
+    "needs_review_percentage": 75.0,
     "recommendation": "More than 50% of invoices need review. The finance team should check invoice quality and supplier deadlines.",
     "currency": "EUR"
 }

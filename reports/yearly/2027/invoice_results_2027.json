@@ -1,0 +1,16 @@
+[
+    {
+        "source_file":"sample_documents\\2027\\01\\invoice_004.txt",
+        "invoice_number":"INV-2027-001",
+        "supplier_name":"Future Tech Supplies",
+        "invoice_date":"2027-01-15",
+        "due_date":"2027-02-15",
+        "total_amount":4200.0,
+        "currency":"EUR",
+        "status":"approved",
+        "risk_score":0,
+        "reasons":"All required fields are present",
+        "invoice_year":2027,
+        "invoice_month":1
+    }
+]

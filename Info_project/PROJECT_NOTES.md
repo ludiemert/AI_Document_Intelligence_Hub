@@ -466,3 +466,14 @@ ________________________________
 
 Toda vez adicionar a chamada no controlador, mas a função o service.
 _________________________________________
+
+Sempre:  Rodar Pipeline
+Rode na ordem:
+
+python invoice_analyzer.py
+python invoice_data_analysis.py
+_____________
+The app reads many years.
+The app creates one report per year.
+The yearly chart compares years.
+_____________________
