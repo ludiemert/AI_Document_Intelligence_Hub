@@ -25,7 +25,7 @@ from services.chart_builder import (
 )
 
 # This imports recommendation functions.
-from services.recommendations import create_recommendation
+from services.recommendations import create_recommendation, create_yearly_recommendation
 
 # This imports report exporter functions.
 from services.report_exporter import (
@@ -78,6 +78,9 @@ def main():
     # This creates yearly summary.
     yearly_summary = create_yearly_summary(df)
 
+    # This creates yearly business recommendation.
+    yearly_recommendation = create_yearly_recommendation(yearly_summary)
+
     # This saves monthly reports.
     save_monthly_reports(REPORTS_FOLDER, monthly_summary, monthly_status_summary)
 
@@ -85,7 +88,14 @@ def main():
     save_yearly_invoice_results(REPORTS_FOLDER, df)
 
     # This saves summary CSV and JSON files.
-    save_summary_files(REPORTS_FOLDER, df, status_counts, metrics, recommendation)
+    save_summary_files(
+        REPORTS_FOLDER,
+        df,
+        status_counts,
+        metrics,
+        recommendation,
+        yearly_recommendation,
+    )
 
     # This creates chart image files.
     create_status_chart(REPORTS_FOLDER, status_counts)

@@ -35,7 +35,14 @@ def save_monthly_reports(reports_folder, monthly_summary, monthly_status_summary
 
 # This function saves general summary as CSV and JSON.
 # CSV is good for tables. JSON is good for web apps.
-def save_summary_files(reports_folder, df, status_counts, metrics, recommendation):
+def save_summary_files(
+    reports_folder,
+    df,
+    status_counts,
+    metrics,
+    recommendation,
+    yearly_recommendation,
+):
     """Save general summary as CSV and JSON."""
     # This dictionary saves the business metrics.
     summary_data = {
@@ -47,6 +54,7 @@ def save_summary_files(reports_folder, df, status_counts, metrics, recommendatio
         "total_invoice_amount": float(metrics["total_invoice_amount"]),
         "needs_review_percentage": float(metrics["needs_review_percentage"]),
         "recommendation": recommendation,
+        "yearly_recommendation": yearly_recommendation,
         "currency": "EUR",
     }
 
