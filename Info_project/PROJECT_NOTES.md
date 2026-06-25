@@ -483,3 +483,13 @@ The chart compares invoice amount by year.
 The business recommendation changes with the data.
 _________________________
 
+Amount shows money volume.
+Risk shows document quality.
+Both are important for business.
+
+The app compares yearly amount.
+The app compares yearly risk.
+This helps business decisions.
+
+_______________________________________
+
