@@ -493,3 +493,27 @@ This helps business decisions.
 
 _______________________________________
 
+Já temos o backend/data pipeline gerando:
+
+reports/invoice_summary.json
+reports/business_recommendations.json
+reports/status_counts.png
+reports/risk_scores.png
+reports/monthly_status_counts.png
+reports/yearly/yearly_invoice_amount.png
+reports/yearly/yearly_average_risk.png
+__________________________________
+Fluxo futuro:
+Python creates JSON/charts
+↓
+Frontend reads JSON/charts
+↓
+Dashboard shows metrics
+↓
+Later Flask connects everything
+______________________
+
+The frontend shows the data.
+The JSON gives data to the dashboard.
+Flask will connect backend and frontend later.
+___________________
