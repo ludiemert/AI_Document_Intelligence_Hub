@@ -477,3 +477,9 @@ The app reads many years.
 The app creates one report per year.
 The yearly chart compares years.
 _____________________
+The app reads invoices from many years.
+The app creates yearly reports.
+The chart compares invoice amount by year.
+The business recommendation changes with the data.
+_________________________
+

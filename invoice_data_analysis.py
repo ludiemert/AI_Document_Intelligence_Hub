@@ -21,6 +21,7 @@ from services.chart_builder import (
     create_risk_score_chart,
     create_status_chart,
     create_yearly_amount_chart,
+    create_yearly_risk_chart,
 )
 
 # This imports recommendation functions.
@@ -93,6 +94,9 @@ def main():
 
     # This creates yearly amount chart.
     create_yearly_amount_chart(REPORTS_FOLDER, yearly_summary)
+
+    # This creates yearly risk chart.
+    create_yearly_risk_chart(REPORTS_FOLDER, yearly_summary)
 
 
 # This condition starts the program.

@@ -145,3 +145,42 @@ def create_yearly_amount_chart(reports_folder, yearly_summary):
 
     # This message tells the user the chart was created.
     print("Chart created: yearly_invoice_amount.png")
+
+
+# This function creates a chart with average risk score by year.
+# It helps compare document risk between years.
+def create_yearly_risk_chart(reports_folder, yearly_summary):
+    """Create a chart with yearly average risk score."""
+    # This creates the yearly reports folder path.
+    yearly_folder = reports_folder / "yearly"
+
+    # This creates the folder if it does not exist.
+    yearly_folder.mkdir(exist_ok=True)
+
+    # This creates a bar chart with year and average risk score.
+    plt.bar(
+        yearly_summary["invoice_year"].astype(str),
+        yearly_summary["average_risk_score"],
+        color="crimson",
+    )
+
+    # This adds a chart title.
+    plt.title("Yearly Average Risk Score")
+
+    # This adds a label to the x axis.
+    plt.xlabel("Year")
+
+    # This adds a label to the y axis.
+    plt.ylabel("Average Risk Score")
+
+    # This adjusts the chart layout.
+    plt.tight_layout()
+
+    # This saves the chart inside the yearly reports folder.
+    plt.savefig(yearly_folder / "yearly_average_risk.png")
+
+    # This clears the chart memory.
+    plt.clf()
+
+    # This message tells the user the chart was created.
+    print("Chart created: yearly_average_risk.png")
