@@ -29,6 +29,7 @@ from services.recommendations import create_recommendation, create_yearly_recomm
 
 # This imports report exporter functions.
 from services.report_exporter import (
+    save_business_recommendations,
     save_monthly_reports,
     save_summary_files,
     save_yearly_invoice_results,
@@ -93,6 +94,13 @@ def main():
         df,
         status_counts,
         metrics,
+        recommendation,
+        yearly_recommendation,
+    )
+
+    # This saves business recommendations as a separate JSON file.
+    save_business_recommendations(
+        REPORTS_FOLDER,
         recommendation,
         yearly_recommendation,
     )

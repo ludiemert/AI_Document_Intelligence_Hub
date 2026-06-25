@@ -124,3 +124,31 @@ def save_yearly_invoice_results(reports_folder, df):
 
         # This message tells the user the yearly JSON was created.
         print(f"Yearly JSON created: {yearly_json_file_name}")
+
+
+# This function saves business recommendations as a JSON file.
+# This file is useful for dashboards and web apps.
+def save_business_recommendations(
+    reports_folder,
+    recommendation,
+    yearly_recommendation,
+):
+    """Save business recommendations as JSON."""
+    # This dictionary saves only recommendation messages.
+    recommendations_data = {
+        "general_recommendation": recommendation,
+        "yearly_recommendation": yearly_recommendation,
+    }
+
+    # This is the recommendations JSON file path.
+    recommendations_file_name = reports_folder / "business_recommendations.json"
+
+    # This opens the JSON file in write mode.
+    # encoding="utf-8" helps save text correctly.
+    with open(recommendations_file_name, mode="w", encoding="utf-8") as json_file:
+        # This saves the recommendations in JSON format.
+        # indent=4 makes the JSON easy to read.
+        json.dump(recommendations_data, json_file, indent=4)
+
+    # This message tells the user the recommendations JSON was created.
+    print(f"Business recommendations JSON created: {recommendations_file_name}")
