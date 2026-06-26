@@ -1,0 +1,220 @@
+/* This resets the default browser spacing. */
+/* It helps the layout look consistent. */
+* {
+    box-sizing: border-box;
+}
+
+/* This defines the main color variables. */
+/* Variables help us reuse colors in the page. */
+:root {
+    --color-navy: #111827;
+    --color-teal: #0f766e;
+    --color-cyan-soft: #e0f2fe;
+    --color-green: #16a34a;
+    --color-amber: #f59e0b;
+    --color-red: #dc2626;
+    --color-background: #f8fafc;
+    --color-card: #ffffff;
+    --color-text: #1f2937;
+    --color-muted: #64748b;
+    --color-border: #e2e8f0;
+}
+
+/* This styles the full page. */
+body {
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* This is the main dashboard container. */
+/* It keeps content centered and readable. */
+.dashboard {
+    width: min(1200px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0;
+}
+
+/* This styles the top dashboard header. */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 180px;
+    padding: 32px;
+    background: var(--color-navy);
+    color: white;
+    border-radius: 8px;
+}
+
+/* This is the small label above the title. */
+.eyebrow {
+    margin: 0 0 10px;
+    color: var(--color-cyan-soft);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* This is the main page title. */
+h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.1;
+}
+
+/* This is the text under the title. */
+.subtitle {
+    max-width: 720px;
+    margin: 14px 0 0;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* This grid shows the metric cards. */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 22px 0;
+}
+
+/* This styles each metric card. */
+.metric-card {
+    min-height: 110px;
+    padding: 20px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+/* This styles the metric label. */
+.metric-card span {
+    display: block;
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* This styles the metric value. */
+.metric-card strong {
+    display: block;
+    margin-top: 12px;
+    color: var(--color-navy);
+    font-size: 30px;
+    line-height: 1.1;
+}
+
+/* This section shows recommendation cards. */
+.recommendations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+/* This styles one recommendation card. */
+.recommendation-card {
+    padding: 22px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--color-teal);
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+/* This styles section titles inside cards. */
+h2 {
+    margin: 0 0 12px;
+    color: var(--color-navy);
+    font-size: 18px;
+}
+
+/* This styles recommendation text. */
+.recommendation-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* This grid shows chart cards. */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+/* This styles each chart card. */
+.chart-card {
+    padding: 20px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+/* This makes chart images responsive. */
+.chart-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+/* This adds color meaning to important metric cards. */
+.metric-card:nth-child(2) {
+    border-top: 4px solid var(--color-green);
+}
+
+.metric-card:nth-child(3) {
+    border-top: 4px solid var(--color-amber);
+}
+
+.metric-card:nth-child(4) {
+    border-top: 4px solid var(--color-red);
+}
+
+.metric-card:nth-child(5) {
+    border-top: 4px solid var(--color-teal);
+}
+
+/* This makes the dashboard work on tablets. */
+@media (max-width: 900px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .recommendations,
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+}
+
+/* This makes the dashboard work on mobile phones. */
+@media (max-width: 560px) {
+    .dashboard {
+        width: min(100% - 20px, 1200px);
+        padding: 20px 0;
+    }
+
+    .dashboard-header {
+        min-height: 160px;
+        padding: 24px;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-card strong {
+        font-size: 26px;
+    }
+}
