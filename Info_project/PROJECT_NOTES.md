@@ -587,3 +587,8 @@ Green means approved.
 Amber means review.
 Red means risk.
 ________________________________
+
+Opção 1: Print De Uma Área
+Use: Windows + Shift + S
+
+_______________________________
