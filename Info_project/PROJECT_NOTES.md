@@ -517,3 +517,18 @@ The frontend shows the data.
 The JSON gives data to the dashboard.
 Flask will connect backend and frontend later.
 ___________________
+
+Python creates JSON/charts
+↓
+Frontend reads JSON/charts
+↓
+Dashboard shows metrics
+↓
+Later Flask connects everything
+
+________________
+
+The frontend shows the data.
+The JSON gives data to the dashboard.
+Flask will connect backend and frontend later.
+__________________________
