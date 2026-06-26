@@ -532,3 +532,58 @@ The frontend shows the data.
 The JSON gives data to the dashboard.
 Flask will connect backend and frontend later.
 __________________________
+
+Start front
+Use um servidor local. Na raiz do projeto:
+
+python -m http.server 8000
+
+Depois abra no navegador: http://localhost:8000/frontend/
+
+_____________________________________________
+
+HTML has IDs
+JavaScript finds IDs
+JavaScript reads JSON
+JavaScript updates the page
+
+JavaScript reads JSON data.
+JavaScript updates HTML text.
+The dashboard becomes automatic.
+
+_______________________________________________
+estilo:
+
+Nome Visual
+
+AI Document Intelligence Hub
+Conceito
+
+Smart business automation dashboard
+Paleta
+
+Dark navy: #111827
+Deep teal: #0F766E
+Soft cyan: #E0F2FE
+Success green: #16A34A
+Warning amber: #F59E0B
+Risk red: #DC2626
+Light background: #F8FAFC
+Card white: #FFFFFF
+Text dark: #1F2937
+Text muted: #64748B
+Por Que Essa Paleta
+
+navy -> tecnologia e empresa
+teal -> automação e inteligência
+green -> aprovado
+amber -> revisão
+red -> risco
+light background -> dashboard limpo
+Em inglês A2:
+
+The colors show business and technology.
+Green means approved.
+Amber means review.
+Red means risk.
+________________________________
