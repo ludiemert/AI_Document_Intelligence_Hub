@@ -1,11 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI_Document_Intelligence_Hub</title>
+    <!-- This sets the text format for the page. -->
+    <meta charset="UTF-8">
+
+    <!-- This makes the page work better on mobile and desktop. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- This is the page title in the browser tab. -->
+    <title>AI Document Intelligence Hub</title>
+
+    <!-- This connects the CSS file to this HTML page. -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- This is the main page container. -->
+    <main class="dashboard">
 
+        <!-- This is the top section of the dashboard. -->
+        <header class="dashboard-header">
+            <div>
+                <!-- This is a small label for the project area. -->
+                <p class="eyebrow">AI + Automation + Data</p>
+
+                <!-- This is the main dashboard title. -->
+                <h1>AI Document Intelligence Hub</h1>
+
+                <!-- This text explains the dashboard purpose. -->
+                <p class="subtitle">
+                    Business dashboard for invoice automation, risk analysis, and recommendations.
+                </p>
+            </div>
+        </header>
+
+        <!-- This section shows the main business numbers. -->
+        <!-- JavaScript will update these values using JSON data. -->
+        <section class="metrics-grid">
+            <!-- This card shows total invoices. -->
+            <article class="metric-card">
+                <span>Total Invoices</span>
+                <strong id="total-invoices">Loading...</strong>
+            </article>
+
+            <!-- This card shows approved invoices. -->
+            <article class="metric-card">
+                <span>Approved</span>
+                <strong id="approved">Loading...</strong>
+            </article>
+
+            <!-- This card shows invoices that need review. -->
+            <article class="metric-card">
+                <span>Needs Review</span>
+                <strong id="needs-review">Loading...</strong>
+            </article>
+
+            <!-- This card shows high risk invoices. -->
+            <article class="metric-card">
+                <span>High Risk</span>
+                <strong id="high-risk">Loading...</strong>
+            </article>
+
+            <!-- This card shows average risk score. -->
+            <article class="metric-card">
+                <span>Average Risk</span>
+                <strong id="average-risk">Loading...</strong>
+            </article>
+
+            <!-- This card shows total invoice amount. -->
+            <article class="metric-card">
+                <span>Total Amount</span>
+                <strong id="total-amount">Loading...</strong>
+            </article>
+
+            <!-- This card shows percentage of invoices that need review. -->
+            <article class="metric-card">
+                <span>Needs Review %</span>
+                <strong id="needs-review-percentage">Loading...</strong>
+            </article>
+        </section>
+
+        <!-- This section shows business recommendations. -->
+        <!-- JavaScript will update the text using JSON data. -->
+        <section class="recommendations">
+            <!-- This block shows the general recommendation. -->
+            <article class="recommendation-card">
+                <h2>Business Recommendation</h2>
+                <p id="general-recommendation">Loading recommendation...</p>
+            </article>
+
+            <!-- This block shows the yearly recommendation. -->
+            <article class="recommendation-card">
+                <h2>Yearly Recommendation</h2>
+                <p id="yearly-recommendation">Loading recommendation...</p>
+            </article>
+        </section>
+
+        <!-- This section shows chart images created by Python. -->
+        <section class="charts-grid">
+            <!-- This chart shows invoice status counts. -->
+            <article class="chart-card">
+                <h2>Status Counts</h2>
+                <img src="../reports/status_counts.png" alt="Invoice status counts chart">
+            </article>
+
+            <!-- This chart shows risk score by invoice. -->
+            <article class="chart-card">
+                <h2>Risk Score By Invoice</h2>
+                <img src="../reports/risk_scores.png" alt="Risk score by invoice chart">
+            </article>
+
+            <!-- This chart shows monthly status counts. -->
+            <article class="chart-card">
+                <h2>Monthly Status Counts</h2>
+                <img src="../reports/monthly_status_counts.png" alt="Monthly status counts chart">
+            </article>
+
+            <!-- This chart shows yearly invoice amount. -->
+            <article class="chart-card">
+                <h2>Yearly Invoice Amount</h2>
+                <img src="../reports/yearly/yearly_invoice_amount.png" alt="Yearly invoice amount chart">
+            </article>
+
+            <!-- This chart shows yearly average risk. -->
+            <article class="chart-card">
+                <h2>Yearly Average Risk</h2>
+                <img src="../reports/yearly/yearly_average_risk.png" alt="Yearly average risk chart">
+            </article>
+        </section>
+    </main>
+
+    <!-- This connects the JavaScript file to this HTML page. -->
+    <!-- JavaScript will read JSON files and update the dashboard. -->
+    <script src="app.js"></script>
 </body>
 </html>
