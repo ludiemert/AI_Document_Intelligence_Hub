@@ -46,9 +46,29 @@
             <button class="view-button" data-view="yearly">Yearly</button>
         </section>
 
+        <!-- This section has real data filters. -->
+        <!-- JavaScript fills these selects using invoice_results.json. -->
+        <section class="filter-controls">
+            <!-- This filter selects the invoice year. -->
+            <label>
+                Year
+                <select id="year-filter">
+                    <option value="all">All</option>
+                </select>
+            </label>
+
+            <!-- This filter selects the invoice month. -->
+            <label>
+                Month
+                <select id="month-filter">
+                    <option value="all">All</option>
+                </select>
+            </label>
+        </section>
+
         <!-- This section shows the main business numbers. -->
         <!-- JavaScript will update these values using JSON data. -->
-        <section class="metrics-grid dashboard-section general-section">
+        <section class="metrics-grid dashboard-section general-section monthly-section yearly-section">
             <!-- This card shows total invoices. -->
             <article class="metric-card">
                 <span>Total Invoices</span>
@@ -94,7 +114,7 @@
 
         <!-- This section shows business recommendations. -->
         <!-- JavaScript will update the text using JSON data. -->
-        <section class="recommendations dashboard-section general-section yearly-section">
+        <section class="recommendations dashboard-section general-section monthly-section yearly-section">
             <!-- This block shows the general recommendation. -->
             <article class="recommendation-card">
                 <h2>Business Recommendation</h2>

@@ -218,6 +218,45 @@ h2 {
     display: none;
 }
 
+/* This section styles the year and month filters. */
+.filter-controls {
+    display: flex;
+    gap: 14px;
+    margin: 0 0 22px;
+    align-items: center;
+}
+
+/* This styles each filter label. */
+.filter-controls label {
+    display: grid;
+    gap: 6px;
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* This styles the select inputs. */
+.filter-controls select {
+    min-width: 150px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-card);
+    color: var(--color-text);
+    font: inherit;
+}
+
+/* This makes filters stack on mobile. */
+@media (max-width: 560px) {
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-controls select {
+        width: 100%;
+    }
+}
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {
