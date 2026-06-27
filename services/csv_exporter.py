@@ -1,3 +1,7 @@
+# This imports json from Python.
+# We use json to save data for web dashboards.
+import json
+
 # This imports csv from Python.
 # We use csv to save invoice results in a table file.
 import csv
@@ -49,3 +53,16 @@ def save_results_to_csv(results):
 
     # This message tells the user the CSV was created.
     print(f"CSV file created: {file_name}")
+
+    # This is the JSON file path inside the reports folder.
+    json_file_name = REPORTS_FOLDER / "invoice_results.json"
+
+    # This opens the JSON file in write mode.
+    # encoding="utf-8" helps save text correctly.
+    with open(json_file_name, mode="w", encoding="utf-8") as json_file:
+        # This saves processed invoices as JSON.
+        # indent=4 makes the JSON easy to read.
+        json.dump(results, json_file, indent=4)
+
+    # This message tells the user the JSON was created.
+    print(f"JSON file created: {json_file_name}")
