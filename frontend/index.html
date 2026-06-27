@@ -33,9 +33,22 @@
             </div>
         </header>
 
+        <!-- This section has dashboard view buttons. -->
+        <!-- JavaScript will use these buttons to show or hide sections. -->
+        <section class="view-controls">
+            <!-- This button shows the general dashboard view. -->
+            <button class="view-button active" data-view="general">General</button>
+
+            <!-- This button shows the monthly dashboard view. -->
+            <button class="view-button" data-view="monthly">Monthly</button>
+
+            <!-- This button shows the yearly dashboard view. -->
+            <button class="view-button" data-view="yearly">Yearly</button>
+        </section>
+
         <!-- This section shows the main business numbers. -->
         <!-- JavaScript will update these values using JSON data. -->
-        <section class="metrics-grid">
+        <section class="metrics-grid dashboard-section general-section">
             <!-- This card shows total invoices. -->
             <article class="metric-card">
                 <span>Total Invoices</span>
@@ -81,7 +94,7 @@
 
         <!-- This section shows business recommendations. -->
         <!-- JavaScript will update the text using JSON data. -->
-        <section class="recommendations">
+        <section class="recommendations dashboard-section general-section yearly-section">
             <!-- This block shows the general recommendation. -->
             <article class="recommendation-card">
                 <h2>Business Recommendation</h2>
@@ -98,31 +111,31 @@
         <!-- This section shows chart images created by Python. -->
         <section class="charts-grid">
             <!-- This chart shows invoice status counts. -->
-            <article class="chart-card">
+            <article class="chart-card dashboard-section general-section">
                 <h2>Status Counts</h2>
                 <img src="../reports/status_counts.png" alt="Invoice status counts chart">
             </article>
 
             <!-- This chart shows risk score by invoice. -->
-            <article class="chart-card">
+            <article class="chart-card dashboard-section general-section">
                 <h2>Risk Score By Invoice</h2>
                 <img src="../reports/risk_scores.png" alt="Risk score by invoice chart">
             </article>
 
             <!-- This chart shows monthly status counts. -->
-            <article class="chart-card">
+            <article class="chart-card dashboard-section monthly-section general-section">
                 <h2>Monthly Status Counts</h2>
                 <img src="../reports/monthly_status_counts.png" alt="Monthly status counts chart">
             </article>
 
             <!-- This chart shows yearly invoice amount. -->
-            <article class="chart-card">
+            <article class="chart-card dashboard-section yearly-section general-section">
                 <h2>Yearly Invoice Amount</h2>
                 <img src="../reports/yearly/yearly_invoice_amount.png" alt="Yearly invoice amount chart">
             </article>
 
             <!-- This chart shows yearly average risk. -->
-            <article class="chart-card">
+            <article class="chart-card dashboard-section yearly-section general-section">
                 <h2>Yearly Average Risk</h2>
                 <img src="../reports/yearly/yearly_average_risk.png" alt="Yearly average risk chart">
             </article>

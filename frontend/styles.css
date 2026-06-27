@@ -182,6 +182,42 @@ h2 {
     border-top: 4px solid var(--color-teal);
 }
 
+/* This section styles the dashboard view buttons. */
+.view-controls {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* This styles one view button. */
+.view-button {
+    padding: 10px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-card);
+    color: var(--color-text);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* This changes the button when the mouse is over it. */
+.view-button:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+}
+
+/* This shows the selected view button. */
+.view-button.active {
+    background: var(--color-teal);
+    border-color: var(--color-teal);
+    color: white;
+}
+
+/* This hides dashboard sections when JavaScript adds hidden. */
+.dashboard-section.hidden {
+    display: none;
+}
+
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {

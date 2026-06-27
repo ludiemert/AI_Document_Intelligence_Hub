@@ -74,5 +74,56 @@ async function startDashboard() {
   await loadRecommendations();
 }
 
+// This function changes the dashboard view.
+// It shows general, monthly, or yearly sections.
+function setDashboardView(selectedView) {
+  // This gets all dashboard sections.
+  const sections = document.querySelectorAll(".dashboard-section");
+
+  // This reads one section at a time.
+  sections.forEach((section) => {
+    // This checks if the section belongs to the selected view.
+    const shouldShow = section.classList.contains(`${selectedView}-section`);
+
+    // This hides or shows the section.
+    section.classList.toggle("hidden", !shouldShow);
+  });
+
+  // This gets all view buttons.
+  const buttons = document.querySelectorAll(".view-button");
+
+  // This updates the active button.
+  buttons.forEach((button) => {
+    // This checks if this button is the selected button.
+    const isActive = button.dataset.view === selectedView;
+
+    // This adds or removes the active class.
+    button.classList.toggle("active", isActive);
+  });
+}
+
+// This function connects click events to view buttons.
+function setupViewControls() {
+  // This gets all view buttons.
+  const buttons = document.querySelectorAll(".view-button");
+
+  // This adds a click event to each button.
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // This gets the view name from the button.
+      const selectedView = button.dataset.view;
+
+      // This changes the dashboard view.
+      setDashboardView(selectedView);
+    });
+  });
+}
+
+// This starts the view controls.
+setupViewControls();
+
+// This shows the general view first.
+setDashboardView("general");
+
 // This starts the dashboard when the page opens.
 startDashboard();
