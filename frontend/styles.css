@@ -318,6 +318,18 @@ h2 {
     background: var(--color-red);
 }
 
+/* This color is used for risk score bars. */
+.dynamic-bar-fill.risk-score {
+    background: #2563eb;
+}
+
+/* This text appears when a dynamic chart has no data. */
+.dynamic-empty {
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 700;
+}
+
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {

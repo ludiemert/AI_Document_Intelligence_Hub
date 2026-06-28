@@ -225,6 +225,80 @@ function updateStatusDynamicChart(metrics) {
   });
 }
 
+// This function updates the dynamic risk score chart.
+// It shows one bar for each filtered invoice.
+function updateRiskDynamicChart(invoices) {
+  // This finds the chart container.
+  const chartContainer = document.getElementById("risk-dynamic-chart");
+
+  // This checks if the chart container exists.
+  if (!chartContainer) {
+    return;
+  }
+
+  // This clears the old chart.
+  chartContainer.innerHTML = "";
+
+  // This checks if there are no invoices.
+  if (invoices.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "dynamic-empty";
+    emptyMessage.textContent = "No invoices found for this filter.";
+    chartContainer.appendChild(emptyMessage);
+    return;
+  }
+
+  // This finds the biggest risk score.
+  // It helps calculate bar width.
+  const maxRisk = Math.max(
+    ...invoices.map((invoice) => Number(invoice.risk_score)),
+    1,
+  );
+
+  // This creates one bar for each invoice.
+  invoices.forEach((invoice) => {
+    // This gets the risk score as a number.
+    const riskScore = Number(invoice.risk_score);
+
+    // This calculates the bar width percentage.
+    const widthPercentage = (riskScore / maxRisk) * 100;
+
+    // This creates one chart row.
+    const row = document.createElement("div");
+    row.className = "dynamic-bar-row";
+
+    // This creates the invoice label.
+    const label = document.createElement("span");
+    label.className = "dynamic-bar-label";
+    label.textContent = invoice.invoice_number;
+
+    // This creates the bar track.
+    const track = document.createElement("div");
+    track.className = "dynamic-bar-track";
+
+    // This creates the colored risk bar.
+    const fill = document.createElement("div");
+    fill.className = "dynamic-bar-fill risk-score";
+    fill.style.width = `${widthPercentage}%`;
+
+    // This creates the risk number.
+    const value = document.createElement("span");
+    value.className = "dynamic-bar-value";
+    value.textContent = riskScore;
+
+    // This puts the fill inside the track.
+    track.appendChild(fill);
+
+    // This puts all parts inside the row.
+    row.appendChild(label);
+    row.appendChild(track);
+    row.appendChild(value);
+
+    // This puts the row inside the chart.
+    chartContainer.appendChild(row);
+  });
+}
+
 // This function creates a simple recommendation from filtered data.
 function createFilteredRecommendation(metrics) {
   // This checks if there is no data.
@@ -296,6 +370,9 @@ function updateDashboardFromFilters() {
 
   // This updates the dynamic status chart.
   updateStatusDynamicChart(metrics);
+
+  // This updates the dynamic risk score chart.
+  updateRiskDynamicChart(filteredInvoices);
 
   // This updates yearly recommendation text.
   updateText(

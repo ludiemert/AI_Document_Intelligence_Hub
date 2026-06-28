@@ -141,10 +141,15 @@
                 </div>
             </article>
 
-            <!-- This chart shows risk score by invoice. -->
-            <article class="chart-card dashboard-section general-section">
+            <!-- This chart shows dynamic risk score by invoice. -->
+            <!-- JavaScript updates this chart when filters change. -->
+            <article class="chart-card dashboard-section general-section monthly-section yearly-section">
                 <h2>Risk Score By Invoice</h2>
-                <img src="../reports/risk_scores.png" alt="Risk score by invoice chart">
+
+                <!-- This is a dynamic chart created with HTML, CSS, and JavaScript. -->
+                <div class="dynamic-chart" id="risk-dynamic-chart">
+                    <!-- JavaScript will create the bars here. -->
+                </div>
             </article>
 
             <!-- This chart shows monthly status counts. -->
