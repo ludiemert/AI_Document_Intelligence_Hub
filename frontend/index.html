@@ -135,10 +135,8 @@
             <article class="chart-card dashboard-section general-section monthly-section yearly-section">
                 <h2>Status Counts</h2>
 
-                <!-- This is a dynamic chart created with HTML, CSS, and JavaScript. -->
-                <div class="dynamic-chart" id="status-dynamic-chart">
-                    <!-- JavaScript will create the bars here. -->
-                </div>
+                <!-- This canvas is used by Chart.js. -->
+                <canvas id="status-chart"></canvas>
             </article>
 
             <!-- This chart shows dynamic risk score by invoice. -->
@@ -176,6 +174,14 @@
             </article>
         </section>
     </main>
+
+    <!-- This loads Chart.js from CDN. -->
+    <!-- Chart.js helps us create professional charts. -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- This connects the JavaScript file to this HTML page. -->
+    <!-- JavaScript will read JSON files and update the dashboard. -->
+    <script src="app.js?v=3"></script>
 
     <!-- This connects the JavaScript file to this HTML page. -->
     <!-- JavaScript will read JSON files and update the dashboard. -->

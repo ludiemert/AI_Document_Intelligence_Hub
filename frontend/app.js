@@ -4,6 +4,10 @@
 // This variable saves all invoices from JSON.
 let allInvoices = [];
 
+// This variable saves the Status Counts chart.
+// We use it to update the chart without creating duplicates.
+let statusChart = null;
+
 // This function updates one HTML element by id.
 function updateText(elementId, value) {
   // This finds the HTML element by id.
@@ -145,6 +149,79 @@ function calculateMetrics(invoices) {
     needsReviewPercentage,
     currency: invoices[0]?.currency || "EUR",
   };
+}
+
+// This function updates the Status Counts chart with Chart.js.
+// It shows approved, needs review, and high risk invoices.
+function updateStatusChart(metrics) {
+  // This finds the chart canvas.
+  const chartCanvas = document.getElementById("status-chart");
+
+  // This checks if the canvas exists.
+  if (!chartCanvas) {
+    return;
+  }
+
+  // This creates chart labels.
+  const labels = ["Approved", "Needs Review", "High Risk"];
+
+  // This creates chart values.
+  const values = [metrics.approved, metrics.needsReview, metrics.highRisk];
+
+  // This creates chart colors.
+  const colors = ["#16a34a", "#f59e0b", "#dc2626"];
+
+  // This destroys the old chart before creating a new one.
+  // This avoids duplicate charts.
+  if (statusChart) {
+    statusChart.destroy();
+  }
+
+  // This creates the new Chart.js bar chart.
+  statusChart = new Chart(chartCanvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Number of Invoices",
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: "top",
+        },
+        tooltip: {
+          enabled: true,
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Status",
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0,
+          },
+          title: {
+            display: true,
+            text: "Number of Invoices",
+          },
+        },
+      },
+    },
+  });
 }
 
 // This function updates the dynamic status chart.
@@ -458,8 +535,8 @@ function updateDashboardFromFilters() {
   // This updates recommendation text.
   updateText("general-recommendation", createFilteredRecommendation(metrics));
 
-  // This updates the dynamic status chart.
-  updateStatusDynamicChart(metrics);
+  // This updates the Chart.js status chart.
+  updateStatusChart(metrics);
 
   // This updates the dynamic risk score chart.
   updateRiskDynamicChart(filteredInvoices);

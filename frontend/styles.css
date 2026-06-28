@@ -334,6 +334,14 @@ h2 {
 .dynamic-bar-fill.yearly-amount {
     background: var(--color-teal);
 }
+
+/* This keeps Chart.js charts with a stable size. */
+.chart-card canvas {
+    width: 100%;
+    max-height: 320px;
+    margin-top: 12px;
+}
+
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {
