@@ -130,10 +130,15 @@
 
         <!-- This section shows chart images created by Python. -->
         <section class="charts-grid">
-            <!-- This chart shows invoice status counts. -->
-            <article class="chart-card dashboard-section general-section">
+            <!-- This chart shows dynamic invoice status counts. -->
+            <!-- JavaScript updates this chart when filters change. -->
+            <article class="chart-card dashboard-section general-section monthly-section yearly-section">
                 <h2>Status Counts</h2>
-                <img src="../reports/status_counts.png" alt="Invoice status counts chart">
+
+                <!-- This is a dynamic chart created with HTML, CSS, and JavaScript. -->
+                <div class="dynamic-chart" id="status-dynamic-chart">
+                    <!-- JavaScript will create the bars here. -->
+                </div>
             </article>
 
             <!-- This chart shows risk score by invoice. -->

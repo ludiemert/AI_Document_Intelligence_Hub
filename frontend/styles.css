@@ -257,6 +257,67 @@ h2 {
         width: 100%;
     }
 }
+
+/* This styles dynamic charts made with HTML and JavaScript. */
+.dynamic-chart {
+    display: grid;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+/* This styles one chart row. */
+.dynamic-bar-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 44px;
+    gap: 12px;
+    align-items: center;
+}
+
+/* This styles the chart label. */
+.dynamic-bar-label {
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* This is the background of the bar. */
+.dynamic-bar-track {
+    height: 18px;
+    overflow: hidden;
+    background: #e5e7eb;
+    border-radius: 999px;
+}
+
+/* This is the colored bar value. */
+.dynamic-bar-fill {
+    height: 100%;
+    min-width: 4px;
+    border-radius: 999px;
+}
+
+/* This styles the number at the end of the row. */
+.dynamic-bar-value {
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+}
+
+/* This color means approved. */
+.dynamic-bar-fill.approved {
+    background: var(--color-green);
+}
+
+/* This color means needs review. */
+.dynamic-bar-fill.needs-review {
+    background: var(--color-amber);
+}
+
+/* This color means high risk. */
+.dynamic-bar-fill.high-risk {
+    background: var(--color-red);
+}
+
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {

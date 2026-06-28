@@ -147,6 +147,84 @@ function calculateMetrics(invoices) {
   };
 }
 
+// This function updates the dynamic status chart.
+// It shows approved, needs review, and high risk counts.
+function updateStatusDynamicChart(metrics) {
+  // This finds the chart container.
+  const chartContainer = document.getElementById("status-dynamic-chart");
+
+  // This checks if the chart container exists.
+  if (!chartContainer) {
+    return;
+  }
+
+  // This creates chart data.
+  const chartData = [
+    {
+      label: "Approved",
+      value: metrics.approved,
+      className: "approved",
+    },
+    {
+      label: "Needs Review",
+      value: metrics.needsReview,
+      className: "needs-review",
+    },
+    {
+      label: "High Risk",
+      value: metrics.highRisk,
+      className: "high-risk",
+    },
+  ];
+
+  // This finds the biggest value.
+  // It helps calculate bar width.
+  const maxValue = Math.max(...chartData.map((item) => item.value), 1);
+
+  // This clears the old chart.
+  chartContainer.innerHTML = "";
+
+  // This creates one bar for each status.
+  chartData.forEach((item) => {
+    // This calculates the bar width percentage.
+    const widthPercentage = (item.value / maxValue) * 100;
+
+    // This creates one row.
+    const row = document.createElement("div");
+    row.className = "dynamic-bar-row";
+
+    // This creates the label.
+    const label = document.createElement("span");
+    label.className = "dynamic-bar-label";
+    label.textContent = item.label;
+
+    // This creates the bar track.
+    const track = document.createElement("div");
+    track.className = "dynamic-bar-track";
+
+    // This creates the colored bar.
+    const fill = document.createElement("div");
+    fill.className = `dynamic-bar-fill ${item.className}`;
+    fill.style.width = `${widthPercentage}%`;
+
+    // This creates the number value.
+    const value = document.createElement("span");
+    value.className = "dynamic-bar-value";
+    value.textContent = item.value;
+
+    // This puts the fill inside the track.
+    track.appendChild(fill);
+
+    // This puts all parts inside the row.
+    row.appendChild(label);
+    row.appendChild(track);
+    row.appendChild(value);
+
+    // This puts the row inside the chart.
+    chartContainer.appendChild(row);
+  });
+}
+
 // This function creates a simple recommendation from filtered data.
 function createFilteredRecommendation(metrics) {
   // This checks if there is no data.
@@ -215,6 +293,9 @@ function updateDashboardFromFilters() {
 
   // This updates recommendation text.
   updateText("general-recommendation", createFilteredRecommendation(metrics));
+
+  // This updates the dynamic status chart.
+  updateStatusDynamicChart(metrics);
 
   // This updates yearly recommendation text.
   updateText(
