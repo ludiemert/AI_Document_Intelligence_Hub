@@ -588,7 +588,15 @@ Amber means review.
 Red means risk.
 ________________________________
 
-Opção 1: Print De Uma Área
-Use: Windows + Shift + S
+Opção 1: Print De Uma Área = Use: Windows + Shift + S
 
 _______________________________
+
+PNG chart = static
+HTML/JS chart = dynamic
+Dynamic chart updates with filters
+Em inglês A2:
+JavaScript creates the bars.
+The bars use filtered data.
+The chart changes when filters change.
+__________________________________________
