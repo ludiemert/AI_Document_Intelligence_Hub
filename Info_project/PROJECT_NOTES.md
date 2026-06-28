@@ -600,3 +600,9 @@ JavaScript creates the bars.
 The bars use filtered data.
 The chart changes when filters change.
 __________________________________________
+
+JavaScript creates chart bars.
+The chart uses filtered invoices.
+The chart changes when filters change.
+
+_________________________
