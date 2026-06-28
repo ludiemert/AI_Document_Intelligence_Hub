@@ -195,8 +195,7 @@ function updateStatusChart(metrics) {
       responsive: true,
       plugins: {
         legend: {
-          display: true,
-          position: "top",
+          display: false,
         },
         tooltip: {
           enabled: true,

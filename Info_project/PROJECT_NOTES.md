@@ -620,3 +620,17 @@ fácil criar bar, line, pie
 usa uma biblioteca externa
 precisa aprender a estrutura do Chart.js
 ___________________________________________
+
+Regra simples para lembrar:
+Online -> CDN
+Offline -> vendor/chart.umd.min.js
+Nunca os dois ao mesmo tempo agora.
+E sim: se chart.umd.min.js estiver vazio e você usar só ele, o navegador vai dizer algo como:
+Chart is not defined
+
+Usar online agora:
+https://cdn.jsdelivr.net/npm/chart.js
+
+Usar offline depois:
+vendor/chart.umd.min.js
+________________________________________
