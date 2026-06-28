@@ -606,3 +606,17 @@ The chart uses filtered invoices.
 The chart changes when filters change.
 
 _________________________
+
+HTML/CSS/JS puro:
+bom para aprender a lógica
+sem dependência externa
+mais código manual
+menos visual profissional
+
+Chart.js:
+visual mais profissional
+código de gráfico mais organizado
+fácil criar bar, line, pie
+usa uma biblioteca externa
+precisa aprender a estrutura do Chart.js
+___________________________________________
