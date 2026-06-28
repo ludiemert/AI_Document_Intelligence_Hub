@@ -8,6 +8,71 @@ let allInvoices = [];
 // We use it to update the chart without creating duplicates.
 let statusChart = null;
 
+// This variable saves the Risk Score chart.
+// We use it to update the chart without creating duplicates.
+let riskScoreChart = null;
+
+function updateRiskScoreChart(invoices) {
+  // This gets the canvas from the HTML.
+  const chartCanvas = document.getElementById("risk-score-chart");
+
+  // This stops the function if the canvas does not exist.
+  if (!chartCanvas) {
+    return;
+  }
+
+  // This gets invoice numbers for the X axis.
+  const labels = invoices.map((invoice) => invoice.invoice_number);
+
+  // This gets risk scores for the Y axis.
+  const values = invoices.map((invoice) => Number(invoice.risk_score));
+
+  // This removes the old chart before creating a new one.
+  if (riskScoreChart) {
+    riskScoreChart.destroy();
+  }
+
+  // This creates the Risk Score chart.
+  riskScoreChart = new Chart(chartCanvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Risk Score",
+          data: values,
+          backgroundColor: "#2563eb",
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Invoice Number",
+          },
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 35,
+          title: {
+            display: true,
+            text: "Risk Score",
+          },
+        },
+      },
+    },
+  });
+}
+
 // This function updates one HTML element by id.
 function updateText(elementId, value) {
   // This finds the HTML element by id.
@@ -537,8 +602,8 @@ function updateDashboardFromFilters() {
   // This updates the Chart.js status chart.
   updateStatusChart(metrics);
 
-  // This updates the dynamic risk score chart.
-  updateRiskDynamicChart(filteredInvoices);
+  // This updates the Risk Score chart.
+  updateRiskScoreChart(filteredInvoices);
 
   // This updates the dynamic yearly amount chart.
   updateYearlyAmountDynamicChart(filteredInvoices);
