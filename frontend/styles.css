@@ -330,6 +330,10 @@ h2 {
     font-weight: 700;
 }
 
+/* This color is used for yearly amount bars. */
+.dynamic-bar-fill.yearly-amount {
+    background: var(--color-teal);
+}
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {

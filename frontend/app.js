@@ -299,6 +299,96 @@ function updateRiskDynamicChart(invoices) {
   });
 }
 
+// This function updates the dynamic yearly amount chart.
+// It groups filtered invoices by year.
+function updateYearlyAmountDynamicChart(invoices) {
+  // This finds the chart container.
+  const chartContainer = document.getElementById("yearly-amount-dynamic-chart");
+
+  // This checks if the chart container exists.
+  if (!chartContainer) {
+    return;
+  }
+
+  // This clears the old chart.
+  chartContainer.innerHTML = "";
+
+  // This checks if there are no invoices.
+  if (invoices.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "dynamic-empty";
+    emptyMessage.textContent = "No invoices found for this filter.";
+    chartContainer.appendChild(emptyMessage);
+    return;
+  }
+
+  // This object will save total amount by year.
+  const amountByYear = {};
+
+  // This reads one invoice at a time.
+  invoices.forEach((invoice) => {
+    // This gets the invoice year.
+    const year = getInvoiceYear(invoice);
+
+    // This creates the year key if it does not exist.
+    if (!amountByYear[year]) {
+      amountByYear[year] = 0;
+    }
+
+    // This adds the invoice amount to the year total.
+    amountByYear[year] += Number(invoice.total_amount);
+  });
+
+  // This converts the object into a list.
+  const chartData = Object.entries(amountByYear).map(([year, amount]) => ({
+    label: year,
+    value: amount,
+  }));
+
+  // This finds the biggest amount.
+  const maxValue = Math.max(...chartData.map((item) => item.value), 1);
+
+  // This creates one bar for each year.
+  chartData.forEach((item) => {
+    // This calculates the bar width percentage.
+    const widthPercentage = (item.value / maxValue) * 100;
+
+    // This creates one chart row.
+    const row = document.createElement("div");
+    row.className = "dynamic-bar-row";
+
+    // This creates the year label.
+    const label = document.createElement("span");
+    label.className = "dynamic-bar-label";
+    label.textContent = item.label;
+
+    // This creates the bar track.
+    const track = document.createElement("div");
+    track.className = "dynamic-bar-track";
+
+    // This creates the colored amount bar.
+    const fill = document.createElement("div");
+    fill.className = "dynamic-bar-fill yearly-amount";
+    fill.style.width = `${widthPercentage}%`;
+
+    // This creates the amount value.
+    const value = document.createElement("span");
+    value.className = "dynamic-bar-value";
+    value.textContent = item.value.toFixed(2);
+
+    // This puts the fill inside the track.
+    track.appendChild(fill);
+
+    // This puts all parts inside the row.
+    row.appendChild(label);
+    row.appendChild(track);
+    row.appendChild(value);
+
+    // This puts the row inside the chart.
+    chartContainer.appendChild(row);
+  });
+}
+
 // This function creates a simple recommendation from filtered data.
 function createFilteredRecommendation(metrics) {
   // This checks if there is no data.
@@ -373,6 +463,9 @@ function updateDashboardFromFilters() {
 
   // This updates the dynamic risk score chart.
   updateRiskDynamicChart(filteredInvoices);
+
+  // This updates the dynamic yearly amount chart.
+  updateYearlyAmountDynamicChart(filteredInvoices);
 
   // This updates yearly recommendation text.
   updateText(
