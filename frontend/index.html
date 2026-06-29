@@ -175,6 +175,32 @@
                 <canvas id="yearly-risk-chart"></canvas>
             </article>
         </section>
+
+        <!-- This section shows invoice details in a table. -->
+        <!-- The table updates when the filters change. -->
+        <section class="table-card dashboard-section general-section monthly-section yearly-section">
+            <h2>Invoice Details</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Supplier</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Risk</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="invoice-table-body">
+                        <!-- JavaScript will add invoice rows here. -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
 
     <!-- This loads Chart.js from CDN. -->
