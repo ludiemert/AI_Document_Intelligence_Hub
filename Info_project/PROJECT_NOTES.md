@@ -634,3 +634,7 @@ https://cdn.jsdelivr.net/npm/chart.js
 Usar offline depois:
 vendor/chart.umd.min.js
 ________________________________________
+
+TXT -> Python -> CSV/JSON -> Pandas -> reports -> Frontend -> Chart.js
+
+_____________________________

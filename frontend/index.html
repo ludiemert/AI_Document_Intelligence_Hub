@@ -148,10 +148,13 @@
                 <canvas id="risk-score-chart"></canvas>
             </article>
 
-            <!-- This chart shows monthly status counts. -->
-            <article class="chart-card dashboard-section monthly-section general-section">
+            <!-- This chart shows invoice status by month. -->
+            <!-- Chart.js updates this chart when filters change. -->
+            <article class="chart-card dashboard-section monthly-section">
                 <h2>Monthly Status Counts</h2>
-                <img src="../reports/monthly_status_counts.png" alt="Monthly status counts chart">
+
+                <!-- This canvas is used by Chart.js. -->
+                <canvas id="monthly-status-chart"></canvas>
             </article>
 
             <!-- This chart shows total invoice amount by year. -->

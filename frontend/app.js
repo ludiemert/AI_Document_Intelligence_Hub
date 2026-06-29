@@ -16,6 +16,106 @@ let riskScoreChart = null;
 // We use it to update the chart without creating duplicates.
 let yearlyAmountChart = null;
 
+// This variable saves the Monthly Status chart.
+// We use it to update the chart without creating duplicates.
+let monthlyStatusChart = null;
+
+function updateMonthlyStatusChart(invoices) {
+  // This gets the canvas from the HTML.
+  const chartCanvas = document.getElementById("monthly-status-chart");
+
+  // This stops the function if the canvas does not exist.
+  if (!chartCanvas) {
+    return;
+  }
+
+  // This object saves status counts by month.
+  const monthlyData = {};
+
+  // This loops through invoices and groups data by year and month.
+  invoices.forEach((invoice) => {
+    const date = new Date(invoice.invoice_date);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const monthKey = `${year}-${month}`;
+
+    if (!monthlyData[monthKey]) {
+      monthlyData[monthKey] = {
+        approved: 0,
+        needs_review: 0,
+        high_risk: 0,
+      };
+    }
+
+    monthlyData[monthKey][invoice.status] += 1;
+  });
+
+  // This gets month labels for the X axis.
+  const labels = Object.keys(monthlyData);
+
+  // This gets approved values.
+  const approvedValues = labels.map((month) => monthlyData[month].approved);
+
+  // This gets needs review values.
+  const needsReviewValues = labels.map(
+    (month) => monthlyData[month].needs_review,
+  );
+
+  // This gets high risk values.
+  const highRiskValues = labels.map((month) => monthlyData[month].high_risk);
+
+  // This removes the old chart before creating a new one.
+  if (monthlyStatusChart) {
+    monthlyStatusChart.destroy();
+  }
+
+  // This creates the Monthly Status chart.
+  monthlyStatusChart = new Chart(chartCanvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Approved",
+          data: approvedValues,
+          backgroundColor: "#16a34a",
+          borderRadius: 6,
+        },
+        {
+          label: "Needs Review",
+          data: needsReviewValues,
+          backgroundColor: "#f59e0b",
+          borderRadius: 6,
+        },
+        {
+          label: "High Risk",
+          data: highRiskValues,
+          backgroundColor: "#dc2626",
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Year and Month",
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "Number of Invoices",
+          },
+        },
+      },
+    },
+  });
+}
+
 function updateYearlyAmountChart(invoices) {
   // This gets the canvas from the HTML.
   const chartCanvas = document.getElementById("yearly-amount-chart");
@@ -689,6 +789,9 @@ function updateDashboardFromFilters() {
 
   // This updates the dynamic yearly amount chart.
   updateYearlyAmountDynamicChart(filteredInvoices);
+
+  // This updates the Monthly Status chart.
+  updateMonthlyStatusChart(filteredInvoices);
 
   // This updates yearly recommendation text.
   updateText(
