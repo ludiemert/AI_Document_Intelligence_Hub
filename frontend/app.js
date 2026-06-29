@@ -16,9 +16,93 @@ let riskScoreChart = null;
 // We use it to update the chart without creating duplicates.
 let yearlyAmountChart = null;
 
+// This variable saves the Yearly Risk chart.
+// We use it to update the chart without creating duplicates.
+let yearlyRiskChart = null;
+
 // This variable saves the Monthly Status chart.
 // We use it to update the chart without creating duplicates.
 let monthlyStatusChart = null;
+
+function updateYearlyRiskChart(invoices) {
+  // This gets the canvas from the HTML.
+  const chartCanvas = document.getElementById("yearly-risk-chart");
+
+  // This stops the function if the canvas does not exist.
+  if (!chartCanvas) {
+    return;
+  }
+
+  // This object saves risk scores by year.
+  const riskByYear = {};
+
+  // This loops through invoices and groups risk scores by year.
+  invoices.forEach((invoice) => {
+    const year = new Date(invoice.invoice_date).getFullYear();
+    const riskScore = Number(invoice.risk_score);
+
+    if (!riskByYear[year]) {
+      riskByYear[year] = [];
+    }
+
+    riskByYear[year].push(riskScore);
+  });
+
+  // This gets the years for the X axis.
+  const labels = Object.keys(riskByYear);
+
+  // This calculates the average risk for each year.
+  const values = labels.map((year) => {
+    const scores = riskByYear[year];
+    const total = scores.reduce((sum, score) => sum + score, 0);
+    return total / scores.length;
+  });
+
+  // This removes the old chart before creating a new one.
+  if (yearlyRiskChart) {
+    yearlyRiskChart.destroy();
+  }
+
+  // This creates the Yearly Average Risk chart.
+  yearlyRiskChart = new Chart(chartCanvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Average Risk Score",
+          data: values,
+          backgroundColor: "#dc2626",
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Year",
+          },
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 35,
+          title: {
+            display: true,
+            text: "Average Risk Score",
+          },
+        },
+      },
+    },
+  });
+}
 
 function updateMonthlyStatusChart(invoices) {
   // This gets the canvas from the HTML.
@@ -792,6 +876,9 @@ function updateDashboardFromFilters() {
 
   // This updates the Monthly Status chart.
   updateMonthlyStatusChart(filteredInvoices);
+
+  // This updates the Yearly Risk chart.
+  updateYearlyRiskChart(filteredInvoices);
 
   // This updates yearly recommendation text.
   updateText(
