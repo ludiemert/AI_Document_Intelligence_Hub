@@ -956,7 +956,11 @@ function updateInvoiceTable(invoices) {
             <td>${invoice.supplier_name}</td>
             <td>${invoice.invoice_date}</td>
             <td>${Number(invoice.total_amount).toFixed(2)} ${invoice.currency}</td>
-            <td>${invoice.status}</td>
+            <td>
+              <span class="status-badge ${invoice.status}">
+                  ${invoice.status}
+              </span>
+            </td>
             <td>${invoice.risk_score}</td>
         `;
 

@@ -401,6 +401,95 @@ tr:hover {
     }
 }
 
+/* This makes the invoice table use the full dashboard width. */
+.table-card {
+    grid-column: 1 / -1;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    padding: 22px;
+    margin-top: 18px;
+}
+
+/* This styles the table title. */
+.table-card h2 {
+    color: #0f172a;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 18px;
+}
+
+/* This allows horizontal scroll on small screens. */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* This styles the table structure. */
+.table-wrapper table {
+    width: 100%;
+    min-width: 820px;
+    border-collapse: collapse;
+}
+
+/* This makes the first row darker and more professional. */
+.table-wrapper th {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 14px 14px;
+}
+
+/* This styles normal table cells. */
+.table-wrapper td {
+    color: #111827;
+    font-size: 14px;
+    padding: 14px 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* This creates alternating row colors. */
+.table-wrapper tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* This gives feedback when the mouse is over a row. */
+.table-wrapper tbody tr:hover {
+    background: #eef6f5;
+}
+
+/* This styles status labels inside the table. */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+/* This is the approved status color. */
+.status-badge.approved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* This is the needs review status color. */
+.status-badge.needs_review {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* This is the high risk status color. */
+.status-badge.high_risk {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
 /* This makes the dashboard work on mobile phones. */
 @media (max-width: 560px) {
     .dashboard {
