@@ -638,3 +638,18 @@ ________________________________________
 TXT -> Python -> CSV/JSON -> Pandas -> reports -> Frontend -> Chart.js
 
 _____________________________
+
+<!-- This chart shows the average risk score by year. -->
+<!-- Chart.js updates this chart when filters change. -->
+<article class="chart-card dashboard-section general-section yearly-section">
+    <h2>Yearly Average Risk</h2>
+
+    <!-- This canvas is used by Chart.js. -->
+    <canvas id="yearly-risk-chart"></canvas>
+</article>
+
+Então a lógica fica assim:
+general-section -> aparece em General
+monthly-section -> aparece em Monthly
+yearly-section  -> aparece em Yearly
+________________________________
