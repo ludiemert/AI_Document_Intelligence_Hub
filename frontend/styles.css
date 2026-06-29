@@ -342,6 +342,49 @@ h2 {
     margin-top: 12px;
 }
 
+.table-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    padding: 18px;
+    margin-top: 18px;
+}
+
+.table-card h2 {
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+    color: #111827;
+    font-size: 14px;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+    background: #f9fafb;
+}
+
 /* This makes the dashboard work on tablets. */
 @media (max-width: 900px) {
     .metrics-grid {

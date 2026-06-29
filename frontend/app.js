@@ -880,6 +880,9 @@ function updateDashboardFromFilters() {
   // This updates the Yearly Risk chart.
   updateYearlyRiskChart(filteredInvoices);
 
+  // This updates the invoice details table.
+  updateInvoiceTable(filteredInvoices);
+
   // This updates yearly recommendation text.
   updateText(
     "yearly-recommendation",
@@ -930,6 +933,35 @@ function setupFilters() {
   document
     .getElementById("month-filter")
     .addEventListener("change", updateDashboardFromFilters);
+}
+
+function updateInvoiceTable(invoices) {
+  // This gets the table body from the HTML.
+  const tableBody = document.getElementById("invoice-table-body");
+
+  // This stops the function if the table does not exist.
+  if (!tableBody) {
+    return;
+  }
+
+  // This clears old table rows.
+  tableBody.innerHTML = "";
+
+  // This creates one table row for each invoice.
+  invoices.forEach((invoice) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+            <td>${invoice.invoice_number}</td>
+            <td>${invoice.supplier_name}</td>
+            <td>${invoice.invoice_date}</td>
+            <td>${Number(invoice.total_amount).toFixed(2)} ${invoice.currency}</td>
+            <td>${invoice.status}</td>
+            <td>${invoice.risk_score}</td>
+        `;
+
+    tableBody.appendChild(row);
+  });
 }
 
 // This function starts the dashboard.
