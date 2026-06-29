@@ -12,6 +12,85 @@ let statusChart = null;
 // We use it to update the chart without creating duplicates.
 let riskScoreChart = null;
 
+// This variable saves the Yearly Amount chart.
+// We use it to update the chart without creating duplicates.
+let yearlyAmountChart = null;
+
+function updateYearlyAmountChart(invoices) {
+  // This gets the canvas from the HTML.
+  const chartCanvas = document.getElementById("yearly-amount-chart");
+
+  // This stops the function if the canvas does not exist.
+  if (!chartCanvas) {
+    return;
+  }
+
+  // This object will save total amount by year.
+  const amountByYear = {};
+
+  // This loops through invoices and groups amounts by year.
+  invoices.forEach((invoice) => {
+    const year = new Date(invoice.invoice_date).getFullYear();
+    const amount = Number(invoice.total_amount);
+
+    if (!amountByYear[year]) {
+      amountByYear[year] = 0;
+    }
+
+    amountByYear[year] += amount;
+  });
+
+  // This gets the years for the X axis.
+  const labels = Object.keys(amountByYear);
+
+  // This gets the total amounts for the Y axis.
+  const values = Object.values(amountByYear);
+
+  // This removes the old chart before creating a new one.
+  if (yearlyAmountChart) {
+    yearlyAmountChart.destroy();
+  }
+
+  // This creates the Yearly Amount chart.
+  yearlyAmountChart = new Chart(chartCanvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Total Amount",
+          data: values,
+          backgroundColor: "#0f766e",
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Year",
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "Total Invoice Amount",
+          },
+        },
+      },
+    },
+  });
+}
+
 function updateRiskScoreChart(invoices) {
   // This gets the canvas from the HTML.
   const chartCanvas = document.getElementById("risk-score-chart");
@@ -604,6 +683,9 @@ function updateDashboardFromFilters() {
 
   // This updates the Risk Score chart.
   updateRiskScoreChart(filteredInvoices);
+
+  // This updates the Yearly Amount chart.
+  updateYearlyAmountChart(filteredInvoices);
 
   // This updates the dynamic yearly amount chart.
   updateYearlyAmountDynamicChart(filteredInvoices);
