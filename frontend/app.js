@@ -888,6 +888,9 @@ function updateDashboardFromFilters() {
     "yearly-recommendation",
     createFilteredYearlyRecommendation(filteredInvoices, metrics),
   );
+
+  // This updates automatic risk alerts.
+  updateRiskAlerts(filteredInvoices);
 }
 
 // This function changes the dashboard view.
@@ -966,6 +969,50 @@ function updateInvoiceTable(invoices) {
 
     tableBody.appendChild(row);
   });
+}
+
+function updateRiskAlerts(invoices) {
+  // This gets the alerts area from the HTML.
+  const alertsList = document.getElementById("risk-alerts-list");
+
+  // This stops the function if the alerts area does not exist.
+  if (!alertsList) {
+    return;
+  }
+
+  // This clears old alerts.
+  alertsList.innerHTML = "";
+
+  // This filters invoices that need review.
+  const reviewInvoices = invoices.filter(
+    (invoice) => invoice.status === "needs_review",
+  );
+
+  // This filters invoices with high amount.
+  const highAmountInvoices = invoices.filter(
+    (invoice) => Number(invoice.total_amount) > 5000,
+  );
+
+  if (reviewInvoices.length > 0) {
+    const alert = document.createElement("p");
+    alert.className = "risk-alert warning";
+    alert.textContent = `${reviewInvoices.length} invoice(s) need review. Finance team should check these documents.`;
+    alertsList.appendChild(alert);
+  }
+
+  highAmountInvoices.forEach((invoice) => {
+    const alert = document.createElement("p");
+    alert.className = "risk-alert danger";
+    alert.textContent = `High amount invoice detected: ${invoice.invoice_number} (${Number(invoice.total_amount).toFixed(2)} ${invoice.currency}).`;
+    alertsList.appendChild(alert);
+  });
+
+  if (alertsList.innerHTML === "") {
+    const alert = document.createElement("p");
+    alert.className = "risk-alert safe";
+    alert.textContent = "No risk alerts for this filter.";
+    alertsList.appendChild(alert);
+  }
 }
 
 // This function starts the dashboard.
