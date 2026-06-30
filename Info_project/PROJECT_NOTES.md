@@ -588,7 +588,16 @@ Amber means review.
 Red means risk.
 ________________________________
 
+Edge
 Opção 1: Print De Uma Área = Use: Windows + Shift + S
+
+Chrome
+1. Ctrl + Shift + I
+2. Ctrl + Shift + P
+3. Digitar screenshot
+4. Clicar em Capture full size screenshot
+Capturar captura de tela em tamanho completo
+
 
 _______________________________
 
