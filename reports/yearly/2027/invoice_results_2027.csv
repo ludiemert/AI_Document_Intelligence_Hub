@@ -1,2 +1,3 @@
 source_file;invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;status;risk_score;reasons;invoice_year;invoice_month
 sample_documents\2027\01\invoice_004.txt;INV-2027-001;Future Tech Supplies;2027-01-15;2027-02-15;4200.0;EUR;approved;0;All required fields are present;2027;1
+sample_documents\2027\01\invoice_005.txt;INV-2027-002;Future Tech Supplies;2027-01-18;2027-02-19;7200.0;EUR;needs_review;25;High invoice amount;2027;1

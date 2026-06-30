@@ -46,5 +46,17 @@
         "status": "approved",
         "risk_score": 0,
         "reasons": "All required fields are present"
+    },
+    {
+        "source_file": "sample_documents\\2027\\01\\invoice_005.txt",
+        "invoice_number": "INV-2027-002",
+        "supplier_name": "Future Tech Supplies",
+        "invoice_date": "2027-01-18",
+        "due_date": "2027-02-19",
+        "total_amount": 7200.0,
+        "currency": "EUR",
+        "status": "needs_review",
+        "risk_score": 25,
+        "reasons": "High invoice amount"
     }
 ]

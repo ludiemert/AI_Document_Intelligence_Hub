@@ -3,3 +3,4 @@ sample_documents\invoice_001.txt;INV-2026-001;ABC Logistics;2026-06-01;2026-06-2
 sample_documents\invoice_002.txt;INV-2026-002;Northwind Office Supplies;2026-06-01;2026-05-01;980.0;EUR;needs_review;30;Due date is overdue
 sample_documents\invoice_003.txt;INV-2026-003;Contoso Industrial;2026-06-02;2026-06-30;8900.0;EUR;needs_review;25;High invoice amount
 sample_documents\2027\01\invoice_004.txt;INV-2027-001;Future Tech Supplies;2027-01-15;2027-02-15;4200.0;EUR;approved;0;All required fields are present
+sample_documents\2027\01\invoice_005.txt;INV-2027-002;Future Tech Supplies;2027-01-18;2027-02-19;7200.0;EUR;needs_review;25;High invoice amount
