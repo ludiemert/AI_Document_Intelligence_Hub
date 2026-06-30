@@ -889,6 +889,9 @@ function updateDashboardFromFilters() {
     createFilteredYearlyRecommendation(filteredInvoices, metrics),
   );
 
+  // This updates the top risk invoices list.
+  updateTopRiskInvoices(filteredInvoices);
+
   // This updates automatic risk alerts.
   updateRiskAlerts(filteredInvoices);
 }
@@ -936,6 +939,54 @@ function setupFilters() {
   document
     .getElementById("month-filter")
     .addEventListener("change", updateDashboardFromFilters);
+}
+
+function updateTopRiskInvoices(invoices) {
+  // This gets the top risk area from the HTML.
+  const topRiskList = document.getElementById("top-risk-list");
+
+  // This stops the function if the area does not exist.
+  if (!topRiskList) {
+    return;
+  }
+
+  // This clears old top risk items.
+  topRiskList.innerHTML = "";
+
+  // This copies invoices and sorts them by risk score.
+  const topInvoices = [...invoices]
+    .sort((firstInvoice, secondInvoice) => {
+      return Number(secondInvoice.risk_score) - Number(firstInvoice.risk_score);
+    })
+    .slice(0, 3);
+
+  // This shows a message when there are no invoices.
+  if (topInvoices.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "top-risk-empty";
+    emptyMessage.textContent = "No invoices found for this filter.";
+    topRiskList.appendChild(emptyMessage);
+    return;
+  }
+
+  // This creates one card for each top risk invoice.
+  topInvoices.forEach((invoice, index) => {
+    const item = document.createElement("div");
+    item.className = "top-risk-item";
+
+    item.innerHTML = `
+            <span class="top-risk-rank">${index + 1}</span>
+
+            <div class="top-risk-info">
+                <strong>${invoice.invoice_number}</strong>
+                <span>${invoice.supplier_name}</span>
+            </div>
+
+            <span class="top-risk-score">Risk ${invoice.risk_score}</span>
+        `;
+
+    topRiskList.appendChild(item);
+  });
 }
 
 function updateInvoiceTable(invoices) {
