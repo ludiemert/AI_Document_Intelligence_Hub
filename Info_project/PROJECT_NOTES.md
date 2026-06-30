@@ -672,3 +672,14 @@ visual graph
 Chart / gráfico -> canvas
 Text / cards / alerts / table -> div, section, p, table
 ____________________________________________
+
+protótipo profissional do dashboard usando JSON. Quando entrar Flask, a lógica muda assim:
+Agora:
+HTML + JS lê reports/invoice_results.json
+
+Depois com Flask:
+HTML + JS chama API Flask
+/api/invoices
+/api/summary
+/api/risk-alerts
+______________________________

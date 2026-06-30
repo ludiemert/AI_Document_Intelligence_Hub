@@ -645,6 +645,16 @@ tr:hover {
     font-size: 14px;
 }
 
+.top-risk-item {
+    cursor: pointer;
+}
+
+.top-risk-item:hover {
+    background: #eef6f5;
+    transform: translateY(-1px);
+    transition: 0.2s ease;
+}
+
 /* This makes the dashboard work on mobile phones. */
 @media (max-width: 560px) {
     .dashboard {

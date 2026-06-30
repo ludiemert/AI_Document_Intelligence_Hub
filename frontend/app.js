@@ -971,20 +971,28 @@ function updateTopRiskInvoices(invoices) {
 
   // This creates one card for each top risk invoice.
   topInvoices.forEach((invoice, index) => {
+    // This creates one top risk item.
     const item = document.createElement("div");
     item.className = "top-risk-item";
 
+    // This adds invoice information inside the item.
     item.innerHTML = `
-            <span class="top-risk-rank">${index + 1}</span>
+      <span class="top-risk-rank">${index + 1}</span>
 
-            <div class="top-risk-info">
-                <strong>${invoice.invoice_number}</strong>
-                <span>${invoice.supplier_name}</span>
-            </div>
+      <div class="top-risk-info">
+        <strong>${invoice.invoice_number}</strong>
+        <span>${invoice.supplier_name}</span>
+      </div>
 
-            <span class="top-risk-score">Risk ${invoice.risk_score}</span>
-        `;
+      <span class="top-risk-score">Risk ${invoice.risk_score}</span>
+    `;
 
+    // This opens invoice details when the user clicks the item.
+    item.addEventListener("click", () => {
+      openInvoiceDetails(invoice);
+    });
+
+    // This adds the item to the page.
     topRiskList.appendChild(item);
   });
 }
@@ -1068,6 +1076,136 @@ function updateRiskAlerts(invoices) {
     alert.textContent = "No risk alerts for this filter.";
     alertsList.appendChild(alert);
   }
+}
+
+function openInvoiceDetails(invoice) {
+  // This creates the HTML content for a new browser tab.
+  const invoiceHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>${invoice.invoice_number}</title>
+            <style>
+                body {
+                    background: #f8fafc;
+                    color: #0f172a;
+                    font-family: Arial, sans-serif;
+                    padding: 40px;
+                }
+
+                .invoice-page {
+                    background: #ffffff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+                    margin: 0 auto;
+                    max-width: 760px;
+                    padding: 30px;
+                }
+
+                h1 {
+                    margin-top: 0;
+                }
+
+                .status {
+                    border-radius: 999px;
+                    display: inline-block;
+                    font-size: 13px;
+                    font-weight: 700;
+                    padding: 6px 12px;
+                }
+
+                .approved {
+                    background: #dcfce7;
+                    color: #166534;
+                }
+
+                .needs_review {
+                    background: #fef3c7;
+                    color: #92400e;
+                }
+
+                .high_risk {
+                    background: #fee2e2;
+                    color: #991b1b;
+                }
+
+                .details {
+                    display: grid;
+                    gap: 14px;
+                    margin-top: 24px;
+                }
+
+                .detail-row {
+                    border-bottom: 1px solid #e5e7eb;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 12px 0;
+                }
+
+                .label {
+                    color: #64748b;
+                    font-weight: 700;
+                }
+
+                .value {
+                    font-weight: 700;
+                }
+            </style>
+        </head>
+        <body>
+            <main class="invoice-page">
+                <h1>${invoice.invoice_number}</h1>
+
+                <span class="status ${invoice.status}">
+                    ${invoice.status}
+                </span>
+
+                <section class="details">
+                    <div class="detail-row">
+                        <span class="label">Supplier</span>
+                        <span class="value">${invoice.supplier_name}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Invoice Date</span>
+                        <span class="value">${invoice.invoice_date}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Due Date</span>
+                        <span class="value">${invoice.due_date}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Amount</span>
+                        <span class="value">${Number(invoice.total_amount).toFixed(2)} ${invoice.currency}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Risk Score</span>
+                        <span class="value">${invoice.risk_score}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Reason</span>
+                        <span class="value">${invoice.reasons}</span>
+                    </div>
+                </section>
+            </main>
+        </body>
+        </html>
+    `;
+
+  // This opens a new browser tab.
+  const newWindow = window.open("", "_blank");
+
+  // This writes the invoice HTML inside the new tab.
+  newWindow.document.write(invoiceHtml);
+
+  // This closes the document writing process.
+  newWindow.document.close();
 }
 
 // This function starts the dashboard.
