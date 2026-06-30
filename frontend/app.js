@@ -952,7 +952,11 @@ function updateInvoiceTable(invoices) {
 
   // This creates one table row for each invoice.
   invoices.forEach((invoice) => {
+    // This creates a new table row.
     const row = document.createElement("tr");
+
+    // This adds a class based on invoice status.
+    row.className = `invoice-row ${invoice.status}`;
 
     row.innerHTML = `
             <td>${invoice.invoice_number}</td>

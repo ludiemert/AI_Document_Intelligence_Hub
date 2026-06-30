@@ -530,6 +530,49 @@ tr:hover {
     color: #166534;
 }
 
+/* This highlights invoices that need review. */
+.invoice-row.needs_review {
+    background: #fffbeb;
+}
+
+/* This highlights high risk invoices. */
+.invoice-row.high_risk {
+    background: #fef2f2;
+}
+
+/* This keeps approved invoices clean. */
+.invoice-row.approved {
+    background: #ffffff;
+}
+
+/* This improves hover without losing status color. */
+.invoice-row.needs_review:hover {
+    background: #fef3c7;
+}
+
+.invoice-row.high_risk:hover {
+    background: #fee2e2;
+}
+
+.invoice-row.approved:hover {
+    background: #f8fafc;
+}
+
+/* This adds a warning line on the left side of review rows. */
+.invoice-row.needs_review td:first-child {
+    border-left: 4px solid #f59e0b;
+}
+
+/* This adds a danger line on the left side of high risk rows. */
+.invoice-row.high_risk td:first-child {
+    border-left: 4px solid #dc2626;
+}
+
+/* This adds a safe line on the left side of approved rows. */
+.invoice-row.approved td:first-child {
+    border-left: 4px solid #16a34a;
+}
+
 /* This makes the dashboard work on mobile phones. */
 @media (max-width: 560px) {
     .dashboard {
