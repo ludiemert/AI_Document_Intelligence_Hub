@@ -662,3 +662,13 @@ general-section -> aparece em General
 monthly-section -> aparece em Monthly
 yearly-section  -> aparece em Yearly
 ________________________________
+
+canvas é para desenhar coisas visuais, como:
+bar chart
+line chart
+pie chart
+visual graph
+
+Chart / gráfico -> canvas
+Text / cards / alerts / table -> div, section, p, table
+____________________________________________
