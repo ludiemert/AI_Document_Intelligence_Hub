@@ -699,3 +699,9 @@ index.html carrega styles.css e app.js
 ↓
 app.js chama a API Flask e atualiza dashboard
 _____________________
+open Flask
+4. Rode o backend:
+python app.py
+5. Abra no navegador:
+http://127.0.0.1:5000
+_______________________________________

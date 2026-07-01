@@ -10,8 +10,11 @@
     <!-- This is the page title in the browser tab. -->
     <title>AI Document Intelligence Hub</title>
 
-    <!-- This connects the CSS file to this HTML page. -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- This connects the CSS file to this HTML page.
+    <link rel="stylesheet" href="styles.css"> -->
+
+    <!-- This loads the CSS file using Flask static path. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <!-- This is the main page container. -->
@@ -227,8 +230,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- This connects the JavaScript file to this HTML page. -->
-    <!-- JavaScript will read JSON files and update the dashboard. -->
-    <script src="app.js?v=3"></script>
+    <!-- JavaScript will read JSON files and update the dashboard.
+    <script src="app.js?v=3"></script> -->
+
+    <!-- This loads the JavaScript file using Flask static path. -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 
     <!-- Offline -> vendor/chart.umd.min.js -->
     <!-- <script src="vendor/chart.umd.min.js"></script> -->
