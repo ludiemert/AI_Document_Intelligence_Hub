@@ -683,3 +683,19 @@ HTML + JS chama API Flask
 /api/summary
 /api/risk-alerts
 ______________________________
+
+app.py  -> backend Flask, roda no Python
+app.js  -> frontend JavaScript, roda no navegador
+
+app.py = servidor
+app.js = interação da página
+
+Python / Flask
+app.py
+↓
+manda index.html para o navegador
+↓
+index.html carrega styles.css e app.js
+↓
+app.js chama a API Flask e atualiza dashboard
+_____________________
