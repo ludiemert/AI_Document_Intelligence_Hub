@@ -716,3 +716,15 @@ Flask returns JSON
 ↓
 frontend updates dashboard
 ________________
+Agora o fluxo correto é:
+frontend/app.js
+↓
+GET /api/invoices
+↓
+Flask app.py
+↓
+reports/invoice_results.json
+↓
+dashboard
+______________________________
+
