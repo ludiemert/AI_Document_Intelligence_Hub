@@ -758,3 +758,11 @@ _______________________
 Antes: localhost:8000/frontend/ -> front estático
 Agora: 127.0.0.1:5000 -> Flask + API + dashboard
 __________________
+favicon.svg
+
+A = AI
+azul escuro = enterprise / tech
+verde = data / intelligence
+amarelo = alert / risk
+
+_____________________________

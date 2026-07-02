@@ -13,8 +13,13 @@
     <!-- This connects the CSS file to this HTML page.
     <link rel="stylesheet" href="styles.css"> -->
 
+    <!-- This adds the browser tab icon. -->
+    <!-- The favicon helps the project look professional. -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
     <!-- This loads the CSS file using Flask static path. -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
     <!-- This is the main page container. -->
