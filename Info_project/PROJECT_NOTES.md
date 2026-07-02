@@ -728,3 +728,33 @@ reports/invoice_results.json
 dashboard
 ______________________________
 
+o endereço principal passa a ser:
+http://127.0.0.1:5000/
+Esse é o endereço do Flask backend.
+O antigo:
+http://localhost:8000/frontend/
+era do servidor simples do Python:
+python -m http.server 8000
+
+A lógica nova é:
+http://127.0.0.1:5000/
+↓
+Flask abre o dashboard
+↓
+Flask entrega CSS e JS
+↓
+app.js chama /api/invoices
+↓
+Flask entrega os dados
+______________
+
+para rodar o projeto:
+python app.py
+E abrir:
+http://127.0.0.1:5000/
+
+_______________________
+
+Antes: localhost:8000/frontend/ -> front estático
+Agora: 127.0.0.1:5000 -> Flask + API + dashboard
+__________________
