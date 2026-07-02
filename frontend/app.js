@@ -352,7 +352,9 @@ function updateText(elementId, value) {
 // This JSON is created by Python.
 async function loadInvoiceResults() {
   // This reads the detailed invoice JSON file.
-  const response = await fetch("../reports/invoice_results.json");
+  //const response = await fetch("../reports/invoice_results.json");
+  // This reads invoice data from the Flask API.
+  const response = await fetch("/api/invoices");
 
   // This converts JSON into JavaScript data.
   allInvoices = await response.json();
