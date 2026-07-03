@@ -766,3 +766,19 @@ verde = data / intelligence
 amarelo = alert / risk
 
 _____________________________
+Miniobjetivo:
+Clicar em Top Risk Invoices
+abrir página Flask com detalhes da invoice
+
+Esse passo é bem alinhado com mercado, porque ensina:
+Flask routes
+dynamic URL
+backend data lookup
+template rendering
+frontend-backend navigation
+
+Em inglês A2:
+The dashboard shows many invoices.
+The detail page shows one invoice.
+Flask finds the invoice by invoice number.
+_______________________________
