@@ -782,3 +782,7 @@ The dashboard shows many invoices.
 The detail page shows one invoice.
 Flask finds the invoice by invoice number.
 _______________________________
+1. app.py -> criar rota /invoice/<invoice_number>
+2. frontend/invoice_detail.html -> criar página de detalhe
+3. app.js -> trocar clique para abrir rota Flask
+_________________

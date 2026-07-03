@@ -45,6 +45,33 @@ def get_invoices():
     return jsonify(invoices)
 
 
+@app.route("/invoice/<invoice_number>")
+def invoice_detail(invoice_number):
+    """Show one invoice detail page."""
+    # This is the invoice JSON file path.
+    file_path = REPORTS_FOLDER / "invoice_results.json"
+
+    # This opens the JSON file created by Python.
+    with open(file_path, mode="r", encoding="utf-8") as json_file:
+        invoices = json.load(json_file)
+
+    # This finds one invoice by invoice number.
+    selected_invoice = None
+
+    # This checks each invoice.
+    for invoice in invoices:
+        if invoice["invoice_number"] == invoice_number:
+            selected_invoice = invoice
+            break
+
+    # This shows an error if the invoice was not found.
+    if selected_invoice is None:
+        return "Invoice not found", 404
+
+    # This sends one invoice to the detail page.
+    return render_template("invoice_detail.html", invoice=selected_invoice)
+
+
 # This starts the Flask app.
 # debug=True helps us see errors while learning.
 if __name__ == "__main__":
