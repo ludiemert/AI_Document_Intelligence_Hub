@@ -990,8 +990,11 @@ function updateTopRiskInvoices(invoices) {
     `;
 
     // This opens invoice details when the user clicks the item.
+    //item.addEventListener("click", () => {openInvoiceDetails(invoice);});
+
+    // This opens the Flask invoice detail page.
     item.addEventListener("click", () => {
-      openInvoiceDetails(invoice);
+      window.location.href = `/invoice/${invoice.invoice_number}`;
     });
 
     // This adds the item to the page.
