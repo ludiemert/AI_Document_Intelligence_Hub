@@ -655,6 +655,126 @@ tr:hover {
     transition: 0.2s ease;
 }
 
+/* This styles the invoice detail page background. */
+.detail-body {
+    background: #f8fafc;
+    color: #0f172a;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* This centers the invoice detail content. */
+.invoice-detail-page {
+    margin: 0 auto;
+    max-width: 920px;
+    padding: 40px 20px;
+}
+
+/* This styles the back link. */
+.back-link {
+    color: #0f766e;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+/* This styles the main invoice detail card. */
+.invoice-detail-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    padding: 28px;
+}
+
+/* This organizes the top area. */
+.detail-header {
+    align-items: flex-start;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 22px;
+}
+
+/* This is a small label above the title. */
+.detail-eyebrow {
+    color: #0f766e;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+}
+
+/* This styles the invoice title. */
+.detail-header h1 {
+    color: #0f172a;
+    font-size: 34px;
+    margin: 0;
+}
+
+/* This styles the supplier name. */
+.detail-subtitle {
+    color: #64748b;
+    font-size: 15px;
+    margin: 8px 0 0;
+}
+
+/* This creates the detail grid. */
+.detail-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 24px;
+}
+
+/* This styles each detail field. */
+.detail-item {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+/* This makes one detail field use the full width. */
+.detail-item-wide {
+    grid-column: 1 / -1;
+}
+
+/* This styles field labels. */
+.detail-label {
+    color: #64748b;
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* This styles field values. */
+.detail-item strong {
+    color: #111827;
+    font-size: 15px;
+}
+
+/* This improves the detail page on small screens. */
+@media (max-width: 700px) {
+    .detail-header {
+        flex-direction: column;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-header h1 {
+        font-size: 28px;
+    }
+}
+
 /* This makes the dashboard work on mobile phones. */
 @media (max-width: 560px) {
     .dashboard {

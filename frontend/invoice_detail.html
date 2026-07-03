@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- This sets the text format for the page. -->
+    <meta charset="UTF-8">
+
+    <!-- This makes the page responsive. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- This shows the invoice number in the browser tab. -->
+    <title>{{ invoice.invoice_number }}</title>
+
+    <!-- This adds the browser tab icon. -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <!-- This loads the main CSS file. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="detail-body">
+    <main class="invoice-detail-page">
+        <!-- This link returns to the dashboard. -->
+        <a class="back-link" href="/">Back to dashboard</a>
+
+        <section class="invoice-detail-card">
+            <!-- This shows the invoice number. -->
+            <div class="detail-header">
+                <div>
+                    <p class="detail-eyebrow">Invoice Detail</p>
+                    <h1>{{ invoice.invoice_number }}</h1>
+                    <p class="detail-subtitle">{{ invoice.supplier_name }}</p>
+                </div>
+
+                <!-- This shows the invoice status. -->
+                <span class="status-badge {{ invoice.status }}">
+                    {{ invoice.status }}
+                </span>
+            </div>
+
+            <section class="detail-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Invoice Date</span>
+                    <strong>{{ invoice.invoice_date }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Due Date</span>
+                    <strong>{{ invoice.due_date }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Amount</span>
+                    <strong>{{ invoice.total_amount }} {{ invoice.currency }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">VAT Number</span>
+                    <strong>{{ invoice.vat_number }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Risk Score</span>
+                    <strong>{{ invoice.risk_score }}</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Reason</span>
+                    <strong>{{ invoice.reasons }}</strong>
+                </div>
+
+                <div class="detail-item detail-item-wide">
+                    <span class="detail-label">Source File</span>
+                    <strong>{{ invoice.source_file }}</strong>
+                </div>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
