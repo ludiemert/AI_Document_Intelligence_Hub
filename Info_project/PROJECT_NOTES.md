@@ -818,3 +818,9 @@ load all invoices
 find one invoice by invoice number
 
 ______________________________________
+
+um importador:
+reports/invoice_results.json
+↓
+SQLite data/invoices.db
+______________________________________________
