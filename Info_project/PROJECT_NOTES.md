@@ -840,3 +840,26 @@ Flask API -> JSON
 Agora:
 Flask API -> SQLite
 ______________________________________________
+Dashboard -> visual
+SQLite -> banco
+SQL query -> análise
+_______________________________________________
+
+agora o projeto tem:
+dados processados
+banco SQLite
+consulta SQL
+dashboard Flask
+API
+____________________________________________________
+
+Start projeto
+
+PS C:\Users\user\Downloads\AI_Document_Intelligence_Hub> python app.py
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+
+http://127.0.0.1:5000/
