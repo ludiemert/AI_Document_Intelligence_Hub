@@ -760,6 +760,25 @@ tr:hover {
     font-size: 15px;
 }
 
+/* This styles the back button on the invoice detail page. */
+.back-button {
+    align-items: center;
+    background: #0f766e;
+    border-radius: 8px;
+    color: #ffffff;
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+
+/* This changes the button color when the mouse is over it. */
+.back-button:hover {
+    background: #115e59;
+}
+
 /* This improves the detail page on small screens. */
 @media (max-width: 700px) {
     .detail-header {
