@@ -786,3 +786,10 @@ _______________________________
 2. frontend/invoice_detail.html -> criar página de detalhe
 3. app.js -> trocar clique para abrir rota Flask
 _________________
+
+services/invoice_repository.py
+Esse arquivo será responsável por:
+load all invoices
+find one invoice by invoice number
+
+______________________________________
