@@ -824,3 +824,19 @@ reports/invoice_results.json
 ↓
 SQLite data/invoices.db
 ______________________________________________
+
+JSON = arquivo de dados
+SQLite = banco de dados
+Tabela invoices = planilha dentro do banco
+Linha = uma invoice
+Coluna = um campo da invoice
+
+invoice_number | supplier_name | total_amount | status       | risk_score
+INV-2026-001   | ABC Logistics | 1250.00      | needs_review | 30
+
+Antes:
+Flask API -> JSON
+
+Agora:
+Flask API -> SQLite
+______________________________________________
