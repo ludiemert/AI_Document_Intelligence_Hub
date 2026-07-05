@@ -10,6 +10,10 @@ import json
 # Path helps us work with files and folders.
 from pathlib import Path
 
+# This imports invoice data functions.
+# The repository reads invoice data for Flask.
+from services.invoice_repository import find_invoice_by_number, load_invoices
+
 # This creates the Flask app.
 # template_folder tells Flask where the HTML files are.
 # static_folder tells Flask where CSS and JS files are.
@@ -34,12 +38,8 @@ def dashboard():
 @app.route("/api/invoices")
 def get_invoices():
     """Return invoice data as JSON."""
-    # This is the invoice JSON file path.
-    file_path = REPORTS_FOLDER / "invoice_results.json"
-
-    # This opens the JSON file created by Python.
-    with open(file_path, mode="r", encoding="utf-8") as json_file:
-        invoices = json.load(json_file)
+    # This loads invoices from the repository.
+    invoices = load_invoices()
 
     # This sends invoice data to the frontend.
     return jsonify(invoices)
@@ -48,21 +48,8 @@ def get_invoices():
 @app.route("/invoice/<invoice_number>")
 def invoice_detail(invoice_number):
     """Show one invoice detail page."""
-    # This is the invoice JSON file path.
-    file_path = REPORTS_FOLDER / "invoice_results.json"
-
-    # This opens the JSON file created by Python.
-    with open(file_path, mode="r", encoding="utf-8") as json_file:
-        invoices = json.load(json_file)
-
     # This finds one invoice by invoice number.
-    selected_invoice = None
-
-    # This checks each invoice.
-    for invoice in invoices:
-        if invoice["invoice_number"] == invoice_number:
-            selected_invoice = invoice
-            break
+    selected_invoice = find_invoice_by_number(invoice_number)
 
     # This shows an error if the invoice was not found.
     if selected_invoice is None:

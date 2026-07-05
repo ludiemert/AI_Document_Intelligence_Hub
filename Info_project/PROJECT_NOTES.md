@@ -2,6 +2,31 @@
 
 Projeto de IA + ML + automacao + dados para processar documentos empresariais, comecando por invoices.
 
+______________________________________________________________________________
+
+O fluxo profissional futuro será:
+Upload no navegador
+↓
+Flask recebe arquivo
+↓
+OCR lê o PDF/imagem
+↓
+Python extrai campos
+↓
+Python valida risco
+↓
+Salva no banco de dados
+↓
+Dashboard atualiza
+
+_____________________________________________
+
+Em empresa real seria assim:
+Original documents folder
+Database
+API
+Dashboard
+_________________________________________________
 ## Objetivo Do Projeto
 
 Criar um sistema que le documentos, extrai dados, valida informacoes, calcula risco, salva resultados e gera relatorios de negocio.
