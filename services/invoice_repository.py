@@ -1,42 +1,96 @@
 # This file reads invoice data for the Flask app.
-# Later, this file can read from SQLite instead of JSON.
+# Now it reads from SQLite instead of JSON.
 
-# This imports json from Python.
-# We use json to read invoice data.
-import json
+# This imports the database connection function.
+# We use it to read data from SQLite.
+from services.database import get_connection
 
-# This imports Path from Python.
-# Path helps us work with files and folders.
-from pathlib import Path
 
-# This is the reports folder path.
-# The invoice JSON file is inside this folder.
-REPORTS_FOLDER = Path("reports")
+def convert_row_to_dict(row):
+    """Convert SQLite row to dictionary."""
+    # This converts one SQLite row into a normal Python dictionary.
+    return dict(row)
 
 
 def load_invoices():
-    """Load all invoices from JSON."""
-    # This is the invoice JSON file path.
-    file_path = REPORTS_FOLDER / "invoice_results.json"
+    """Load all invoices from SQLite."""
+    # This opens the database connection.
+    connection = get_connection()
 
-    # This opens the JSON file.
-    with open(file_path, mode="r", encoding="utf-8") as json_file:
-        invoices = json.load(json_file)
+    # This creates a cursor to run SQL commands.
+    cursor = connection.cursor()
 
-    # This returns all invoices.
+    # This selects all invoices from the database.
+    cursor.execute(
+        """
+        SELECT
+            source_file,
+            invoice_number,
+            supplier_name,
+            invoice_date,
+            due_date,
+            total_amount,
+            currency,
+            vat_number,
+            status,
+            risk_score,
+            reasons
+        FROM invoices
+        ORDER BY invoice_date ASC
+        """
+    )
+
+    # This gets all rows from the database.
+    rows = cursor.fetchall()
+
+    # This closes the database connection.
+    connection.close()
+
+    # This converts rows into dictionaries.
+    invoices = [convert_row_to_dict(row) for row in rows]
+
+    # This returns invoice data.
     return invoices
 
 
 def find_invoice_by_number(invoice_number):
     """Find one invoice by invoice number."""
-    # This loads all invoices.
-    invoices = load_invoices()
+    # This opens the database connection.
+    connection = get_connection()
 
-    # This checks each invoice.
-    for invoice in invoices:
-        # This compares the invoice number.
-        if invoice["invoice_number"] == invoice_number:
-            return invoice
+    # This creates a cursor to run SQL commands.
+    cursor = connection.cursor()
 
-    # This returns nothing if invoice was not found.
-    return None
+    # This selects one invoice by invoice number.
+    cursor.execute(
+        """
+        SELECT
+            source_file,
+            invoice_number,
+            supplier_name,
+            invoice_date,
+            due_date,
+            total_amount,
+            currency,
+            vat_number,
+            status,
+            risk_score,
+            reasons
+        FROM invoices
+        WHERE invoice_number = ?
+        """,
+        (invoice_number,),
+    )
+
+    # This gets one row from the database.
+    row = cursor.fetchone()
+
+    # This closes the database connection.
+    connection.close()
+
+    # This checks if no invoice was found.
+    if row is None:
+        return None
+
+    # This converts the row into a dictionary.
+    return convert_row_to_dict(row)
