@@ -21,8 +21,7 @@ def load_invoices():
     cursor = connection.cursor()
 
     # This selects all invoices from the database.
-    cursor.execute(
-        """
+    cursor.execute("""
         SELECT
             source_file,
             invoice_number,
@@ -37,8 +36,7 @@ def load_invoices():
             reasons
         FROM invoices
         ORDER BY invoice_date ASC
-        """
-    )
+        """)
 
     # This gets all rows from the database.
     rows = cursor.fetchall()
@@ -94,3 +92,51 @@ def find_invoice_by_number(invoice_number):
 
     # This converts the row into a dictionary.
     return convert_row_to_dict(row)
+
+
+def save_invoice(invoice):
+    """Save one invoice into SQLite."""
+    # This opens the database connection.
+    connection = get_connection()
+
+    # This creates a cursor to run SQL commands.
+    cursor = connection.cursor()
+
+    # This inserts or updates one invoice.
+    cursor.execute(
+        """
+        INSERT OR REPLACE INTO invoices (
+            source_file,
+            invoice_number,
+            supplier_name,
+            invoice_date,
+            due_date,
+            total_amount,
+            currency,
+            vat_number,
+            status,
+            risk_score,
+            reasons
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            invoice.get("source_file"),
+            invoice.get("invoice_number"),
+            invoice.get("supplier_name"),
+            invoice.get("invoice_date"),
+            invoice.get("due_date"),
+            float(invoice.get("total_amount", 0)),
+            invoice.get("currency"),
+            invoice.get("vat_number"),
+            invoice.get("status"),
+            int(invoice.get("risk_score", 0)),
+            invoice.get("reasons"),
+        ),
+    )
+
+    # This saves the database change.
+    connection.commit()
+
+    # This closes the database connection.
+    connection.close()
