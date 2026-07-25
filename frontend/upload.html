@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- This sets the text format for the page. -->
+    <meta charset="UTF-8">
+
+    <!-- This makes the page responsive. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Invoice</title>
+
+    <!-- This adds the browser tab icon. -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <!-- This loads the main CSS file. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="detail-body">
+    <main class="invoice-detail-page">
+        <!-- This button returns to the dashboard. -->
+        <a class="back-button" href="/">Back to dashboard</a>
+
+        <section class="invoice-detail-card">
+            <div class="detail-header">
+                <div>
+                    <p class="detail-eyebrow">Invoice Upload</p>
+                    <h1>Upload Invoice</h1>
+                    <p class="detail-subtitle">Add a new invoice document to the system.</p>
+                </div>
+            </div>
+
+            <!-- This form will upload invoice files later. -->
+            <form class="upload-form">
+                <label class="upload-label" for="invoice-file">
+                    Select invoice file
+                </label>
+
+                <!-- This input accepts text files for the first version. -->
+                <input id="invoice-file" name="invoice_file" type="file" accept=".txt">
+
+                <!-- This button will process the invoice in the next step. -->
+                <button class="upload-button" type="button">
+                    Process Invoice
+                </button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

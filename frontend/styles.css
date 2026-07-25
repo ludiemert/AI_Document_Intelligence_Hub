@@ -779,6 +779,64 @@ tr:hover {
     background: #115e59;
 }
 
+/* This styles the upload link on the dashboard. */
+.upload-link {
+    align-items: center;
+    background: #0f766e;
+    border-radius: 8px;
+    color: #ffffff;
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+
+/* This changes the upload link color on hover. */
+.upload-link:hover {
+    background: #115e59;
+}
+
+/* This styles the upload form. */
+.upload-form {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+/* This styles the upload label. */
+.upload-label {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* This styles the file input. */
+.upload-form input[type="file"] {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+/* This styles the upload button. */
+.upload-button {
+    background: #0f172a;
+    border: 0;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 14px 18px;
+}
+
+/* This changes the upload button color on hover. */
+.upload-button:hover {
+    background: #1e293b;
+}
+
 /* This improves the detail page on small screens. */
 @media (max-width: 700px) {
     .detail-header {

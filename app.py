@@ -34,6 +34,11 @@ def dashboard():
     # This sends index.html to the browser.
     return render_template("index.html")
 
+@app.route("/upload")
+def upload_invoice_page():
+    """Show the invoice upload page."""
+    # This sends upload.html to the browser.
+    return render_template("upload.html")
 
 @app.route("/api/invoices")
 def get_invoices():
