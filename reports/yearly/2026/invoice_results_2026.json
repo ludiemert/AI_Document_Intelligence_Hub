@@ -35,9 +35,9 @@
         "due_date":"2026-06-30",
         "total_amount":8900.0,
         "currency":"EUR",
-        "status":"needs_review",
-        "risk_score":25,
-        "reasons":"High invoice amount",
+        "status":"high_risk",
+        "risk_score":55,
+        "reasons":"High invoice amount; Due date is overdue",
         "invoice_year":2026,
         "invoice_month":6
     }

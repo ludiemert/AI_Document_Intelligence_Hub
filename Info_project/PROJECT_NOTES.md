@@ -865,3 +865,34 @@ Press CTRL+C to quit
 http://127.0.0.1:5000/
 
 _____________________________
+upload .txt
+↓
+salva em uploads/
+↓
+processa texto
+↓
+salva invoice no SQLite
+↓
+dashboard lê SQLite
+Ou seja: depois que temos SQLite, a organização por ano/mês não precisa mais controlar o sistema. O banco controla os dados.
+
+__________________________________
+SQLite = fonte principal dos dados
+uploads/year/month = arquivo original guardado
+_____________________
+
+Fazer o upload salvar o arquivo na pasta do ano/mês automaticamente, usando a data da invoice.
+Fluxo melhor:
+Flask recebe invoice_006.txt
+↓
+lê texto
+↓
+extrai invoice_date
+↓
+descobre year/month
+↓
+salva arquivo em uploads/2027/01/
+↓
+processa e salva no SQLite
+
+_____________________________________________________

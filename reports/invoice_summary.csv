@@ -1,2 +1,2 @@
 total_invoices;approved;needs_review;high_risk;average_risk_score;total_invoice_amount;needs_review_percentage;recommendation;yearly_recommendation;currency
-5;1;4;0;22.0;22530.0;80.0;More than 50% of invoices need review. The finance team should check invoice quality and supplier deadlines.;2026 has the highest average risk score (28.33). Review invoices from this year first.;EUR
+5;1;3;1;28.0;22530.0;60.0;More than 50% of invoices need review. The finance team should check invoice quality and supplier deadlines.;2026 has the highest average risk score (38.33). Review invoices from this year first.;EUR

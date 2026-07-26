@@ -31,13 +31,13 @@
         "due_date": "2026-06-30",
         "total_amount": 8900.0,
         "currency": "EUR",
-        "status": "needs_review",
-        "risk_score": 25,
-        "reasons": "High invoice amount"
+        "status": "high_risk",
+        "risk_score": 55,
+        "reasons": "High invoice amount; Due date is overdue"
     },
     {
         "source_file": "sample_documents\\2027\\01\\invoice_004.txt",
-        "invoice_number": "INV-2027-001",
+        "invoice_number": "INV-2027-004",
         "supplier_name": "Future Tech Supplies",
         "invoice_date": "2027-01-15",
         "due_date": "2027-02-15",
@@ -49,7 +49,7 @@
     },
     {
         "source_file": "sample_documents\\2027\\01\\invoice_005.txt",
-        "invoice_number": "INV-2027-002",
+        "invoice_number": "INV-2027-005",
         "supplier_name": "Future Tech Supplies",
         "invoice_date": "2027-01-18",
         "due_date": "2027-02-19",

@@ -1,12 +1,12 @@
 {
     "total_invoices": 5,
     "approved": 1,
-    "needs_review": 4,
-    "high_risk": 0,
-    "average_risk_score": 22.0,
+    "needs_review": 3,
+    "high_risk": 1,
+    "average_risk_score": 28.0,
     "total_invoice_amount": 22530.0,
-    "needs_review_percentage": 80.0,
+    "needs_review_percentage": 60.0,
     "recommendation": "More than 50% of invoices need review. The finance team should check invoice quality and supplier deadlines.",
-    "yearly_recommendation": "2026 has the highest average risk score (28.33). Review invoices from this year first.",
+    "yearly_recommendation": "2026 has the highest average risk score (38.33). Review invoices from this year first.",
     "currency": "EUR"
 }
