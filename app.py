@@ -47,10 +47,34 @@ def dashboard():
     return render_template("index.html")
 
 
-@app.route("/upload")
+@app.route("/upload", methods=["GET", "POST"])
 def upload_invoice_page():
-    """Show the invoice upload page."""
-    # This sends upload.html to the browser.
+    """Show upload page and process uploaded invoice."""
+    # This checks if the user submitted the form.
+    if request.method == "POST":
+        # This gets the uploaded file from the form.
+        uploaded_file = request.files.get("invoice_file")
+
+        # This checks if no file was uploaded.
+        if uploaded_file is None or uploaded_file.filename == "":
+            return "No file uploaded", 400
+
+        # This creates the file path inside uploads folder.
+        file_path = UPLOADS_FOLDER / uploaded_file.filename
+
+        # This saves the uploaded file.
+        uploaded_file.save(file_path)
+
+        # This reads the uploaded text file.
+        invoice_text = file_path.read_text(encoding="utf-8")
+
+        # This processes the invoice and saves it into SQLite.
+        process_invoice_text(invoice_text, str(file_path))
+
+        # This redirects the user back to the dashboard.
+        return redirect(url_for("dashboard"))
+
+    # This shows the upload page.
     return render_template("upload.html")
 
 

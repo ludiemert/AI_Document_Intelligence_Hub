@@ -30,8 +30,8 @@
                 </div>
             </div>
 
-            <!-- This form will upload invoice files later. -->
-            <form class="upload-form">
+            <!-- This form sends the invoice file to Flask. -->
+            <form class="upload-form" method="POST" enctype="multipart/form-data">
                 <label class="upload-label" for="invoice-file">
                     Select invoice file
                 </label>
@@ -40,7 +40,7 @@
                 <input id="invoice-file" name="invoice_file" type="file" accept=".txt">
 
                 <!-- This button will process the invoice in the next step. -->
-                <button class="upload-button" type="button">
+                <button class="upload-button" type="submit">
                     Process Invoice
                 </button>
             </form>
