@@ -1,6 +1,7 @@
 # This imports Flask tools.
 # Flask creates the web backend and API.
-from flask import Flask, jsonify, render_template
+# Flask creates pages, APIs, redirects, and receives files.
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 # This imports json from Python.
 # We use json to read invoice data.
@@ -13,6 +14,10 @@ from pathlib import Path
 # This imports invoice data functions.
 # The repository reads invoice data for Flask.
 from services.invoice_repository import find_invoice_by_number, load_invoices
+
+# This imports the invoice processor.
+# It processes uploaded invoice text.
+from services.invoice_processor import process_invoice_text
 
 # This creates the Flask app.
 # template_folder tells Flask where the HTML files are.
@@ -27,6 +32,13 @@ app = Flask(
 # Flask will read JSON files from this folder.
 REPORTS_FOLDER = Path("reports")
 
+# This is the uploads folder path.
+# Flask saves uploaded files in this folder.
+UPLOADS_FOLDER = Path("uploads")
+
+# This creates the uploads folder if it does not exist.
+UPLOADS_FOLDER.mkdir(exist_ok=True)
+
 
 @app.route("/")
 def dashboard():
@@ -34,11 +46,13 @@ def dashboard():
     # This sends index.html to the browser.
     return render_template("index.html")
 
+
 @app.route("/upload")
 def upload_invoice_page():
     """Show the invoice upload page."""
     # This sends upload.html to the browser.
     return render_template("upload.html")
+
 
 @app.route("/api/invoices")
 def get_invoices():
