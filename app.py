@@ -1,23 +1,22 @@
 # This imports Flask tools.
-# Flask creates the web backend and API.
 # Flask creates pages, APIs, redirects, and receives files.
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 
-# This imports json from Python.
-# We use json to read invoice data.
-import json
-
 # This imports Path from Python.
-# Path helps us work with files and folders.
+# Path helps us work with folders and files.
 from pathlib import Path
 
-# This imports invoice data functions.
-# The repository reads invoice data for Flask.
-from services.invoice_repository import find_invoice_by_number, load_invoices
+# This imports the extractor function.
+# We use it to get invoice date before saving the file.
+from services.extractor import extract_invoice_fields
 
 # This imports the invoice processor.
 # It processes uploaded invoice text.
 from services.invoice_processor import process_invoice_text
+
+# This imports invoice data functions.
+# The repository reads invoice data for Flask.
+from services.invoice_repository import find_invoice_by_number, load_invoices
 
 # This creates the Flask app.
 # template_folder tells Flask where the HTML files are.
@@ -59,14 +58,30 @@ def upload_invoice_page():
         if uploaded_file is None or uploaded_file.filename == "":
             return "No file uploaded", 400
 
-        # This creates the file path inside uploads folder.
-        file_path = UPLOADS_FOLDER / uploaded_file.filename
+        # This reads the uploaded file text.
+        invoice_text = uploaded_file.read().decode("utf-8")
 
-        # This saves the uploaded file.
-        uploaded_file.save(file_path)
+        # This extracts fields before saving the file.
+        invoice_fields = extract_invoice_fields(invoice_text)
 
-        # This reads the uploaded text file.
-        invoice_text = file_path.read_text(encoding="utf-8")
+        # This gets invoice date from extracted fields.
+        invoice_date = invoice_fields.get("invoice_date")
+
+        # This gets year and month from invoice date.
+        invoice_year = invoice_date[:4]
+        invoice_month = invoice_date[5:7]
+
+        # This creates the upload folder by year and month.
+        target_folder = UPLOADS_FOLDER / invoice_year / invoice_month
+
+        # This creates the folder if it does not exist.
+        target_folder.mkdir(parents=True, exist_ok=True)
+
+        # This creates the final file path.
+        file_path = target_folder / uploaded_file.filename
+
+        # This saves the uploaded text into the final file.
+        file_path.write_text(invoice_text, encoding="utf-8")
 
         # This processes the invoice and saves it into SQLite.
         process_invoice_text(invoice_text, str(file_path))
