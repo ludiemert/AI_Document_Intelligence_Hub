@@ -896,3 +896,8 @@ salva arquivo em uploads/2027/01/
 processa e salva no SQLite
 
 _____________________________________________________
+
+fluxo profissional fica:
+Upload .txt -> Flask -> Processor -> SQLite -> Dashboard
+
+___________________
