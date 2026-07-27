@@ -67,6 +67,11 @@ def upload_invoice_page():
         # This gets invoice date from extracted fields.
         invoice_date = invoice_fields.get("invoice_date")
 
+        # This checks if invoice date was not found.
+        # The app needs the date to create year and month folders.
+        if not invoice_date:
+            return "Invoice date not found in the uploaded file", 400
+
         # This gets year and month from invoice date.
         invoice_year = invoice_date[:4]
         invoice_month = invoice_date[5:7]

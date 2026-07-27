@@ -1,0 +1,6 @@
+Invoice Number: INV-2027-007
+Supplier: Future Tech Supplies
+Invoice Date: 2027-03-19
+Due Date: 2027-04-20
+Total: 1600.00 EUR
+VAT Number: IE20273400222E
