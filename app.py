@@ -1,6 +1,6 @@
 # This imports Flask tools.
-# Flask creates pages, APIs, redirects, and receives files.
-from flask import Flask, jsonify, redirect, render_template, request, url_for
+# Flask creates pages, APIs, redirects, messages, and receives files.
+from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 
 # This imports Path from Python.
 # Path helps us work with folders and files.
@@ -26,6 +26,10 @@ app = Flask(
     template_folder="frontend",
     static_folder="frontend",
 )
+
+# This secret key lets Flask show temporary messages.
+# We use this for success and error messages.
+app.secret_key = "dev-secret-key"
 
 # This is the reports folder path.
 # Flask will read JSON files from this folder.
@@ -55,8 +59,10 @@ def upload_invoice_page():
         uploaded_file = request.files.get("invoice_file")
 
         # This checks if no file was uploaded.
+        # If there is no file, Flask shows an error message.
         if uploaded_file is None or uploaded_file.filename == "":
-            return "No file uploaded", 400
+            flash("No file uploaded. Please choose an invoice file.", "error")
+            return redirect(url_for("upload_invoice_page"))
 
         # This reads the uploaded file text.
         invoice_text = uploaded_file.read().decode("utf-8")
@@ -70,7 +76,8 @@ def upload_invoice_page():
         # This checks if invoice date was not found.
         # The app needs the date to create year and month folders.
         if not invoice_date:
-            return "Invoice date not found in the uploaded file", 400
+            flash("Invoice date not found. Please check the file.", "error")
+            return redirect(url_for("upload_invoice_page"))
 
         # This gets year and month from invoice date.
         invoice_year = invoice_date[:4]
@@ -90,6 +97,12 @@ def upload_invoice_page():
 
         # This processes the invoice and saves it into SQLite.
         process_invoice_text(invoice_text, str(file_path))
+
+        # This shows a success message after processing.
+        flash(
+            f"Invoice processed successfully: {invoice_fields.get('invoice_number')}",
+            "success",
+        )
 
         # This redirects the user back to the dashboard.
         return redirect(url_for("dashboard"))
