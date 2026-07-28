@@ -837,6 +837,59 @@ tr:hover {
     background: #1e293b;
 }
 
+/* This styles the message background. */
+/* It puts the message in the center of the screen. */
+.message-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* This styles the message box. */
+.message-box {
+    width: min(520px, 90%);
+    padding: 28px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* This styles success messages. */
+.message-box.success {
+    border-top: 6px solid #16a34a;
+    color: #166534;
+}
+
+/* This styles error messages. */
+.message-box.error {
+    border-top: 6px solid #dc2626;
+    color: #991b1b;
+}
+
+/* This styles the OK button. */
+.message-box button {
+    margin-top: 20px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 8px;
+    background: #0f172a;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* This changes the button color on hover. */
+.message-box button:hover {
+    background: #0f766e;
+}
+
 /* This improves the detail page on small screens. */
 @media (max-width: 700px) {
     .detail-header {

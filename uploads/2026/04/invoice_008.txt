@@ -1,0 +1,6 @@
+Invoice Number: INV-2027-008
+Supplier: Northwind Office Supplies
+Invoice Date: 2026-04-22
+Due Date: 2026-05-24
+Total: 100.00 EUR
+VAT Number: IE2027340023422E

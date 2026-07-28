@@ -1235,3 +1235,13 @@ async function startDashboard() {
 
 // This starts the dashboard when the page opens.
 startDashboard();
+
+// This function closes the message box.
+// The user clicks OK and the message disappears.
+function closeMessage() {
+    const messageOverlay = document.getElementById("message-overlay");
+
+    if (messageOverlay) {
+        messageOverlay.style.display = "none";
+    }
+}

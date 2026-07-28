@@ -57,6 +57,23 @@
             <a class="upload-link" href="/upload">Upload Invoice</a>
         </section>
 
+        <!-- This section shows Flask messages. -->
+        <!-- Flask messages tell the user what happened. -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <section class="message-overlay" id="message-overlay">
+                    {% for category, message in messages %}
+                        <div class="message-box {{ category }}">
+                            <p>{{ message }}</p>
+
+                            <!-- This button closes the message. -->
+                            <button type="button" onclick="closeMessage()">OK</button>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endwith %}
+
         <!-- This section has real data filters. -->
         <!-- JavaScript fills these selects using invoice_results.json. -->
         <section class="filter-controls">

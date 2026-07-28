@@ -70,6 +70,27 @@ def upload_invoice_page():
         # This extracts fields before saving the file.
         invoice_fields = extract_invoice_fields(invoice_text)
 
+        # This list has fields that the invoice must have.
+        required_upload_fields = [
+            "invoice_number",
+            "supplier_name",
+            "invoice_date",
+            "total_amount",
+        ]
+
+        # This finds missing fields in the uploaded invoice.
+        missing_upload_fields = [
+            field for field in required_upload_fields if not invoice_fields.get(field)
+        ]
+
+        # This stops the upload if important fields are missing.
+        if missing_upload_fields:
+            flash(
+                f"Invalid invoice layout. Missing fields: {', '.join(missing_upload_fields)}",
+                "error",
+            )
+            return redirect(url_for("upload_invoice_page"))
+
         # This gets invoice date from extracted fields.
         invoice_date = invoice_fields.get("invoice_date")
 
