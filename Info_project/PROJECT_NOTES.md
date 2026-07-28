@@ -1,35 +1,14 @@
 # AI Document Intelligence Hub
 
-Projeto de IA + ML + automacao + dados para processar documentos empresariais, comecando por invoices.
+Projeto de IA + automação + dados para processar documentos empresariais, começando por invoices.
 
-______________________________________________________________________________
+Este projeto está sendo construído passo a passo para aprender como um sistema real pode evoluir de arquivos simples para uma aplicação web com banco de dados, dashboard, análise de risco e futuramente OCR e Machine Learning.
 
-O fluxo profissional futuro será:
-Upload no navegador
-↓
-Flask recebe arquivo
-↓
-OCR lê o PDF/imagem
-↓
-Python extrai campos
-↓
-Python valida risco
-↓
-Salva no banco de dados
-↓
-Dashboard atualiza
+---
 
-_____________________________________________
-
-Em empresa real seria assim:
-Original documents folder
-Database
-API
-Dashboard
-_________________________________________________
 ## Objetivo Do Projeto
 
-Criar um sistema que le documentos, extrai dados, valida informacoes, calcula risco, salva resultados e gera relatorios de negocio.
+Criar um sistema que lê documentos empresariais, extrai dados importantes, valida informações, calcula risco, salva os resultados e mostra tudo em um dashboard web.
 
 Fluxo futuro completo:
 
@@ -51,136 +30,547 @@ Pandas analyzes the saved data
 Flask shows dashboard and charts on a web page
 ```
 
+---
+
 ## Fluxo Atual Do Projeto
 
+Hoje o projeto já evoluiu para um fluxo mais profissional:
+
 ```text
-sample_documents/*.txt
+Upload .txt
+↓
+Flask receives the file
+↓
+Python reads invoice text
+↓
+Python extracts invoice fields
+↓
+Python validates invoice data
+↓
+Python calculates risk score
+↓
+Python saves data into SQLite
+↓
+Flask API sends data to frontend
+↓
+Dashboard updates automatically
+```
+
+Em inglês A2:
+
+```text
+The user uploads an invoice.
+Flask receives the file.
+Python processes the invoice.
+SQLite saves the data.
+The dashboard shows the result.
+```
+
+---
+
+## Fases Do Projeto
+
+### Fase 1: Python + TXT
+
+Começamos com invoices em formato `.txt`.
+
+O objetivo era entender a lógica principal:
+
+```text
+Raw invoice text
+↓
+Extract fields
+↓
+Validate data
+↓
+Create risk score
+↓
+Show result
+```
+
+### Fase 2: CSV + Pandas
+
+Depois salvamos os resultados em CSV.
+
+O CSV ajudou no aprendizado de:
+
+```text
+Data export
+Excel reports
+Pandas analysis
+Business metrics
+```
+
+Fluxo da fase:
+
+```text
+.txt invoices
 ↓
 invoice_analyzer.py
-↓
-services/
 ↓
 reports/invoice_results.csv
 ↓
 invoice_data_analysis.py
 ↓
-reports CSV + JSON + charts
+Pandas reports
 ```
 
-## Arquivos Python
+### Fase 3: JSON + Dashboard
+
+Depois criamos JSON para conectar os dados com o frontend.
+
+O JSON ajudou a preparar o projeto para web/API:
 
 ```text
-invoice_analyzer.py
+CSV / Pandas
+↓
+JSON files
+↓
+JavaScript reads data
+↓
+Dashboard shows metrics and charts
 ```
 
-Processa invoices, extrai campos, valida dados e cria `reports/invoice_results.csv`.
+### Fase 4: Flask API
+
+Depois criamos Flask para transformar o projeto em uma aplicação web real.
+
+Fluxo:
 
 ```text
-invoice_data_analysis.py
+Flask backend
+↓
+API route
+↓
+Frontend dashboard
 ```
 
-Le `invoice_results.csv`, analisa com Pandas, cria relatorios, JSON, graficos e recomendacoes.
-
-## Arquivos De Dados
+Rotas importantes:
 
 ```text
-reports/invoice_results.csv
+/              -> dashboard
+/api/invoices  -> invoice data as JSON
+/invoice/<id>  -> invoice detail page
+/upload        -> upload invoice page
 ```
 
-Dados detalhados de cada invoice.
+### Fase 5: SQLite
+
+Depois adicionamos SQLite como banco de dados.
+
+Agora o dashboard não depende mais diretamente dos CSVs.
+
+Fluxo atual:
 
 ```text
-reports/invoice_summary.csv
+SQLite database
+↓
+Flask API
+↓
+JavaScript frontend
+↓
+Dashboard
 ```
 
-Resumo geral do processamento.
+Em inglês A2:
 
 ```text
-reports/invoice_summary.json
+SQLite is the main database.
+The dashboard reads data from SQLite.
+CSV files are now reports.
 ```
 
-Resumo para futura API/web dashboard.
+### Fase 6: Upload Pelo Sistema Web
+
+Agora começamos a fazer upload de invoices pela própria aplicação.
+
+Fluxo:
 
 ```text
-reports/invoice_monthly_summary.csv
+Upload .txt
+↓
+Flask saves file
+↓
+Python processes invoice
+↓
+SQLite stores invoice
+↓
+Dashboard updates
 ```
 
-Resumo mensal.
+---
+
+## Estrutura De Pastas
 
 ```text
-reports/invoice_monthly_status_summary.csv
+AI_Document_Intelligence_Hub/
+├── app.py
+├── data/
+│   └── invoices.db
+├── frontend/
+│   ├── index.html
+│   ├── invoice_detail.html
+│   ├── upload.html
+│   ├── styles.css
+│   ├── app.js
+│   └── favicon.svg
+├── reports/
+│   ├── invoice_results.csv
+│   ├── invoice_results.json
+│   ├── invoice_summary.csv
+│   ├── invoice_summary.json
+│   ├── business_recommendations.json
+│   ├── invoice_monthly_summary.csv
+│   └── invoice_monthly_status_summary.csv
+├── sample_documents/
+├── services/
+└── uploads/
 ```
 
-Resumo mensal por status.
+---
 
-## Regra De Risco
+## Papel De Cada Pasta
+
+### `sample_documents/`
+
+Pasta usada no começo do projeto para guardar invoices de exemplo.
+
+```text
+sample_documents = old learning/test files
+```
+
+### `uploads/`
+
+Pasta usada pelo sistema web.
+
+Quando o usuário faz upload de uma invoice, o arquivo deve ser salvo aqui.
+
+```text
+uploads = files sent by the web app
+```
+
+No futuro, ela pode ficar organizada assim:
+
+```text
+uploads/
+└── 2027/
+    └── 02/
+        └── invoice_006.txt
+```
+
+### `reports/`
+
+Pasta de relatórios e exportações.
+
+Guarda arquivos CSV, JSON e imagens de gráficos.
+
+```text
+reports = exported reports
+```
+
+### `data/`
+
+Pasta do banco SQLite.
+
+```text
+data/invoices.db = main database
+```
+
+---
+
+## CSV, JSON, SQLite E Dashboard
+
+### CSV
+
+CSV foi usado para aprender exportação, Pandas e relatórios.
+
+Hoje o CSV continua útil para:
+
+```text
+Excel reports
+Pandas analysis
+BI exports
+Simple backup
+Business documentation
+```
+
+Mas o CSV não é mais a fonte principal do dashboard.
+
+### JSON
+
+JSON foi usado para conectar dados com frontend.
+
+Hoje o JSON ainda pode ser útil para:
+
+```text
+APIs
+Frontend data
+Reports
+External systems
+```
+
+### SQLite
+
+SQLite é agora a fonte principal dos dados do dashboard.
+
+```text
+SQLite = system memory
+CSV = exported report
+JSON = web/API format
+Dashboard = visual interface
+```
+
+### Dashboard
+
+O dashboard lê os dados pela API Flask.
+
+```text
+SQLite
+↓
+Flask API
+↓
+JavaScript
+↓
+Dashboard
+```
+
+---
+
+## Arquivos Python Principais
+
+### `app.py`
+
+Controla a aplicação Flask.
+
+Responsabilidades:
+
+```text
+show dashboard
+show upload page
+receive uploaded invoice
+return API data
+show invoice detail page
+```
+
+Em inglês A2:
+
+```text
+app.py controls the web app.
+It receives browser requests.
+It sends pages and data.
+```
+
+### `invoice_analyzer.py`
+
+Foi o primeiro controlador do projeto.
+
+Responsabilidades:
+
+```text
+read .txt invoices
+extract fields
+validate invoices
+create CSV report
+```
+
+Hoje ele continua importante para aprendizado e testes, mas o fluxo profissional está indo para Flask + SQLite.
+
+### `invoice_data_analysis.py`
+
+Analisa dados com Pandas e gera relatórios.
+
+Responsabilidades:
+
+```text
+read invoice results
+calculate metrics
+create monthly summary
+create yearly summary
+create recommendations
+create charts
+export reports
+```
+
+### `services/database.py`
+
+Cria conexão com SQLite e cria a tabela `invoices`.
+
+```text
+database.py manages the database structure.
+```
+
+### `services/database_importer.py`
+
+Importa dados antigos de JSON/CSV para SQLite.
+
+Foi importante na transição:
+
+```text
+old reports
+↓
+SQLite database
+```
+
+### `services/invoice_repository.py`
+
+Busca dados no SQLite para o Flask.
+
+Responsabilidades:
+
+```text
+load all invoices
+find one invoice by invoice number
+```
+
+### `services/invoice_processor.py`
+
+Processa uma invoice enviada pelo upload.
+
+Responsabilidades:
+
+```text
+receive invoice text
+extract fields
+validate invoice
+save invoice into SQLite
+```
+
+### `services/extractor.py`
+
+Extrai informações do texto da invoice.
+
+Exemplos de campos:
+
+```text
+invoice_number
+supplier_name
+invoice_date
+due_date
+total_amount
+currency
+vat_number
+```
+
+### `services/validator.py`
+
+Aplica regras de negócio e risco.
+
+Responsabilidades:
+
+```text
+check missing fields
+check overdue date
+check high amount
+calculate risk score
+define status
+```
+
+---
+
+## Regras De Risco
 
 ```text
 Missing field -> +15 risk points for each missing field
 High total amount above 5000 -> +25 risk points
+Due date overdue -> +30 risk points
+
 Risk 0 -> approved
 Risk 1 to 49 -> needs_review
 Risk 50 to 100 -> high_risk
 ```
 
+Em inglês A2:
+
+```text
+Risk score shows invoice risk.
+A low score is good.
+A high score needs review.
+```
+
+---
+
+## Status Da Invoice
+
+```text
+approved
+needs_review
+high_risk
+```
+
+Significado:
+
+```text
+approved -> invoice is OK
+needs_review -> finance team should check it
+high_risk -> invoice has serious risk
+```
+
+---
+
+## Dashboard Atual
+
+O dashboard mostra:
+
+```text
+Total Invoices
+Approved
+Needs Review
+High Risk
+Average Risk
+Total Amount
+Needs Review %
+Business Recommendation
+Yearly Recommendation
+Status Counts chart
+Risk Score by Invoice chart
+Yearly Invoice Amount chart
+Yearly Average Risk chart
+Risk Alerts
+Top Risk Invoices
+Invoice Details table
+```
+
+Também existe uma página de detalhe:
+
+```text
+/invoice/<invoice_number>
+```
+
+Exemplo:
+
+```text
+/invoice/INV-2026-001
+```
+
+---
+
 ## Conceitos Aprendidos
 
 ```text
-CSV is good for learning.
-SQLite is good for a small app.
-PostgreSQL is good for real companies.
-Data warehouse is good for big BI.
-Parquet is good for big data files.
+Python functions
+Flask routes
+HTML pages
+CSS styling
+JavaScript DOM
+Chart.js charts
+CSV files
+JSON files
+Pandas analysis
+SQLite database
+SQL queries
+Upload forms
+Business rules
+Risk score
+Dashboard metrics
+Project structure
+Services architecture
 ```
 
-## Funcoes E Responsabilidades
+---
 
-```text
-extract_invoice_fields() -> extracts invoice data
-validate_invoice() -> checks business rules
-show_result() -> shows one invoice result
-show_summary() -> shows final summary
-main() -> controls the workflow
-```
+## Conceitos De Mercado
 
-Em ingles A2:
-
-```text
-One function has one job.
-main() controls the program flow.
-Services store reusable functions.
-```
-
-## Estrutura Atual Com Services
-
-```text
-services/
-├── document_loader.py
-├── extractor.py
-├── validator.py
-├── reporter.py
-└── csv_exporter.py
-```
-
-```text
-invoice_analyzer.py -> controls the workflow
-services/ -> stores reusable functions
-```
-
-## Proxima Estrutura Para Analise
-
-```text
-services/
-├── analysis_loader.py
-├── analytics.py
-├── recommendations.py
-├── chart_builder.py
-└── report_exporter.py
-```
-
-## Mercado De TI
-
-Este projeto toca areas como:
+Este projeto toca áreas como:
 
 ```text
 Data Analyst
@@ -189,715 +579,65 @@ Junior Python Developer
 Business Intelligence
 AI/ML Future
 RPA / Operations Automation
+Backend with Flask
+Data Automation
 ```
 
-Frase para portfolio:
+Frase para portfólio:
 
 ```text
-Built an intelligent document automation system that processes invoices, detects missing fields and risk, generates monthly business reports, and provides data-driven recommendations.
+Built an intelligent document automation system that processes invoices, detects missing fields and risks, stores results in SQLite, and provides a Flask dashboard with business metrics, charts, alerts, and invoice detail pages.
 ```
 
-## Proximos Passos
+Versão A2:
 
 ```text
-1. Separar invoice_data_analysis.py em services
-2. Criar Flask backend
-3. Criar pagina web com dashboard
-4. Adicionar SQLite
-5. Adicionar upload de documentos
-6. Adicionar OCR
-7. Adicionar Machine Learning
+I built a document automation app.
+The app reads invoices.
+It extracts data.
+It checks risks.
+It saves data in SQLite.
+It shows a business dashboard.
 ```
-_____________________
-Path precisa ser importado antes de ser usado.
-Imports ficam no topo.
-Constantes vêm depois dos imports.
-Funções vêm depois.
-main() fica no final.
 
-Import first.
-Use after.
-The service loads the data.
-The main file controls the flow.
-___________________
-Metrics are numbers.
-Recommendations are advice.
-The app uses numbers to create advice.
-_____________
-services/summaries.py creates summary tables. Summary means short report.
-The summary file creates report tables.
-The main file calls the summary functions.
-____________
-O controlador é o arquivo que organiza o fluxo, mas não faz todo o trabalho sozinho.
+---
 
-Temos dois controladores principais:
+## Próximos Passos
 
-invoice_analyzer.py
-invoice_data_analysis.py
+```text
+1. Improve upload validation
+2. Save uploaded files by year and month
+3. Show success/error messages after upload
+4. Add export reports from SQLite
+5. Add PDF/image upload
+6. Add OCR
+7. Add document classification with Machine Learning
+8. Add authentication/login
+9. Add Docker
+10. Prepare GitHub README and portfolio explanation
+```
 
-The controller controls the flow.
-It calls service functions.
-It does not do every job alone.
-_____________________
+---
 
-invoice_analyzer.py
-Responsabilidade:
+## Ideia Importante
 
-ler documentos .txt
-extrair dados
-validar invoices
-salvar invoice_results.csv
+O projeto começou simples de propósito.
 
-Fluxo:
+```text
+Simple first.
+Professional later.
+```
 
-sample_documents/*.txt
-↓
-load_invoice_texts()
-↓
-extract_invoice_fields()
-↓
-validate_invoice()
-↓
-show_result()
-↓
-show_summary()
-↓
-save_results_to_csv()
+Primeiro aprendemos a lógica com TXT e CSV.
 
-____________________________
+Depois evoluímos para Flask, API, SQLite e dashboard.
 
-invoice_data_analysis.py
-Responsabilidade:
+Isso é parecido com o mundo real: projetos crescem por fases.
 
-ler invoice_results.csv
-analisar com Pandas
-gerar resumo, JSON, gráficos e recomendação
-
-Fluxo:
-reports/invoice_results.csv
-↓
-load_invoice_data()
-↓
-add_date_columns()
-↓
-calculate_status_counts()
-↓
-calculate_business_metrics()
-↓
-create_recommendation()
-↓
-create_monthly_summary()
-↓
-create_monthly_status_summary()
-↓
-save reports
-↓
-create charts
-________________________________________
-
-services/document_loader.py
-Função:
-load_invoice_texts()
-
-O que faz:
-
-lê arquivos .txt da pasta sample_documents
-também lê subpastas com rglob
-retorna texto + caminho do arquivo
 Em inglês A2:
 
-It loads invoice text files.
-It returns text and source file path.
-___________________________________
-
-services/extractor.py
-Função:
-extract_invoice_fields()
-
-O que faz:
-
-pega texto cru da invoice
-encontra invoice_number, supplier, dates, total, currency, VAT
-transforma texto em dicionário
-Em inglês A2:
-
-It extracts fields from invoice text.
-It creates organized data.
-_________________________________________
-services/validator.py
-Função:
-validate_invoice()
-
-O que faz:
-
-verifica campos obrigatórios
-calcula risk_score
-define status
-cria reasons
-Status:
-
-approved
-needs_review
-high_risk
-Em inglês A2:
-
-It checks invoice data.
-It returns status, risk score, and reasons.
-
-__________________________________________________
-
-services/reporter.py
-Funções:
-show_result()
-show_summary()
-
-O que faz:
-
-mostra resultado no terminal
-mostra resumo final do processamento
-Em inglês A2:
-
-It prints results in the terminal.
-______________________________________________
-
-services/csv_exporter.py
-Função:
-save_results_to_csv()
-
-O que faz:
-
-salva invoices processadas em reports/invoice_results.csv
-usa separador ; para abrir bem no Excel
-Em inglês A2:
-
-It saves processed invoices to CSV.
-
-______________________________________
-
-services/analysis_loader.py
-Funções:
-
-load_invoice_data()
-add_date_columns()
-O que faz:
-
-lê invoice_results.csv com Pandas
-cria invoice_year e invoice_month
-Em inglês A2:
-
-It loads CSV data.
-It adds year and month columns.
-_____________________________________________________
-services/analytics.py
-Funções:
-
-show_invoice_data()
-calculate_status_counts()
-calculate_business_metrics()
-O que faz:
-
-mostra tabela
-conta status
-calcula total amount, average risk e percentage review
-Em inglês A2:
-
-It calculates business numbers.
-______________________________________________
-
-services/recommendations.py
-Função:
-
-create_recommendation()
-O que faz:
-
-usa métricas para gerar uma sugestão empresarial
-Exemplo:
-
-More than 50% of invoices need review...
-Em inglês A2:
-
-It creates business advice from metrics.
-___________________________________________________
-
-services/summaries.py
-Funções:
-
-create_monthly_summary()
-create_monthly_status_summary()
-O que faz:
-
-cria resumo mensal
-cria resumo mensal por status
-Em inglês A2:
-
-It creates monthly report tables.
-________________________________________________
-services/report_exporter.py
-Funções:
-
-save_monthly_reports()
-save_summary_files()
-O que faz:
-
-salva CSVs de resumo
-salva invoice_summary.json
-Em inglês A2:
-
-It saves report files.
-CSV is for tables.
-JSON is for web apps.
-_________________________________
-services/chart_builder.py
-Funções:
-
-create_status_chart()
-create_risk_score_chart()
-create_monthly_status_chart()
-O que faz:
-
-cria imagens PNG dos gráficos
-salva em reports/
-Em inglês A2:
-
-It creates chart images.
-Charts help users see the data.
-________________________________________________
-
-controllers -> controlam o fluxo
-services -> fazem trabalhos específicos
-sample_documents -> entrada
-reports -> saída
-____________________________________________
-
-No nosso projeto:
-
-Create -> salvar uma invoice processada no banco
-Read -> buscar invoices para relatório/dashboard
-Update -> alterar status de uma invoice
-Delete -> remover uma invoice errada ou duplicada
-
-linha atual: TXT -> Python -> CSV -> Pandas -> JSON -> Charts
-___________________________________
-
-CSV is good for tables.
-JSON is good for web apps.
-The dashboard can read JSON.
-__________________________________
-
-JSON needs simple values.
-Date becomes text.
-This helps the web read the data.
-________________________________
-
-Toda vez adicionar a chamada no controlador, mas a função o service.
-_________________________________________
-
-Sempre:  Rodar Pipeline
-Rode na ordem:
-
-python invoice_analyzer.py
-python invoice_data_analysis.py
-_____________
-The app reads many years.
-The app creates one report per year.
-The yearly chart compares years.
-_____________________
-The app reads invoices from many years.
-The app creates yearly reports.
-The chart compares invoice amount by year.
-The business recommendation changes with the data.
-_________________________
-
-Amount shows money volume.
-Risk shows document quality.
-Both are important for business.
-
-The app compares yearly amount.
-The app compares yearly risk.
-This helps business decisions.
-
-_______________________________________
-
-Já temos o backend/data pipeline gerando:
-
-reports/invoice_summary.json
-reports/business_recommendations.json
-reports/status_counts.png
-reports/risk_scores.png
-reports/monthly_status_counts.png
-reports/yearly/yearly_invoice_amount.png
-reports/yearly/yearly_average_risk.png
-__________________________________
-Fluxo futuro:
-Python creates JSON/charts
-↓
-Frontend reads JSON/charts
-↓
-Dashboard shows metrics
-↓
-Later Flask connects everything
-______________________
-
-The frontend shows the data.
-The JSON gives data to the dashboard.
-Flask will connect backend and frontend later.
-___________________
-
-Python creates JSON/charts
-↓
-Frontend reads JSON/charts
-↓
-Dashboard shows metrics
-↓
-Later Flask connects everything
-
-________________
-
-The frontend shows the data.
-The JSON gives data to the dashboard.
-Flask will connect backend and frontend later.
-__________________________
-
-Start front
-Use um servidor local. Na raiz do projeto:
-
-python -m http.server 8000
-
-Depois abra no navegador: http://localhost:8000/frontend/
-
-_____________________________________________
-
-HTML has IDs
-JavaScript finds IDs
-JavaScript reads JSON
-JavaScript updates the page
-
-JavaScript reads JSON data.
-JavaScript updates HTML text.
-The dashboard becomes automatic.
-
-_______________________________________________
-estilo:
-
-Nome Visual
-
-AI Document Intelligence Hub
-Conceito
-
-Smart business automation dashboard
-Paleta
-
-Dark navy: #111827
-Deep teal: #0F766E
-Soft cyan: #E0F2FE
-Success green: #16A34A
-Warning amber: #F59E0B
-Risk red: #DC2626
-Light background: #F8FAFC
-Card white: #FFFFFF
-Text dark: #1F2937
-Text muted: #64748B
-Por Que Essa Paleta
-
-navy -> tecnologia e empresa
-teal -> automação e inteligência
-green -> aprovado
-amber -> revisão
-red -> risco
-light background -> dashboard limpo
-Em inglês A2:
-
-The colors show business and technology.
-Green means approved.
-Amber means review.
-Red means risk.
-________________________________
-
-Edge
-Opção 1: Print De Uma Área = Use: Windows + Shift + S
-
-Chrome
-1. Ctrl + Shift + I
-2. Ctrl + Shift + P
-3. Digitar screenshot
-4. Clicar em Capture full size screenshot
-Capturar captura de tela em tamanho completo
-
-
-_______________________________
-
-PNG chart = static
-HTML/JS chart = dynamic
-Dynamic chart updates with filters
-Em inglês A2:
-JavaScript creates the bars.
-The bars use filtered data.
-The chart changes when filters change.
-__________________________________________
-
-JavaScript creates chart bars.
-The chart uses filtered invoices.
-The chart changes when filters change.
-
-_________________________
-
-HTML/CSS/JS puro:
-bom para aprender a lógica
-sem dependência externa
-mais código manual
-menos visual profissional
-
-Chart.js:
-visual mais profissional
-código de gráfico mais organizado
-fácil criar bar, line, pie
-usa uma biblioteca externa
-precisa aprender a estrutura do Chart.js
-___________________________________________
-
-Regra simples para lembrar:
-Online -> CDN
-Offline -> vendor/chart.umd.min.js
-Nunca os dois ao mesmo tempo agora.
-E sim: se chart.umd.min.js estiver vazio e você usar só ele, o navegador vai dizer algo como:
-Chart is not defined
-
-Usar online agora:
-https://cdn.jsdelivr.net/npm/chart.js
-
-Usar offline depois:
-vendor/chart.umd.min.js
-________________________________________
-
-TXT -> Python -> CSV/JSON -> Pandas -> reports -> Frontend -> Chart.js
-
-_____________________________
-
-<!-- This chart shows the average risk score by year. -->
-<!-- Chart.js updates this chart when filters change. -->
-<article class="chart-card dashboard-section general-section yearly-section">
-    <h2>Yearly Average Risk</h2>
-
-    <!-- This canvas is used by Chart.js. -->
-    <canvas id="yearly-risk-chart"></canvas>
-</article>
-
-Então a lógica fica assim:
-general-section -> aparece em General
-monthly-section -> aparece em Monthly
-yearly-section  -> aparece em Yearly
-________________________________
-
-canvas é para desenhar coisas visuais, como:
-bar chart
-line chart
-pie chart
-visual graph
-
-Chart / gráfico -> canvas
-Text / cards / alerts / table -> div, section, p, table
-____________________________________________
-
-protótipo profissional do dashboard usando JSON. Quando entrar Flask, a lógica muda assim:
-Agora:
-HTML + JS lê reports/invoice_results.json
-
-Depois com Flask:
-HTML + JS chama API Flask
-/api/invoices
-/api/summary
-/api/risk-alerts
-______________________________
-
-app.py  -> backend Flask, roda no Python
-app.js  -> frontend JavaScript, roda no navegador
-
-app.py = servidor
-app.js = interação da página
-
-Python / Flask
-app.py
-↓
-manda index.html para o navegador
-↓
-index.html carrega styles.css e app.js
-↓
-app.js chama a API Flask e atualiza dashboard
-_____________________
-open Flask
-4. Rode o backend:
-python app.py
-5. Abra no navegador:
-http://127.0.0.1:5000
-_______________________________________
-
-app.js
-↓
-calls /api/invoices
-↓
-Flask app.py reads reports/invoice_results.json
-↓
-Flask returns JSON
-↓
-frontend updates dashboard
-________________
-Agora o fluxo correto é:
-frontend/app.js
-↓
-GET /api/invoices
-↓
-Flask app.py
-↓
-reports/invoice_results.json
-↓
-dashboard
-______________________________
-
-o endereço principal passa a ser:
-http://127.0.0.1:5000/
-Esse é o endereço do Flask backend.
-O antigo:
-http://localhost:8000/frontend/
-era do servidor simples do Python:
-python -m http.server 8000
-
-A lógica nova é:
-http://127.0.0.1:5000/
-↓
-Flask abre o dashboard
-↓
-Flask entrega CSS e JS
-↓
-app.js chama /api/invoices
-↓
-Flask entrega os dados
-______________
-
-para rodar o projeto:
-python app.py
-E abrir:
-http://127.0.0.1:5000/
-
-_______________________
-
-Antes: localhost:8000/frontend/ -> front estático
-Agora: 127.0.0.1:5000 -> Flask + API + dashboard
-__________________
-favicon.svg
-
-A = AI
-azul escuro = enterprise / tech
-verde = data / intelligence
-amarelo = alert / risk
-
-_____________________________
-Miniobjetivo:
-Clicar em Top Risk Invoices
-abrir página Flask com detalhes da invoice
-
-Esse passo é bem alinhado com mercado, porque ensina:
-Flask routes
-dynamic URL
-backend data lookup
-template rendering
-frontend-backend navigation
-
-Em inglês A2:
-The dashboard shows many invoices.
-The detail page shows one invoice.
-Flask finds the invoice by invoice number.
-_______________________________
-1. app.py -> criar rota /invoice/<invoice_number>
-2. frontend/invoice_detail.html -> criar página de detalhe
-3. app.js -> trocar clique para abrir rota Flask
-_________________
-
-services/invoice_repository.py
-Esse arquivo será responsável por:
-load all invoices
-find one invoice by invoice number
-
-______________________________________
-
-um importador:
-reports/invoice_results.json
-↓
-SQLite data/invoices.db
-______________________________________________
-
-JSON = arquivo de dados
-SQLite = banco de dados
-Tabela invoices = planilha dentro do banco
-Linha = uma invoice
-Coluna = um campo da invoice
-
-invoice_number | supplier_name | total_amount | status       | risk_score
-INV-2026-001   | ABC Logistics | 1250.00      | needs_review | 30
-
-Antes:
-Flask API -> JSON
-
-Agora:
-Flask API -> SQLite
-______________________________________________
-Dashboard -> visual
-SQLite -> banco
-SQL query -> análise
-_______________________________________________
-
-agora o projeto tem:
-dados processados
-banco SQLite
-consulta SQL
-dashboard Flask
-API
-____________________________________________________
-
-Start projeto
-
-PS C:\Users\user\Downloads\AI_Document_Intelligence_Hub> python app.py
- * Serving Flask app 'app'
- * Debug mode: on
-WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on http://127.0.0.1:5000
-Press CTRL+C to quit
-
-http://127.0.0.1:5000/
-
-_____________________________
-upload .txt
-↓
-salva em uploads/
-↓
-processa texto
-↓
-salva invoice no SQLite
-↓
-dashboard lê SQLite
-Ou seja: depois que temos SQLite, a organização por ano/mês não precisa mais controlar o sistema. O banco controla os dados.
-
-__________________________________
-SQLite = fonte principal dos dados
-uploads/year/month = arquivo original guardado
-_____________________
-
-Fazer o upload salvar o arquivo na pasta do ano/mês automaticamente, usando a data da invoice.
-Fluxo melhor:
-Flask recebe invoice_006.txt
-↓
-lê texto
-↓
-extrai invoice_date
-↓
-descobre year/month
-↓
-salva arquivo em uploads/2027/01/
-↓
-processa e salva no SQLite
-
-_____________________________________________________
-
-fluxo profissional fica:
-Upload .txt -> Flask -> Processor -> SQLite -> Dashboard
-
-___________________
+```text
+The project grows step by step.
+Each step teaches one new concept.
+The system is becoming more professional.
+```
