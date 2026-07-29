@@ -78,6 +78,142 @@ def upload_invoice_page():
         # This extracts fields before saving the file.
         invoice_fields = extract_invoice_fields(invoice_text)
 
+        # This list has all required invoice fields.
+        # The upload needs these fields to process the invoice.
+        required_upload_fields = [
+            "invoice_number",
+            "supplier_name",
+            "invoice_date",
+            "due_date",
+            "total_amount",
+            "currency",
+            "vat_number",
+        ]
+
+        # This finds required fields that are missing.
+        # Missing fields mean the invoice layout is not correct.
+        missing_upload_fields = [
+            field for field in required_upload_fields if not invoice_fields.get(field)
+        ]
+
+        # This stops the upload if required fields are missing.
+        # The wrong invoice is not saved in SQLite.
+        if missing_upload_fields:
+            flash(
+                f"Invalid invoice layout. Missing fields: {', '.join(missing_upload_fields)}",
+                "error",
+            )
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets invoice number from extracted fields.
+        invoice_number = invoice_fields.get("invoice_number")
+
+        # This checks if invoice number has the correct format.
+        # Example: INV-2027-001
+        if not re.fullmatch(r"INV-\d{4}-\d{3,}", invoice_number):
+            flash("Invalid invoice number. Example: INV-2027-001", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets invoice date from extracted fields.
+        invoice_date = invoice_fields.get("invoice_date")
+
+        # This checks if invoice date has the correct text format.
+        # The correct format is YYYY-MM-DD.
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", invoice_date):
+            flash("Invalid invoice date. Please use format YYYY-MM-DD.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This checks if invoice date is a real calendar date.
+        # Example: 2027-02-30 is not a real date.
+        try:
+            datetime.strptime(invoice_date, "%Y-%m-%d")
+        except ValueError:
+            flash("Invalid invoice date. Please use a real date.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets due date from extracted fields.
+        due_date = invoice_fields.get("due_date")
+
+        # This checks if due date has the correct text format.
+        # The correct format is YYYY-MM-DD.
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", due_date):
+            flash("Invalid due date. Please use format YYYY-MM-DD.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This checks if due date is a real calendar date.
+        # Example: 2027-02-30 is not a real date.
+        try:
+            datetime.strptime(due_date, "%Y-%m-%d")
+        except ValueError:
+            flash("Invalid due date. Please use a real date.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets the total amount.
+        total_amount = invoice_fields.get("total_amount")
+
+        # This checks if total amount is a valid number.
+        try:
+            float(total_amount)
+        except ValueError:
+            flash("Invalid total amount. Please use a number like 1250.00.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets currency from extracted fields.
+        currency = invoice_fields.get("currency")
+
+        # This checks if currency is EUR.
+        if currency != "EUR":
+            flash("Invalid currency. This app currently accepts only EUR.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets year and month from invoice date.
+        invoice_year = invoice_date[:4]
+        invoice_month = invoice_date[5:7]
+
+        # This creates the upload folder by year and month.
+        target_folder = UPLOADS_FOLDER / invoice_year / invoice_month
+
+        # This creates the folder if it does not exist.
+        target_folder.mkdir(parents=True, exist_ok=True)
+
+        # This creates the final file path.
+        file_path = target_folder / uploaded_file.filename
+
+        # This saves the uploaded text into the final file.
+        file_path.write_text(invoice_text, encoding="utf-8")
+
+        # This processes the invoice and saves it into SQLite.
+        process_invoice_text(invoice_text, str(file_path))
+
+        # This shows a success message after processing.
+        flash(
+            f"Invoice processed successfully: {invoice_fields.get('invoice_number')}",
+            "success",
+        )
+
+        # This redirects the user back to the dashboard.
+        return redirect(url_for("dashboard"))
+
+    # This shows the upload page.
+    return render_template("upload.html")
+    """Show upload page and process uploaded invoice."""
+    # This checks if the user submitted the form.
+    if request.method == "POST":
+        # This gets the uploaded file from the form.
+        uploaded_file = request.files.get("invoice_file")
+
+        # This checks if no file was uploaded.
+        # If there is no file, Flask shows an error message.
+        if uploaded_file is None or uploaded_file.filename == "":
+            flash("No file uploaded. Please choose an invoice file.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This reads the uploaded file text.
+        invoice_text = uploaded_file.read().decode("utf-8")
+
+        # This extracts fields before saving the file.
+        invoice_fields = extract_invoice_fields(invoice_text)
+
         # This list has fields that the invoice must have.
         required_upload_fields = [
             "invoice_number",
