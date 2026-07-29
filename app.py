@@ -6,6 +6,10 @@ from flask import Flask, flash, jsonify, redirect, render_template, request, url
 # Path helps us work with folders and files.
 from pathlib import Path
 
+# This imports datetime from Python.
+# We use it to validate date format.
+from datetime import datetime
+
 # This imports the extractor function.
 # We use it to get invoice date before saving the file.
 from services.extractor import extract_invoice_fields
@@ -98,6 +102,14 @@ def upload_invoice_page():
         # The app needs the date to create year and month folders.
         if not invoice_date:
             flash("Invoice date not found. Please check the file.", "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This checks if invoice date has the correct format.
+        # The correct format is year-month-day.
+        try:
+            datetime.strptime(invoice_date, "%Y-%m-%d")
+        except ValueError:
+            flash("Invalid invoice date. Please use format YYYY-MM-DD.", "error")
             return redirect(url_for("upload_invoice_page"))
 
         # This gets year and month from invoice date.
