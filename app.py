@@ -2,6 +2,10 @@
 # Flask creates pages, APIs, redirects, messages, and receives files.
 from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 
+# This imports re from Python.
+# We use it to check text patterns.
+import re
+
 # This imports Path from Python.
 # Path helps us work with folders and files.
 from pathlib import Path
