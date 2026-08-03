@@ -1,6 +1,15 @@
 # This imports Flask tools.
-# Flask creates pages, APIs, redirects, messages, and receives files.
-from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
+# Flask creates pages, APIs, redirects, messages, files, and receives uploads.
+from flask import (
+    Flask,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    send_file,
+    url_for,
+)
 
 # This imports re from Python.
 # We use it to check text patterns.
