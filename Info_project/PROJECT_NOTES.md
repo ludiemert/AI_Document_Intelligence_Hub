@@ -641,3 +641,15 @@ The project grows step by step.
 Each step teaches one new concept.
 The system is becoming more professional.
 ```
+
+
+mais informacoes
+
+Isso conecta bem com mercado:
+SQL
+Data export
+Automation
+Business reports
+BI
+
+____________________________________________

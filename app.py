@@ -26,6 +26,10 @@ from services.invoice_processor import process_invoice_text
 # The repository reads invoice data for Flask.
 from services.invoice_repository import find_invoice_by_number, load_invoices
 
+# This imports the export function.
+# We use it to create CSV and JSON reports from SQLite.
+from services.exporter import export_invoices_from_sqlite
+
 # This creates the Flask app.
 # template_folder tells Flask where the HTML files are.
 # static_folder tells Flask where CSS and JS files are.
@@ -306,6 +310,27 @@ def invoice_detail(invoice_number):
 
     # This sends one invoice to the detail page.
     return render_template("invoice_detail.html", invoice=selected_invoice)
+
+
+@app.route("/export")
+def export_reports():
+    """Export invoice reports from SQLite."""
+    # This exports SQLite invoice data to CSV and JSON.
+    export_result = export_invoices_from_sqlite()
+
+    # This shows an error message if export failed.
+    if not export_result["success"]:
+        flash(export_result["message"], "error")
+        return redirect(url_for("dashboard"))
+
+    # This shows a success message after export.
+    flash(
+        f"Reports exported: {export_result['csv_file']} and {export_result['json_file']}",
+        "success",
+    )
+
+    # This redirects the user back to the dashboard.
+    return redirect(url_for("dashboard"))
 
 
 # This starts the Flask app.
