@@ -653,3 +653,12 @@ Business reports
 BI
 
 ____________________________________________
+
+1. Clique Export Reports
+2. Veja mensagem verde
+3. Clique Download CSV
+4. Veja se o navegador baixa o arquivo
+5. Clique Download JSON
+6. Veja se o navegador baixa o arquivo
+
+_____________________________
