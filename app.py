@@ -333,8 +333,14 @@ def export_reports():
         return redirect(url_for("dashboard"))
 
     # This shows a success message after export.
+    # flash(
+    #    f"Reports exported: {export_result['csv_file']} and {export_result['json_file']}",
+    #    "success",
+    # )
+
+    # This shows a clean success message after export.
     flash(
-        f"Reports exported: {export_result['csv_file']} and {export_result['json_file']}",
+        "Reports exported successfully. CSV and JSON files are ready to download.",
         "success",
     )
 
