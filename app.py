@@ -348,6 +348,26 @@ def export_reports():
     return redirect(url_for("dashboard"))
 
 
+@app.route("/download/csv")
+def download_csv_report():
+    """Download the exported CSV report."""
+    # This is the exported CSV file path.
+    csv_file_path = REPORTS_FOLDER / "sqlite_invoice_export.csv"
+
+    # This sends the CSV file to the browser.
+    return send_file(csv_file_path, as_attachment=True)
+
+
+@app.route("/download/json")
+def download_json_report():
+    """Download the exported JSON report."""
+    # This is the exported JSON file path.
+    json_file_path = REPORTS_FOLDER / "sqlite_invoice_export.json"
+
+    # This sends the JSON file to the browser.
+    return send_file(json_file_path, as_attachment=True)
+
+
 # This starts the Flask app.
 # debug=True helps us see errors while learning.
 if __name__ == "__main__":
