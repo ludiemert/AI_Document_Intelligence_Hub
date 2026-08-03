@@ -1,0 +1,12 @@
+source_file;invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;vat_number;status;risk_score;reasons
+uploads\2026\04\invoice_008.txt;INV-2027-008;Northwind Office Supplies;2026-04-22;2026-05-24;100.0;EUR;IE2027340023422E;needs_review;30;Due date is overdue
+sample_documents\invoice_001.txt;INV-2026-001;ABC Logistics;2026-06-01;2026-06-20;1250.0;EUR;;needs_review;30;Due date is overdue
+sample_documents\invoice_002.txt;INV-2026-002;Northwind Office Supplies;2026-06-01;2026-05-01;980.0;EUR;;needs_review;30;Due date is overdue
+sample_documents\invoice_003.txt;INV-2026-003;Contoso Industrial;2026-06-02;2026-06-30;8900.0;EUR;;high_risk;55;"High invoice amount; Due date is overdue"
+uploads\2026\3\invoice_0011.txt;INV-2027-011;Northwind Office Supplies;2026-3;2026-04-22;1030.0;EUR;IE2027302342212E;needs_review;30;Due date is overdue
+uploads\2026\3-\invoice_009.txt;INV-2027-009;Northwind Office Supplies;2026-3-21;2026-04-22;1030.0;EUR;IE2027302342212E;needs_review;30;Due date is overdue
+uploads\2026\3-\invoice_0010.txt;INV-2027-009999;Northwind Office Supplies;2026-3-21;2026-04-22;1030.0;EUR;IE2027302342212E;needs_review;30;Due date is overdue
+sample_documents\2027\01\invoice_004.txt;INV-2027-004;Future Tech Supplies;2027-01-15;2027-02-15;4200.0;EUR;;approved;0;All required fields are present
+sample_documents\2027\01\invoice_005.txt;INV-2027-005;Future Tech Supplies;2027-01-18;2027-02-19;7200.0;EUR;;needs_review;25;High invoice amount
+uploads\invoice_006.txt;INV-2027-006;Future Tech Supplies;2027-02-18;2027-03-19;600.0;EUR;IE2027340021E;approved;0;All required fields are present
+uploads\2027\03\invoice_007.txt;INV-2027-007;Future Tech Supplies;2027-03-19;2027-04-20;1600.0;EUR;IE20273400222E;approved;0;All required fields are present
