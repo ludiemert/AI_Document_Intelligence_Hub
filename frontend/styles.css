@@ -890,6 +890,44 @@ tr:hover {
     background: #0f766e;
 }
 
+/* This limits the invoice table height. */
+/* The user can scroll to see more invoices. */
+.table-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* This keeps the table header visible while scrolling. */
+.table-wrapper thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* This makes the scroll look cleaner in Chrome and Edge. */
+.table-wrapper::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* This styles the scrollbar background. */
+.table-wrapper::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 8px;
+}
+
+/* This styles the scrollbar handle. */
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 8px;
+}
+
+/* This changes the scrollbar handle on hover. */
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
 /* This improves the detail page on small screens. */
 @media (max-width: 700px) {
     .detail-header {
