@@ -662,3 +662,16 @@ ____________________________________________
 6. Veja se o navegador baixa o arquivo
 
 _____________________________
+
+/                       -> dashboard principal
+/upload                 -> upload invoice
+/invoice/<number>       -> detalhe da invoice
+/reports                -> página BI Reports
+/export                 -> gera todos os relatórios
+/download/csv           -> baixa invoice export completo
+/download/json          -> baixa invoice JSON completo
+/download/monthly       -> baixa monthly summary
+/download/yearly        -> baixa yearly summary
+/download/risk          -> baixa risk summary
+
+________________________________
