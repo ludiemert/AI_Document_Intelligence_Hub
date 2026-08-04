@@ -675,3 +675,17 @@ _____________________________
 /download/risk          -> baixa risk summary
 
 ________________________________
+
+BI Reports page
+↓
+User chooses Year / Month
+↓
+Click Generate Report
+↓
+Flask receives year/month
+↓
+SQLite filters invoices
+↓
+CSV/JSON are generated only with selected data
+
+_____________________________________________

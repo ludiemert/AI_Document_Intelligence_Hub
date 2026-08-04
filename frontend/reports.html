@@ -130,6 +130,47 @@
             </article>
         </section>
 
+        <!-- This form sends report filters to Flask. -->
+        <!-- Flask will use year and month to filter SQLite data. -->
+        <form class="report-form" action="/export" method="GET">
+            <div class="filter-controls">
+                <!-- This filter selects the report year. -->
+                <label>
+                    Year
+                    <select name="year" id="report-year-filter">
+                        <option value="all">All</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                </label>
+
+                <!-- This filter selects the report month. -->
+                <label>
+                    Month
+                    <select name="month" id="report-month-filter">
+                        <option value="all">All</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </label>
+            </div>
+
+            <!-- This button generates reports using selected filters. -->
+            <button class="upload-link" type="submit">
+                Generate Filtered Report
+            </button>
+        </form>
+
     </main>
 
     <!-- This loads the JavaScript file using Flask static path. -->

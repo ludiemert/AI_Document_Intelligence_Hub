@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 # This imports pandas.
-# We use pandas to create CSV reports.
+# We use pandas to create CSV reports and filter data.
 import pandas as pd
 
 # This imports the repository function.
@@ -25,8 +25,8 @@ REPORTS_FOLDER = Path("reports")
 REPORTS_FOLDER.mkdir(exist_ok=True)
 
 
-def export_invoices_from_sqlite():
-    """Export invoices from SQLite to CSV and JSON."""
+def export_invoices_from_sqlite(selected_year="all", selected_month="all"):
+    """Export invoices from SQLite using year and month filters."""
     # This loads invoice data from SQLite.
     invoices = load_invoices()
 
@@ -40,19 +40,45 @@ def export_invoices_from_sqlite():
     # This creates a DataFrame from invoice data.
     df = pd.DataFrame(invoices)
 
-    # This creates the CSV file path.
-    csv_file_path = REPORTS_FOLDER / "sqlite_invoice_export.csv"
+    # This converts invoice_date to real dates.
+    # Pandas needs dates to filter by year and month.
+    df["invoice_date"] = pd.to_datetime(df["invoice_date"], errors="coerce")
 
-    # This saves invoice data as CSV.
+    # This creates a year column from invoice_date.
+    df["invoice_year"] = df["invoice_date"].dt.year.astype("Int64").astype(str)
+
+    # This creates a month column from invoice_date.
+    df["invoice_month"] = (
+        df["invoice_date"].dt.month.astype("Int64").astype(str).str.zfill(2)
+    )
+
+    # This filters by selected year if the user did not choose All.
+    if selected_year != "all":
+        df = df[df["invoice_year"] == selected_year]
+
+    # This filters by selected month if the user did not choose All.
+    if selected_month != "all":
+        df = df[df["invoice_month"] == selected_month]
+
+    # This creates a report name using selected filters.
+    # Example: invoices_2026_06
+    report_name = f"invoices_{selected_year}_{selected_month}"
+
+    # This creates the CSV file path.
+    # Example: reports/invoices_2026_06.csv
+    csv_file_path = REPORTS_FOLDER / f"{report_name}.csv"
+
+    # This creates the JSON file path.
+    # Example: reports/invoices_2026_06.json
+    json_file_path = REPORTS_FOLDER / f"{report_name}.json"
+
+    # This saves filtered invoice data as CSV.
     # sep=";" helps Excel open columns correctly in Europe.
     df.to_csv(csv_file_path, sep=";", index=False)
 
-    # This creates the JSON file path.
-    json_file_path = REPORTS_FOLDER / "sqlite_invoice_export.json"
-
-    # This saves invoice data as JSON.
+    # This saves filtered invoice data as JSON.
     with open(json_file_path, mode="w", encoding="utf-8") as json_file:
-        json.dump(invoices, json_file, indent=4)
+        json.dump(df.to_dict(orient="records"), json_file, indent=4, default=str)
 
     # This returns a success result.
     return {
