@@ -321,6 +321,13 @@ def invoice_detail(invoice_number):
     return render_template("invoice_detail.html", invoice=selected_invoice)
 
 
+@app.route("/reports")
+def reports_page():
+    """Show the BI Reports page."""
+    # This sends reports.html to the browser.
+    return render_template("reports.html")
+
+
 @app.route("/export")
 def export_reports():
     """Export invoice reports from SQLite."""
