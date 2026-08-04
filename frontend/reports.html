@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- This sets the text format for the page. -->
+    <meta charset="UTF-8">
+
+    <!-- This makes the page work better on mobile and desktop. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- This is the page title in the browser tab. -->
+    <title>BI Reports</title>
+
+    <!-- This adds the browser tab icon. -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <!-- This loads the CSS file using Flask static path. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- This is the main page container. -->
+    <main class="dashboard">
+
+        <!-- This link goes back to the main dashboard. -->
+        <a class="back-link" href="/">Back to dashboard</a>
+
+        <!-- This is the BI Reports page header. -->
+        <header class="dashboard-header">
+            <div>
+                <!-- This is a small label for the page area. -->
+                <p class="eyebrow">Business Intelligence</p>
+
+                <!-- This is the main page title. -->
+                <h1>BI Reports</h1>
+
+                <!-- This text explains the page purpose. -->
+                <p class="subtitle">
+                    Generate and download invoice reports from SQLite.
+                </p>
+            </div>
+        </header>
+
+        <!-- This section shows Flask messages. -->
+        <!-- Flask messages tell the user what happened. -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <section class="message-overlay" id="message-overlay">
+                    {% for category, message in messages %}
+                        <div class="message-box {{ category }}">
+                            <p>{{ message }}</p>
+
+                            <!-- This button closes the message. -->
+                            <button type="button" onclick="closeMessage()">OK</button>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endwith %}
+
+        <!-- This card contains BI filters and report buttons. -->
+        <section class="table-card">
+            <h2>Report Filters</h2>
+
+            <!-- These filters will be connected to Flask later. -->
+            <div class="filter-controls">
+                <!-- This filter selects the report year. -->
+                <label>
+                    Year
+                    <select id="report-year-filter">
+                        <option value="all">All</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                </label>
+
+                <!-- This filter selects the report month. -->
+                <label>
+                    Month
+                    <select id="report-month-filter">
+                        <option value="all">All</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </label>
+            </div>
+
+            <!-- These buttons generate and download reports. -->
+            <div class="view-controls reports-actions">
+                <!-- This link generates all reports. -->
+                <a class="upload-link" href="/export">Generate All Reports</a>
+
+                <!-- This link downloads the full invoice CSV report. -->
+                <a class="upload-link" href="/download/csv">Download Full Invoice CSV</a>
+
+                <!-- This link downloads the full invoice JSON report. -->
+                <a class="upload-link" href="/download/json">Download Full Invoice JSON</a>
+
+                <!-- These links will be connected in the next steps. -->
+                <a class="upload-link disabled-link" href="#">Download Monthly Summary</a>
+                <a class="upload-link disabled-link" href="#">Download Yearly Summary</a>
+                <a class="upload-link disabled-link" href="#">Download Risk Summary</a>
+            </div>
+        </section>
+
+        <!-- This card explains the BI reports purpose. -->
+        <section class="recommendations">
+            <article class="recommendation-card">
+                <h2>What This Page Does</h2>
+                <p>
+                    This page exports invoice data from SQLite for business analysis,
+                    Excel reports, and BI dashboards.
+                </p>
+            </article>
+
+            <article class="recommendation-card">
+                <h2>Next Step</h2>
+                <p>
+                    The next version will generate monthly, yearly, and risk summaries
+                    using the selected year and month.
+                </p>
+            </article>
+        </section>
+
+    </main>
+
+    <!-- This loads the JavaScript file using Flask static path. -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
