@@ -112,14 +112,20 @@
                 <!-- These links will be connected in the next steps.
                 <a class="upload-link disabled-link" href="#">Download Monthly Summary</a>-->
 
-                <!-- This link downloads the monthly summary report. -->
-                <a class="upload-link" href="/download/monthly">Download Monthly Summary</a>
+                <!-- This button downloads the monthly summary with selected filters. -->
+                <button class="upload-link" type="button" onclick="downloadReport('monthly')">
+                    Download Monthly Summary
+                </button>
 
-                <!-- This link downloads the yearly summary report. -->
-                <a class="upload-link" href="/download/yearly">Download Yearly Summary</a>
+                <!-- This button downloads the yearly summary with selected filters. -->
+                <button class="upload-link" type="button" onclick="downloadReport('yearly')">
+                    Download Yearly Summary
+                </button>
 
-                <!-- This link downloads the risk summary report. -->
-                <a class="upload-link" href="/download/risk">Download Risk Summary</a>
+                <!-- This button downloads the risk summary with selected filters. -->
+                <button class="upload-link" type="button" onclick="downloadReport('risk')">
+                    Download Risk Summary
+                </button>
 
             </div>
         </section>
@@ -144,6 +150,24 @@
         </section>
 
     </main>
+
+        <script>
+        // This function downloads reports using selected filters.
+        // It reads year and month from the page.
+        function downloadReport(reportType) {
+            // This gets the selected year from the filter.
+            const selectedYear = document.getElementById("report-year-filter").value;
+
+            // This gets the selected month from the filter.
+            const selectedMonth = document.getElementById("report-month-filter").value;
+
+            // This creates the download URL with filters.
+            const downloadUrl = `/download/${reportType}?year=${selectedYear}&month=${selectedMonth}`;
+
+            // This sends the browser to the download URL.
+            window.location.href = downloadUrl;
+        }
+        </script>
 
     <!-- This loads the JavaScript file using Flask static path. -->
     <script src="{{ url_for('static', filename='app.js') }}"></script>
