@@ -1,7 +1,0 @@
-source_file;invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;vat_number;status;risk_score;reasons;invoice_year;invoice_month
-uploads\2026\04\invoice_008.txt;INV-2027-008;Northwind Office Supplies;2026-04-22;2026-05-24;100.0;EUR;IE2027340023422E;needs_review;30;Due date is overdue;2026;04
-sample_documents\invoice_001.txt;INV-2026-001;ABC Logistics;2026-06-01;2026-06-20;1250.0;EUR;;needs_review;30;Due date is overdue;2026;06
-sample_documents\invoice_002.txt;INV-2026-002;Northwind Office Supplies;2026-06-01;2026-05-01;980.0;EUR;;needs_review;30;Due date is overdue;2026;06
-sample_documents\invoice_003.txt;INV-2026-003;Contoso Industrial;2026-06-02;2026-06-30;8900.0;EUR;;high_risk;55;"High invoice amount; Due date is overdue";2026;06
-uploads\2026\3-\invoice_009.txt;INV-2027-009;Northwind Office Supplies;2026-03-21;2026-04-22;1030.0;EUR;IE2027302342212E;needs_review;30;Due date is overdue;2026;03
-uploads\2026\3-\invoice_0010.txt;INV-2027-009999;Northwind Office Supplies;2026-03-21;2026-04-22;1030.0;EUR;IE2027302342212E;needs_review;30;Due date is overdue;2026;03
