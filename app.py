@@ -306,6 +306,75 @@ def download_json_report():
     return send_file(json_file_path, as_attachment=True)
 
 
+@app.route("/download/monthly")
+def download_monthly_summary():
+    """Download the monthly summary report."""
+    # This gets selected year from the URL.
+    selected_year = request.args.get("year", "all")
+
+    # This gets selected month from the URL.
+    selected_month = request.args.get("month", "all")
+
+    # This creates the monthly summary file name.
+    file_name = f"monthly_summary_{selected_year}_{selected_month}.csv"
+
+    # This creates the monthly summary file path.
+    file_path = REPORTS_FOLDER / file_name
+
+    # This creates the report if it does not exist yet.
+    if not file_path.exists():
+        export_invoices_from_sqlite(selected_year, selected_month)
+
+    # This sends the monthly summary file to the browser.
+    return send_file(file_path, as_attachment=True)
+
+
+@app.route("/download/yearly")
+def download_yearly_summary():
+    """Download the yearly summary report."""
+    # This gets selected year from the URL.
+    selected_year = request.args.get("year", "all")
+
+    # This gets selected month from the URL.
+    selected_month = request.args.get("month", "all")
+
+    # This creates the yearly summary file name.
+    file_name = f"yearly_summary_{selected_year}_{selected_month}.csv"
+
+    # This creates the yearly summary file path.
+    file_path = REPORTS_FOLDER / file_name
+
+    # This creates the report if it does not exist yet.
+    if not file_path.exists():
+        export_invoices_from_sqlite(selected_year, selected_month)
+
+    # This sends the yearly summary file to the browser.
+    return send_file(file_path, as_attachment=True)
+
+
+@app.route("/download/risk")
+def download_risk_summary():
+    """Download the risk summary report."""
+    # This gets selected year from the URL.
+    selected_year = request.args.get("year", "all")
+
+    # This gets selected month from the URL.
+    selected_month = request.args.get("month", "all")
+
+    # This creates the risk summary file name.
+    file_name = f"risk_summary_{selected_year}_{selected_month}.csv"
+
+    # This creates the risk summary file path.
+    file_path = REPORTS_FOLDER / file_name
+
+    # This creates the report if it does not exist yet.
+    if not file_path.exists():
+        export_invoices_from_sqlite(selected_year, selected_month)
+
+    # This sends the risk summary file to the browser.
+    return send_file(file_path, as_attachment=True)
+
+
 # This starts the Flask app.
 # debug=True helps us see errors while learning.
 if __name__ == "__main__":
