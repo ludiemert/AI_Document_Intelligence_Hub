@@ -71,6 +71,19 @@ REPORTS_FOLDER.mkdir(exist_ok=True)
 UPLOADS_FOLDER.mkdir(exist_ok=True)
 
 
+def allowed_file(filename):
+    """Check if the uploaded file type is allowed."""
+    # This checks if the file name has a dot.
+    if "." not in filename:
+        return False
+
+    # This gets the file extension after the last dot.
+    file_extension = filename.rsplit(".", 1)[1].lower()
+
+    # This checks if the extension is in the allowed list.
+    return file_extension in ALLOWED_EXTENSIONS
+
+
 @app.route("/")
 def dashboard():
     """Show the dashboard page."""
