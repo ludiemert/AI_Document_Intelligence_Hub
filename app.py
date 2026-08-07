@@ -60,6 +60,10 @@ REPORTS_FOLDER = Path("reports")
 # Flask saves uploaded invoice files in this folder.
 UPLOADS_FOLDER = Path("uploads")
 
+# This set has the file types accepted by the app.
+# TXT works now. PDF and images will be prepared for OCR later.
+ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg"}
+
 # This creates the reports folder if it does not exist.
 REPORTS_FOLDER.mkdir(exist_ok=True)
 
