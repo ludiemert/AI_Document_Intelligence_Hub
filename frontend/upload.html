@@ -18,6 +18,24 @@
 
 <body class="detail-body">
     <main class="invoice-detail-page">
+
+            <!-- This section shows Flask messages. -->
+        <!-- Flask messages tell the user what happened. -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <section class="message-overlay" id="message-overlay">
+                    {% for category, message in messages %}
+                        <div class="message-box {{ category }}">
+                            <p>{{ message }}</p>
+
+                            <!-- This button closes the message. -->
+                            <button type="button" onclick="closeMessage()">OK</button>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endwith %}
+
         <!-- This button returns to the dashboard. -->
         <a class="back-button" href="/">Back to dashboard</a>
 
@@ -36,8 +54,13 @@
                     Select invoice file
                 </label>
 
-                <!-- This input accepts text files for the first version. -->
-                <input id="invoice-file" name="invoice_file" type="file" accept=".txt">
+                <!-- This input accepts TXT now and prepares PDF/images for OCR later. -->
+                <input
+                    id="invoice-file"
+                    name="invoice_file"
+                    type="file"
+                    accept=".txt,.pdf,.png,.jpg,.jpeg"
+                >
 
                 <!-- This button will process the invoice in the next step. -->
                 <button class="upload-button" type="submit">
@@ -46,5 +69,8 @@
             </form>
         </section>
     </main>
+
+    <!-- This loads the JavaScript file using Flask static path. -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

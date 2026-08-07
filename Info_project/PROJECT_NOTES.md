@@ -749,4 +749,11 @@ Não salva o arquivo
 ↓
 Não processa no SQLite
 
+Arquivo errado
+↓
+fica em /upload
+↓
+mostra mensagem vermelha ali mesmo
+↓
+não volta para dashboard
 ____________________________
