@@ -104,6 +104,15 @@ def upload_invoice_page():
             flash("No file uploaded. Please choose an invoice file.", "error")
             return redirect(url_for("upload_invoice_page"))
 
+        # This checks if the uploaded file type is allowed.
+        # The app accepts txt now. PDF and images will use OCR later.
+        if not allowed_file(uploaded_file.filename):
+            flash(
+                "Invalid file type. Please upload TXT, PDF, PNG, JPG, or JPEG.",
+                "error",
+            )
+            return redirect(url_for("upload_invoice_page"))
+
         # This reads the uploaded file text.
         invoice_text = uploaded_file.read().decode("utf-8")
 

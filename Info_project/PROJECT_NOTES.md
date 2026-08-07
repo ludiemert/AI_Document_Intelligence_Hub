@@ -736,3 +736,17 @@ SQLite
 Dashboard
 
 _______________________________________________________
+
+C:\Users\user\Downloads\AI_Document_Intelligence_Hub\app.py
+
+Se o usuário tentar subir .exe, .docx, .zip etc.
+↓
+Flask bloqueia
+↓
+Mostra mensagem vermelha
+↓
+Não salva o arquivo
+↓
+Não processa no SQLite
+
+____________________________
