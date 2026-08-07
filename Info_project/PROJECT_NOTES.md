@@ -689,3 +689,50 @@ SQLite filters invoices
 CSV/JSON are generated only with selected data
 
 _____________________________________________
+
+Fechamos esta fase:
+Dashboard
+↓
+BI Reports page
+↓
+Year/Month filters
+↓
+Generate filtered reports
+↓
+Download detailed CSV/JSON
+↓
+Download monthly/yearly/risk summaries
+Agora vamos para a próxima grande etapa:
+PDF/image upload + OCR preparation
+
+_____________________________________
+
+Agora vamos preparar o sistema para aceitar:
+.txt
+.pdf
+.png
+.jpg
+.jpeg
+Mas no primeiro passo, não vamos fazer OCR ainda. Vamos só:
+1. Permitir upload desses formatos
+2. Identificar o tipo do arquivo
+3. Se for .txt, processa como já faz hoje
+4. Se for PDF/image, salva na pasta correta
+5. Mostra mensagem: OCR will be added in the next step
+
+_____________________________________________
+
+Upload file
+↓
+Detect file type
+↓
+TXT -> read text directly
+PDF/Image -> future OCR
+↓
+Process extracted text
+↓
+SQLite
+↓
+Dashboard
+
+_______________________________________________________
