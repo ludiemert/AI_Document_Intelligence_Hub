@@ -757,3 +757,18 @@ mostra mensagem vermelha ali mesmo
 ↓
 não volta para dashboard
 ____________________________
+
+Para PDF/imagem isso vai dar erro, porque PDF/imagem não é texto puro.
+Então agora vamos ensinar o sistema:
+Se for .txt:
+    lê texto
+    extrai campos
+    valida
+    salva no SQLite
+
+Se for .pdf / .png / .jpg / .jpeg:
+    salva em uploads/pending_ocr
+    mostra mensagem:
+    "File uploaded successfully. OCR processing will be added next."
+
+    _______________________

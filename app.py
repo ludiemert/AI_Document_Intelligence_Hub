@@ -84,6 +84,15 @@ def allowed_file(filename):
     return file_extension in ALLOWED_EXTENSIONS
 
 
+def get_file_extension(filename):
+    """Get the uploaded file extension."""
+    # This gets the file extension after the last dot.
+    file_extension = filename.rsplit(".", 1)[1].lower()
+
+    # This returns the file extension.
+    return file_extension
+
+
 @app.route("/")
 def dashboard():
     """Show the dashboard page."""
