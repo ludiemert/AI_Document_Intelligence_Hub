@@ -772,3 +772,81 @@ Se for .pdf / .png / .jpg / .jpeg:
     "File uploaded successfully. OCR processing will be added next."
 
     _______________________
+TXT correto
+↓
+processa
+↓
+salva no SQLite
+
+TXT com campo faltando
+↓
+não processa
+↓
+não salva
+↓
+mostra erro na tela upload
+
+PDF/image
+↓
+não processa ainda
+↓
+vai para pending OCR
+
+________________________
+
+.txt é texto puro. O Python consegue fazer:
+invoice_text = uploaded_file.read().decode("utf-8")
+Mas um .pdf, .png, .jpg é arquivo binário/visual. Antes de validar campos, precisamos transformar imagem/PDF em texto:
+PDF/image
+↓
+OCR
+↓
+text
+↓
+extract fields
+↓
+validate fields
+
+__________________
+OCR significa:
+Optical Character Recognition
+Em português:
+Reconhecimento Óptico de Caracteres
+Ou seja: OCR é a tecnologia que transforma imagem/PDF visual em texto.
+______________________________
+
+uma imagem é só pixels:
+photo_invoice.jpg
+Python não vê texto ali diretamente. Ele vê imagem. O OCR faz esta ponte:
+pixels -> text
+Ferramentas OCR Comuns
+No nosso projeto, opções gratuitas:
+Tesseract OCR
+pytesseract
+OpenCV
+pdf2image
+Pillow
+
+O papel de cada uma:
+Tesseract = motor que reconhece letras
+pytesseract = Python conversa com Tesseract
+OpenCV = limpa/melhora imagem antes do OCR
+pdf2image = transforma PDF em imagem
+Pillow = abre/manipula imagens
+No Mercado De TI
+Isso é muito usado em empresas para:
+invoices
+contracts
+receipts
+delivery notes
+bank documents
+HR forms
+compliance documents
+
+Frase para explicar em entrevista:
+I added an OCR layer to convert PDF and image documents into text before extraction, validation, risk scoring, and database storage.
+Em inglês A2:
+OCR reads text from images.
+The app uses OCR before extracting invoice fields.
+After OCR, the app can validate and save the invoice.
+__________________________________
