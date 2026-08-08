@@ -60,6 +60,10 @@ REPORTS_FOLDER = Path("reports")
 # Flask saves uploaded invoice files in this folder.
 UPLOADS_FOLDER = Path("uploads")
 
+# This is the pending OCR folder path.
+# PDF and image files wait here for OCR processing.
+PENDING_OCR_FOLDER = UPLOADS_FOLDER / "pending_ocr"
+
 # This set has the file types accepted by the app.
 # TXT works now. PDF and images will be prepared for OCR later.
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg"}
@@ -69,6 +73,9 @@ REPORTS_FOLDER.mkdir(exist_ok=True)
 
 # This creates the uploads folder if it does not exist.
 UPLOADS_FOLDER.mkdir(exist_ok=True)
+
+# This creates the pending OCR folder if it does not exist.
+PENDING_OCR_FOLDER.mkdir(parents=True, exist_ok=True)
 
 
 def allowed_file(filename):
@@ -120,6 +127,27 @@ def upload_invoice_page():
                 "Invalid file type. Please upload TXT, PDF, PNG, JPG, or JPEG.",
                 "error",
             )
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets the uploaded file extension.
+        file_extension = get_file_extension(uploaded_file.filename)
+
+        # This checks if the file is not TXT.
+        # PDF and image files will be processed by OCR later.
+        if file_extension != "txt":
+            # This creates the pending OCR file path.
+            pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
+
+            # This saves the PDF or image file for future OCR.
+            uploaded_file.save(pending_file_path)
+
+            # This shows a message to the user.
+            flash(
+                "File uploaded successfully. OCR processing will be added next.",
+                "success",
+            )
+
+            # This sends the user back to the upload page.
             return redirect(url_for("upload_invoice_page"))
 
         # This reads the uploaded file text.
