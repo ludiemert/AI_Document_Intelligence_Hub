@@ -850,3 +850,18 @@ OCR reads text from images.
 The app uses OCR before extracting invoice fields.
 After OCR, the app can validate and save the invoice.
 __________________________________
+
+arquitetura pronta:
+upload
+↓
+ocr_reader.py
+↓
+text
+↓
+extractor.py
+↓
+validator.py
+↓
+SQLite
+
+_____________________________
