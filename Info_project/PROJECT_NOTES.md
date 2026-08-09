@@ -872,3 +872,17 @@ validator.py = valida regras
 database = salva dados
 
 _______________________________
+
+OCR com Tesseract tem 2 partes:
+1. Programa Tesseract instalado no Windows
+2. Biblioteca Python pytesseract instalada no ambiente
+
+pip show pytesseract
+OR
+pip install pytesseract pillow
+
+next step
+tesseract --version
+pip show pytesseract
+pip show pillow
+__________________________________
