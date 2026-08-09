@@ -865,3 +865,10 @@ validator.py
 SQLite
 
 _____________________________
+app.py = controla as rotas Flask
+ocr_reader.py = lê texto dos arquivos
+extractor.py = extrai campos
+validator.py = valida regras
+database = salva dados
+
+_______________________________
