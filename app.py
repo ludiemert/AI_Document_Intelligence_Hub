@@ -35,6 +35,10 @@ from services.exporter import export_invoices_from_sqlite
 # It processes uploaded invoice text.
 from services.invoice_processor import process_invoice_text
 
+# This imports the OCR reader function.
+# It reads text from TXT files and prepares OCR files.
+from services.ocr_reader import read_text_from_file
+
 # This imports invoice data functions.
 # The repository reads invoice data from SQLite.
 from services.invoice_repository import find_invoice_by_number, load_invoices
@@ -150,8 +154,21 @@ def upload_invoice_page():
             # This sends the user back to the upload page.
             return redirect(url_for("upload_invoice_page"))
 
-        # This reads the uploaded file text.
-        invoice_text = uploaded_file.read().decode("utf-8")
+            # This saves the TXT file temporarily.
+        # The OCR reader will read text from this saved file.
+        temp_file_path = UPLOADS_FOLDER / uploaded_file.filename
+        uploaded_file.save(temp_file_path)
+
+        # This reads text using the OCR reader service.
+        text_result = read_text_from_file(temp_file_path)
+
+        # This checks if the text reader failed.
+        if not text_result["success"]:
+            flash(text_result["message"], "error")
+            return redirect(url_for("upload_invoice_page"))
+
+        # This gets the invoice text from the reader result.
+        invoice_text = text_result["text"]
 
         # This extracts invoice fields before saving the file.
         invoice_fields = extract_invoice_fields(invoice_text)
