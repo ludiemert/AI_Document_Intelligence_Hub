@@ -1,9 +1,21 @@
 # This file reads text from uploaded files.
-# TXT files work now. PDF and image OCR will be added later.
+# TXT files work now. Image OCR works with Tesseract.
 
 # This imports Path from Python.
 # We use Path to work with file paths.
 from pathlib import Path
+
+# This imports Image from Pillow.
+# Pillow opens image files.
+from PIL import Image
+
+# This imports pytesseract.
+# pytesseract connects Python to Tesseract OCR.
+import pytesseract
+
+# This tells Python where Tesseract is installed on Windows.
+# Change this path only if Tesseract is installed in another folder.
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 def get_file_extension(file_path):
@@ -18,8 +30,20 @@ def get_file_extension(file_path):
     return file_extension
 
 
+def read_text_from_image(file_path):
+    """Read text from an image using OCR."""
+    # This opens the image file.
+    image = Image.open(file_path)
+
+    # This uses Tesseract OCR to read text from the image.
+    text = pytesseract.image_to_string(image)
+
+    # This returns the extracted text.
+    return text
+
+
 def read_text_from_file(file_path):
-    """Read text from TXT files or prepare OCR files."""
+    """Read text from TXT files or image files."""
     # This gets the file extension.
     file_extension = get_file_extension(file_path)
 
@@ -35,14 +59,25 @@ def read_text_from_file(file_path):
             "message": "TXT file read successfully.",
         }
 
-    # This checks if the file is PDF or image.
-    if file_extension in ["pdf", "png", "jpg", "jpeg"]:
-        # OCR is not ready yet.
-        # The app knows this file needs OCR later.
+    # This checks if the file is an image.
+    if file_extension in ["png", "jpg", "jpeg"]:
+        # This reads text from the image using OCR.
+        text = read_text_from_image(file_path)
+
+        # This returns the OCR text.
+        return {
+            "success": True,
+            "text": text,
+            "message": "Image OCR completed successfully.",
+        }
+
+    # This checks if the file is PDF.
+    if file_extension == "pdf":
+        # PDF OCR will be added later.
         return {
             "success": False,
             "text": "",
-            "message": "OCR is not implemented yet for this file type.",
+            "message": "PDF OCR is not implemented yet.",
         }
 
     # This returns an error for unknown file types.
@@ -51,3 +86,24 @@ def read_text_from_file(file_path):
         "text": "",
         "message": "Unsupported file type.",
     }
+
+
+# This runs only when we test this file directly.
+# It does not run when Flask imports this file.
+if __name__ == "__main__":
+    # This is a test image path.
+    # Change this path to an image inside uploads/pending_ocr.
+    test_file_path = "uploads/pending_ocr/invoice_013.jpg"
+
+    # This reads text from the test file.
+    result = read_text_from_file(test_file_path)
+
+    # This prints if OCR worked or not.
+    print("OCR RESULT")
+    print("----------")
+    print(f"success: {result['success']}")
+    print(f"message: {result['message']}")
+    print()
+    print("TEXT")
+    print("----")
+    print(result["text"])
