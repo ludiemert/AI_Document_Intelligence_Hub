@@ -13,6 +13,10 @@ from PIL import Image
 # pytesseract connects Python to Tesseract OCR.
 import pytesseract
 
+# This imports the OCR text cleaner.
+# It fixes small OCR mistakes before extraction.
+from services.text_cleaner import clean_ocr_text
+
 # This tells Python where Tesseract is installed on Windows.
 # Change this path only if Tesseract is installed in another folder.
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -36,10 +40,13 @@ def read_text_from_image(file_path):
     image = Image.open(file_path)
 
     # This uses Tesseract OCR to read text from the image.
-    text = pytesseract.image_to_string(image)
+    raw_text = pytesseract.image_to_string(image)
 
-    # This returns the extracted text.
-    return text
+    # This cleans small OCR mistakes.
+    cleaned_text = clean_ocr_text(raw_text)
+
+    # This returns the cleaned OCR text.
+    return cleaned_text
 
 
 def read_text_from_file(file_path):
