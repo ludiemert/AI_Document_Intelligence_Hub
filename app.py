@@ -283,11 +283,24 @@ def upload_invoice_page():
         # This creates the folder if it does not exist.
         target_folder.mkdir(parents=True, exist_ok=True)
 
-        # This creates the final file path.
-        file_path = target_folder / uploaded_file.filename
+        # This checks if the uploaded file is TXT.
+        if file_extension == "txt":
+            # This creates the final TXT file path.
+            file_path = target_folder / uploaded_file.filename
 
-        # This saves the uploaded text into the final file.
-        file_path.write_text(invoice_text, encoding="utf-8")
+            # This saves the TXT invoice text into the final folder.
+            file_path.write_text(invoice_text, encoding="utf-8")
+
+        # This checks if the uploaded file is an image.
+        else:
+            # This creates a TXT file name from the image name.
+            extracted_text_file_name = f"{Path(uploaded_file.filename).stem}_ocr.txt"
+
+            # This creates the OCR text file path.
+            file_path = target_folder / extracted_text_file_name
+
+            # This saves OCR text into the final folder.
+            file_path.write_text(invoice_text, encoding="utf-8")
 
         # This processes the invoice and saves it into SQLite.
         process_invoice_text(invoice_text, str(file_path))
