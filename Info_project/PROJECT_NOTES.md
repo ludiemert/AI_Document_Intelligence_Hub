@@ -886,3 +886,7 @@ tesseract --version
 pip show pytesseract
 pip show pillow
 __________________________________
+
+teste => python -m services.ocr_reader
+
+_________________

@@ -136,23 +136,43 @@ def upload_invoice_page():
         # This gets the uploaded file extension.
         file_extension = get_file_extension(uploaded_file.filename)
 
-        # This checks if the file is not TXT.
-        # PDF and image files will be processed by OCR later.
-        if file_extension != "txt":
+        # This checks if the file is PDF.
+        # PDF OCR will be added later.
+        if file_extension == "pdf":
             # This creates the pending OCR file path.
             pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
 
-            # This saves the PDF or image file for future OCR.
+            # This saves the PDF file for future OCR.
             uploaded_file.save(pending_file_path)
 
             # This shows a message to the user.
             flash(
-                "File uploaded successfully. OCR processing will be added next.",
+                "PDF uploaded successfully. PDF OCR will be added next.",
                 "success",
             )
 
             # This sends the user back to the upload page.
             return redirect(url_for("upload_invoice_page"))
+
+        # This checks if the file is an image.
+        # Image files can be processed with OCR now.
+        if file_extension in ["png", "jpg", "jpeg"]:
+            # This creates the pending OCR file path.
+            pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
+
+            # This saves the image file for OCR.
+            uploaded_file.save(pending_file_path)
+
+            # This reads text from the image using OCR reader.
+            text_result = read_text_from_file(pending_file_path)
+
+            # This checks if OCR failed.
+            if not text_result["success"]:
+                flash(text_result["message"], "error")
+                return redirect(url_for("upload_invoice_page"))
+
+            # This gets OCR text from the reader result.
+            invoice_text = text_result["text"]
 
             # This saves the TXT file temporarily.
         # The OCR reader will read text from this saved file.
