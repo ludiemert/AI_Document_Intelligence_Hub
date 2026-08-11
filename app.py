@@ -125,7 +125,6 @@ def upload_invoice_page():
             return redirect(url_for("upload_invoice_page"))
 
         # This checks if the uploaded file type is allowed.
-        # The app accepts txt now. PDF and images will use OCR later.
         if not allowed_file(uploaded_file.filename):
             flash(
                 "Invalid file type. Please upload TXT, PDF, PNG, JPG, or JPEG.",
@@ -139,56 +138,14 @@ def upload_invoice_page():
         # This checks if the file is PDF.
         # PDF OCR will be added later.
         if file_extension == "pdf":
-            # This creates the pending OCR file path.
             pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
-
-            # This saves the PDF file for future OCR.
             uploaded_file.save(pending_file_path)
 
-            # This shows a message to the user.
-            flash(
-                "PDF uploaded successfully. PDF OCR will be added next.",
-                "success",
-            )
-
-            # This sends the user back to the upload page.
+            flash("PDF uploaded successfully. PDF OCR will be added next.", "success")
             return redirect(url_for("upload_invoice_page"))
 
         # This checks if the file is an image.
         # Image files can be processed with OCR now.
-        if file_extension in ["png", "jpg", "jpeg"]:
-            # This creates the pending OCR file path.
-            pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
-
-            # This saves the image file for OCR.
-            uploaded_file.save(pending_file_path)
-
-            # This reads text from the image using OCR reader.
-            text_result = read_text_from_file(pending_file_path)
-
-            # This checks if OCR failed.
-            if not text_result["success"]:
-                flash(text_result["message"], "error")
-                return redirect(url_for("upload_invoice_page"))
-
-            # This gets OCR text from the reader result.
-            invoice_text = text_result["text"]
-
-        # This gets the uploaded file extension.
-# We use it to decide how to read the file.
-file_extension = get_file_extension(uploaded_file.filename)
-
-# This checks if the file is PDF.
-# PDF OCR will be added later.
-if file_extension == "pdf":
-    pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
-    uploaded_file.save(pending_file_path)
-
-    flash("PDF uploaded successfully. PDF OCR will be added next.", "success")
-    return redirect(url_for("upload_invoice_page"))
-
-        # This checks if the file is an image.
-        # Image files use OCR.
         if file_extension in ["png", "jpg", "jpeg"]:
             pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
             uploaded_file.save(pending_file_path)
@@ -214,17 +171,6 @@ if file_extension == "pdf":
                 return redirect(url_for("upload_invoice_page"))
 
             invoice_text = text_result["text"]
-
-        # This extracts invoice fields before saving the file.
-        invoice_fields = extract_invoice_fields(invoice_text)
-
-        # This checks if the text reader failed.
-        if not text_result["success"]:
-            flash(text_result["message"], "error")
-            return redirect(url_for("upload_invoice_page"))
-
-        # This gets the invoice text from the reader result.
-        invoice_text = text_result["text"]
 
         # This extracts invoice fields before saving the file.
         invoice_fields = extract_invoice_fields(invoice_text)
@@ -315,27 +261,17 @@ if file_extension == "pdf":
 
         # This creates the upload folder by year and month.
         target_folder = UPLOADS_FOLDER / invoice_year / invoice_month
-
-        # This creates the folder if it does not exist.
         target_folder.mkdir(parents=True, exist_ok=True)
 
         # This checks if the uploaded file is TXT.
         if file_extension == "txt":
-            # This creates the final TXT file path.
             file_path = target_folder / uploaded_file.filename
-
-            # This saves the TXT invoice text into the final folder.
             file_path.write_text(invoice_text, encoding="utf-8")
 
-        # This checks if the uploaded file is an image.
+        # This saves OCR text from image files.
         else:
-            # This creates a TXT file name from the image name.
             extracted_text_file_name = f"{Path(uploaded_file.filename).stem}_ocr.txt"
-
-            # This creates the OCR text file path.
             file_path = target_folder / extracted_text_file_name
-
-            # This saves OCR text into the final folder.
             file_path.write_text(invoice_text, encoding="utf-8")
 
         # This processes the invoice and saves it into SQLite.
