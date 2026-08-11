@@ -174,13 +174,49 @@ def upload_invoice_page():
             # This gets OCR text from the reader result.
             invoice_text = text_result["text"]
 
-            # This saves the TXT file temporarily.
-        # The OCR reader will read text from this saved file.
-        temp_file_path = UPLOADS_FOLDER / uploaded_file.filename
-        uploaded_file.save(temp_file_path)
+        # This gets the uploaded file extension.
+# We use it to decide how to read the file.
+file_extension = get_file_extension(uploaded_file.filename)
 
-        # This reads text using the OCR reader service.
-        text_result = read_text_from_file(temp_file_path)
+# This checks if the file is PDF.
+# PDF OCR will be added later.
+if file_extension == "pdf":
+    pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
+    uploaded_file.save(pending_file_path)
+
+    flash("PDF uploaded successfully. PDF OCR will be added next.", "success")
+    return redirect(url_for("upload_invoice_page"))
+
+        # This checks if the file is an image.
+        # Image files use OCR.
+        if file_extension in ["png", "jpg", "jpeg"]:
+            pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
+            uploaded_file.save(pending_file_path)
+
+            text_result = read_text_from_file(pending_file_path)
+
+            if not text_result["success"]:
+                flash(text_result["message"], "error")
+                return redirect(url_for("upload_invoice_page"))
+
+            invoice_text = text_result["text"]
+
+        # This checks if the file is TXT.
+        # TXT files are read as normal text.
+        if file_extension == "txt":
+            temp_file_path = UPLOADS_FOLDER / uploaded_file.filename
+            uploaded_file.save(temp_file_path)
+
+            text_result = read_text_from_file(temp_file_path)
+
+            if not text_result["success"]:
+                flash(text_result["message"], "error")
+                return redirect(url_for("upload_invoice_page"))
+
+            invoice_text = text_result["text"]
+
+        # This extracts invoice fields before saving the file.
+        invoice_fields = extract_invoice_fields(invoice_text)
 
         # This checks if the text reader failed.
         if not text_result["success"]:
