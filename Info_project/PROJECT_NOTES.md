@@ -890,3 +890,36 @@ __________________________________
 teste => python -m services.ocr_reader
 
 _________________
+comando SQL beekeeper Studio para ver a linha da coluna
+SELECT
+    invoice_number,
+    supplier_name,
+    invoice_date,
+    due_date,
+    total_amount,
+    currency,
+    vat_number,
+    status,
+    risk_score,
+    source_file
+FROM invoices
+WHERE invoice_number = 'INV-2026-014';
+________________
+alterar a tabela
+
+ALTER TABLE invoices
+ADD COLUMN source_type TEXT DEFAULT 'txt';
+
+This adds a new column.
+The column saves the invoice source type.
+Old invoices receive txt as default.
+Passo 2: conferir se criou
+Depois rode:
+SELECT
+    invoice_number,
+    source_file,
+    source_type
+FROM invoices
+ORDER BY invoice_number;
+
+___________________________________________
