@@ -14,7 +14,9 @@ from services.invoice_repository import save_invoice
 from services.validator import validate_invoice
 
 
-def process_invoice_text(invoice_text, source_file):
+# source_type="txt" means default value.
+# If we do not send source_type, Python uses txt.
+def process_invoice_text(invoice_text, source_file, source_type="txt"):
     """Process one invoice text and save it."""
     # This extracts fields from invoice text.
     invoice_fields = extract_invoice_fields(invoice_text)
@@ -25,6 +27,7 @@ def process_invoice_text(invoice_text, source_file):
     # This creates the final invoice data.
     invoice_data = {
         "source_file": source_file,
+        "source_type": source_type,
         "invoice_number": invoice_fields.get("invoice_number"),
         "supplier_name": invoice_fields.get("supplier_name"),
         "invoice_date": invoice_fields.get("invoice_date"),
