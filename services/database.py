@@ -45,6 +45,7 @@ def create_tables():
         CREATE TABLE IF NOT EXISTS invoices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             source_file TEXT,
+            source_type TEXT DEFAULT 'txt',
             invoice_number TEXT UNIQUE,
             supplier_name TEXT,
             invoice_date TEXT,
