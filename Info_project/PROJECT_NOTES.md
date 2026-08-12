@@ -923,3 +923,17 @@ FROM invoices
 ORDER BY invoice_number;
 
 ___________________________________________
+
+alterar arquivo SQL table
+UPDATE invoices
+SET source_type = 'ocr_image'
+WHERE invoice_number = 'INV-2026-014';
+____________________________
+check
+SELECT
+    invoice_number,
+    source_file,
+    source_type
+FROM invoices
+WHERE invoice_number = 'INV-2026-014';
+___________________________
