@@ -21,9 +21,11 @@ def load_invoices():
     cursor = connection.cursor()
 
     # This selects all invoices from the database.
+    # source_type shows if the invoice came from TXT or OCR image.
     cursor.execute("""
         SELECT
             source_file,
+            source_type,
             invoice_number,
             supplier_name,
             invoice_date,
@@ -60,10 +62,12 @@ def find_invoice_by_number(invoice_number):
     cursor = connection.cursor()
 
     # This selects one invoice by invoice number.
+    # source_type helps the detail page show where the invoice came from.
     cursor.execute(
         """
         SELECT
             source_file,
+            source_type,
             invoice_number,
             supplier_name,
             invoice_date,
@@ -103,10 +107,12 @@ def save_invoice(invoice):
     cursor = connection.cursor()
 
     # This inserts or updates one invoice.
+    # source_type saves if the invoice came from TXT or OCR image.
     cursor.execute(
         """
         INSERT OR REPLACE INTO invoices (
             source_file,
+            source_type,
             invoice_number,
             supplier_name,
             invoice_date,
@@ -118,10 +124,11 @@ def save_invoice(invoice):
             risk_score,
             reasons
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             invoice.get("source_file"),
+            invoice.get("source_type"),
             invoice.get("invoice_number"),
             invoice.get("supplier_name"),
             invoice.get("invoice_date"),
