@@ -146,7 +146,7 @@ def upload_invoice_page():
 
         # This checks if the file is an image.
         # Image files can be processed with OCR now.
-        if file_extension in ["png", "jpg", "jpeg"]:
+        elif file_extension in ["png", "jpg", "jpeg"]:
             pending_file_path = PENDING_OCR_FOLDER / uploaded_file.filename
             uploaded_file.save(pending_file_path)
 
@@ -160,7 +160,7 @@ def upload_invoice_page():
 
         # This checks if the file is TXT.
         # TXT files are read as normal text.
-        if file_extension == "txt":
+        elif file_extension == "txt":
             temp_file_path = UPLOADS_FOLDER / uploaded_file.filename
             uploaded_file.save(temp_file_path)
 
@@ -171,6 +171,12 @@ def upload_invoice_page():
                 return redirect(url_for("upload_invoice_page"))
 
             invoice_text = text_result["text"]
+
+        # This stops the upload if the file type is not expected.
+        # This is a safety check.
+        else:
+            flash("Invalid file type.", "error")
+            return redirect(url_for("upload_invoice_page"))
 
         # This extracts invoice fields before saving the file.
         invoice_fields = extract_invoice_fields(invoice_text)
@@ -274,8 +280,15 @@ def upload_invoice_page():
             file_path = target_folder / extracted_text_file_name
             file_path.write_text(invoice_text, encoding="utf-8")
 
+        # This sets the source type for SQLite.
+        # TXT upload is txt. Image OCR upload is ocr_image.
+        if file_extension == "txt":
+            source_type = "txt"
+        else:
+            source_type = "ocr_image"
+
         # This processes the invoice and saves it into SQLite.
-        process_invoice_text(invoice_text, str(file_path))
+        process_invoice_text(invoice_text, str(file_path), source_type)
 
         # This shows a success message after processing.
         flash(f"Invoice processed successfully: {invoice_number}", "success")

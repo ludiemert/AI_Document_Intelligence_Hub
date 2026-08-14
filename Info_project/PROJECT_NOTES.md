@@ -937,3 +937,37 @@ SELECT
 FROM invoices
 WHERE invoice_number = 'INV-2026-014';
 ___________________________
+
+como estar para ver os invoices
+
+testar em 3 lugares.
+1. Beekeeper / SQLite
+Rode:
+SELECT
+    invoice_number,
+    invoice_date,
+    total_amount,
+    status,
+    risk_score,
+    source_file,
+    source_type
+FROM invoices
+WHERE invoice_number = 'INV-2027-015';
+Resultado esperado se foi imagem/OCR:
+source_type = ocr_image
+E o source_file deve estar parecido com:
+uploads\2027\...\invoice_015_ocr.txt
+2. Pasta uploads
+Veja se foi criado um arquivo .txt do OCR dentro da pasta do ano/mês:
+C:\Users\user\Downloads\AI_Document_Intelligence_Hub\uploads\2027\...\invoice_015_ocr.txt
+Esse arquivo é importante porque mostra:
+image -> OCR text -> saved text file
+3. Página de detalhe
+Clique na invoice INV-2027-015, se ela aparecer na tabela ou gráfico. A página detalhe deve abrir. Por enquanto talvez ainda não mostre source_type, porque esse é nosso próximo passo visual.
+
+__________________________________
+if -> first option
+elif -> second option
+elif -> third option
+else -> safety option
+________________________
