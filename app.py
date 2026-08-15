@@ -112,13 +112,6 @@ def get_file_extension(filename):
     return file_extension
 
 
-@app.route("/")
-def dashboard():
-    """Show the dashboard page."""
-    # This sends index.html to the browser.
-    return render_template("index.html")
-
-
 @app.route("/upload", methods=["GET", "POST"])
 def upload_invoice_page():
     """Show upload page and process uploaded invoice."""
@@ -306,30 +299,6 @@ def upload_invoice_page():
 
     # This shows the upload page.
     return render_template("upload.html")
-
-
-@app.route("/api/invoices")
-def get_invoices():
-    """Return invoice data as JSON."""
-    # This loads invoices from SQLite.
-    invoices = load_invoices()
-
-    # This sends invoice data to the frontend.
-    return jsonify(invoices)
-
-
-@app.route("/invoice/<invoice_number>")
-def invoice_detail(invoice_number):
-    """Show one invoice detail page."""
-    # This finds one invoice by invoice number.
-    selected_invoice = find_invoice_by_number(invoice_number)
-
-    # This shows an error if the invoice was not found.
-    if selected_invoice is None:
-        return "Invoice not found", 404
-
-    # This sends one invoice to the detail page.
-    return render_template("invoice_detail.html", invoice=selected_invoice)
 
 
 @app.route("/reports")
