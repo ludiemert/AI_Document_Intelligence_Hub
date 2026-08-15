@@ -988,3 +988,10 @@ A blueprint is a group of routes.
 Flask app uses the blueprint.
 
 ___________________
+
+app.py starts Flask.
+dashboard_routes.py controls dashboard routes.
+register_blueprint connects app.py with dashboard_routes.py.
+We remove old routes from app.py to avoid duplicate routes.
+
+____________________
