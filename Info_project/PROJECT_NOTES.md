@@ -971,3 +971,12 @@ elif -> second option
 elif -> third option
 else -> safety option
 ________________________
+arquitetura será separar rotas:
+app.py -> starts Flask app
+routes/dashboard_routes.py -> dashboard and API
+routes/upload_routes.py -> upload and OCR
+routes/report_routes.py -> BI reports and downloads
+_________________________________________
+O __init__.py pode ficar vazio. Ele só diz para o Python:
+routes is a Python package.
+______________________

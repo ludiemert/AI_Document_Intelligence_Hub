@@ -15,6 +15,10 @@ from flask import (
 # We use it to check text patterns.
 import re
 
+# This imports dashboard routes.
+# These routes control dashboard, API, and invoice detail.
+from routes.dashboard_routes import dashboard_bp
+
 # This imports datetime from Python.
 # We use it to validate real dates.
 from datetime import datetime
