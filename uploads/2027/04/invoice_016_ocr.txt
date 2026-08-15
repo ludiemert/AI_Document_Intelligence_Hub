@@ -1,0 +1,6 @@
+Invoice Number: INV-2027-016
+Supplier: ABC Logistics
+Invoice Date: 2027-04-29
+Due Date: 2027-05-22
+Total: 330.00 EUR
+VAT Number: IE2027562212E35677
