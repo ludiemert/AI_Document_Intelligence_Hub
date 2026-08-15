@@ -980,3 +980,11 @@ _________________________________________
 O __init__.py pode ficar vazio. Ele só diz para o Python:
 routes is a Python package.
 ______________________
+O Que É Blueprint
+Pensa assim:
+Blueprint = folder/group of routes
+Ou em inglês A2:
+A blueprint is a group of routes.
+Flask app uses the blueprint.
+
+___________________

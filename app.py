@@ -56,6 +56,10 @@ app = Flask(
     static_folder="frontend",
 )
 
+# This registers dashboard routes.
+# Flask now knows the dashboard blueprint.
+app.register_blueprint(dashboard_bp)
+
 # This secret key lets Flask show temporary messages.
 # We use this for success and error messages.
 app.secret_key = "dev-secret-key"
