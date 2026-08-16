@@ -1,6 +1,6 @@
 # This imports Flask tools.
 # Flask creates the app, messages, redirects, pages, requests, and downloads.
-from flask import Flask, flash, redirect, render_template, request, send_file, url_for
+from flask import Flask, flash, redirect, request, send_file, url_for
 
 # This imports Path from Python.
 # Path helps us work with folders and files.
