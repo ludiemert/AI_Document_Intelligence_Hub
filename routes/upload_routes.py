@@ -1,27 +1,13 @@
+# This file controls upload routes.
+# It receives TXT, PDF, and image invoice files.
+
 # This imports Flask tools.
-# Flask creates pages, APIs, redirects, messages, and file downloads.
-from flask import (
-    Flask,
-    flash,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    send_file,
-    url_for,
-)
+# Blueprint helps split upload routes into this file.
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 # This imports re from Python.
 # We use it to check text patterns.
 import re
-
-# This imports dashboard routes.
-# These routes control dashboard, API, and invoice detail.
-from routes.dashboard_routes import dashboard_bp
-
-# This imports upload routes.
-# These routes control TXT upload, image OCR upload, and PDF pending OCR.
-from routes.upload_routes import upload_bp
 
 # This imports datetime from Python.
 # We use it to validate real dates.
@@ -32,45 +18,20 @@ from datetime import datetime
 from pathlib import Path
 
 # This imports the extractor function.
-# We use it to read invoice fields from text.
+# It reads invoice fields from text.
 from services.extractor import extract_invoice_fields
 
-# This imports the export function.
-# We use it to create CSV and JSON reports from SQLite.
-from services.exporter import export_invoices_from_sqlite
-
 # This imports the invoice processor.
-# It processes uploaded invoice text.
+# It saves processed invoice data into SQLite.
 from services.invoice_processor import process_invoice_text
 
 # This imports the OCR reader function.
-# It reads text from TXT files and prepares OCR files.
+# It reads TXT files and image files.
 from services.ocr_reader import read_text_from_file
 
-# This imports invoice data functions.
-# The repository reads invoice data from SQLite.
-from services.invoice_repository import find_invoice_by_number, load_invoices
-
-# This creates the Flask app.
-# template_folder tells Flask where the HTML files are.
-# static_folder tells Flask where CSS and JS files are.
-app = Flask(
-    __name__,
-    template_folder="frontend",
-    static_folder="frontend",
-)
-
-# This registers dashboard routes.
-# Flask now knows the dashboard blueprint.
-app.register_blueprint(dashboard_bp)
-
-# This secret key lets Flask show temporary messages.
-# We use this for success and error messages.
-app.secret_key = "dev-secret-key"
-
-# This is the reports folder path.
-# Flask saves and downloads reports from this folder.
-REPORTS_FOLDER = Path("reports")
+# This creates the upload blueprint.
+# A blueprint is a small group of Flask routes.
+upload_bp = Blueprint("upload", __name__)
 
 # This is the uploads folder path.
 # Flask saves uploaded invoice files in this folder.
@@ -81,11 +42,8 @@ UPLOADS_FOLDER = Path("uploads")
 PENDING_OCR_FOLDER = UPLOADS_FOLDER / "pending_ocr"
 
 # This set has the file types accepted by the app.
-# TXT works now. PDF and images will be prepared for OCR later.
+# TXT and image OCR work now. PDF is saved for future OCR.
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg"}
-
-# This creates the reports folder if it does not exist.
-REPORTS_FOLDER.mkdir(exist_ok=True)
 
 # This creates the uploads folder if it does not exist.
 UPLOADS_FOLDER.mkdir(exist_ok=True)
@@ -116,7 +74,7 @@ def get_file_extension(filename):
     return file_extension
 
 
-@app.route("/upload", methods=["GET", "POST"])
+@upload_bp.route("/upload", methods=["GET", "POST"])
 def upload_invoice_page():
     """Show upload page and process uploaded invoice."""
     # This checks if the user submitted the form.
@@ -127,7 +85,7 @@ def upload_invoice_page():
         # This checks if no file was uploaded.
         if uploaded_file is None or uploaded_file.filename == "":
             flash("No file uploaded. Please choose an invoice file.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This checks if the uploaded file type is allowed.
         if not allowed_file(uploaded_file.filename):
@@ -135,7 +93,7 @@ def upload_invoice_page():
                 "Invalid file type. Please upload TXT, PDF, PNG, JPG, or JPEG.",
                 "error",
             )
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets the uploaded file extension.
         file_extension = get_file_extension(uploaded_file.filename)
@@ -147,7 +105,7 @@ def upload_invoice_page():
             uploaded_file.save(pending_file_path)
 
             flash("PDF uploaded successfully. PDF OCR will be added next.", "success")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This checks if the file is an image.
         # Image files can be processed with OCR now.
@@ -159,7 +117,7 @@ def upload_invoice_page():
 
             if not text_result["success"]:
                 flash(text_result["message"], "error")
-                return redirect(url_for("upload_invoice_page"))
+                return redirect(url_for("upload.upload_invoice_page"))
 
             invoice_text = text_result["text"]
 
@@ -173,7 +131,7 @@ def upload_invoice_page():
 
             if not text_result["success"]:
                 flash(text_result["message"], "error")
-                return redirect(url_for("upload_invoice_page"))
+                return redirect(url_for("upload.upload_invoice_page"))
 
             invoice_text = text_result["text"]
 
@@ -181,7 +139,7 @@ def upload_invoice_page():
         # This is a safety check.
         else:
             flash("Invalid file type.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This extracts invoice fields before saving the file.
         invoice_fields = extract_invoice_fields(invoice_text)
@@ -208,7 +166,7 @@ def upload_invoice_page():
                 f"Invalid invoice layout. Missing fields: {', '.join(missing_upload_fields)}",
                 "error",
             )
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets invoice number from extracted fields.
         invoice_number = invoice_fields.get("invoice_number")
@@ -216,7 +174,7 @@ def upload_invoice_page():
         # This checks if invoice number has the correct format.
         if not re.fullmatch(r"INV-\d{4}-\d{3,}", invoice_number):
             flash("Invalid invoice number. Example: INV-2027-001", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets invoice date from extracted fields.
         invoice_date = invoice_fields.get("invoice_date")
@@ -224,14 +182,14 @@ def upload_invoice_page():
         # This checks if invoice date has the correct format.
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", invoice_date):
             flash("Invalid invoice date. Please use format YYYY-MM-DD.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This checks if invoice date is a real calendar date.
         try:
             datetime.strptime(invoice_date, "%Y-%m-%d")
         except ValueError:
             flash("Invalid invoice date. Please use a real date.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets due date from extracted fields.
         due_date = invoice_fields.get("due_date")
@@ -239,14 +197,14 @@ def upload_invoice_page():
         # This checks if due date has the correct format.
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", due_date):
             flash("Invalid due date. Please use format YYYY-MM-DD.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This checks if due date is a real calendar date.
         try:
             datetime.strptime(due_date, "%Y-%m-%d")
         except ValueError:
             flash("Invalid due date. Please use a real date.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets the total amount.
         total_amount = invoice_fields.get("total_amount")
@@ -256,7 +214,7 @@ def upload_invoice_page():
             float(total_amount)
         except ValueError:
             flash("Invalid total amount. Please use a number like 1250.00.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets currency from extracted fields.
         currency = invoice_fields.get("currency")
@@ -264,7 +222,7 @@ def upload_invoice_page():
         # This checks if currency is EUR.
         if currency != "EUR":
             flash("Invalid currency. This app currently accepts only EUR.", "error")
-            return redirect(url_for("upload_invoice_page"))
+            return redirect(url_for("upload.upload_invoice_page"))
 
         # This gets year and month from invoice date.
         invoice_year = invoice_date[:4]
@@ -299,162 +257,7 @@ def upload_invoice_page():
         flash(f"Invoice processed successfully: {invoice_number}", "success")
 
         # This redirects the user back to the dashboard.
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("dashboard.dashboard"))
 
     # This shows the upload page.
     return render_template("upload.html")
-
-
-@app.route("/reports")
-def reports_page():
-    """Show the BI Reports page."""
-    # This sends reports.html to the browser.
-    return render_template("reports.html")
-
-
-@app.route("/export")
-def export_reports():
-    """Export invoice reports from SQLite using selected filters."""
-    # This gets the selected year from the BI Reports page.
-    selected_year = request.args.get("year", "all")
-
-    # This gets the selected month from the BI Reports page.
-    selected_month = request.args.get("month", "all")
-
-    # This exports invoices using the selected filters.
-    export_result = export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This checks if the export failed.
-    if not export_result["success"]:
-        flash(export_result["message"], "error")
-        return redirect(url_for("reports_page"))
-
-    # This shows a success message to the user.
-    flash(
-        f"Reports exported: {export_result['csv_file']} and {export_result['json_file']}",
-        "success",
-    )
-
-    # This sends the user back to the BI Reports page.
-    return redirect(url_for("reports_page"))
-
-
-@app.route("/download/csv")
-def download_csv_report():
-    """Download a CSV report."""
-    # This gets selected year from the URL.
-    selected_year = request.args.get("year", "all")
-
-    # This gets selected month from the URL.
-    selected_month = request.args.get("month", "all")
-
-    # This creates the report file name.
-    report_name = f"invoices_{selected_year}_{selected_month}"
-
-    # This is the CSV file path.
-    csv_file_path = REPORTS_FOLDER / f"{report_name}.csv"
-
-    # This creates the report if it does not exist yet.
-    if not csv_file_path.exists():
-        export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This sends the CSV file to the browser.
-    return send_file(csv_file_path, as_attachment=True)
-
-
-@app.route("/download/json")
-def download_json_report():
-    """Download a JSON report."""
-    # This gets selected year from the URL.
-    selected_year = request.args.get("year", "all")
-
-    # This gets selected month from the URL.
-    selected_month = request.args.get("month", "all")
-
-    # This creates the report file name.
-    report_name = f"invoices_{selected_year}_{selected_month}"
-
-    # This is the JSON file path.
-    json_file_path = REPORTS_FOLDER / f"{report_name}.json"
-
-    # This creates the report if it does not exist yet.
-    if not json_file_path.exists():
-        export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This sends the JSON file to the browser.
-    return send_file(json_file_path, as_attachment=True)
-
-
-@app.route("/download/monthly")
-def download_monthly_summary():
-    """Download the monthly summary report."""
-    # This gets selected year from the URL.
-    selected_year = request.args.get("year", "all")
-
-    # This gets selected month from the URL.
-    selected_month = request.args.get("month", "all")
-
-    # This creates the monthly summary file name.
-    file_name = f"monthly_summary_{selected_year}_{selected_month}.csv"
-
-    # This creates the monthly summary file path.
-    file_path = REPORTS_FOLDER / file_name
-
-    # This creates the report if it does not exist yet.
-    if not file_path.exists():
-        export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This sends the monthly summary file to the browser.
-    return send_file(file_path, as_attachment=True)
-
-
-@app.route("/download/yearly")
-def download_yearly_summary():
-    """Download the yearly summary report."""
-    # This gets selected year from the URL.
-    selected_year = request.args.get("year", "all")
-
-    # This gets selected month from the URL.
-    selected_month = request.args.get("month", "all")
-
-    # This creates the yearly summary file name.
-    file_name = f"yearly_summary_{selected_year}_{selected_month}.csv"
-
-    # This creates the yearly summary file path.
-    file_path = REPORTS_FOLDER / file_name
-
-    # This creates the report if it does not exist yet.
-    if not file_path.exists():
-        export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This sends the yearly summary file to the browser.
-    return send_file(file_path, as_attachment=True)
-
-
-@app.route("/download/risk")
-def download_risk_summary():
-    """Download the risk summary report."""
-    # This gets selected year from the URL.
-    selected_year = request.args.get("year", "all")
-
-    # This gets selected month from the URL.
-    selected_month = request.args.get("month", "all")
-
-    # This creates the risk summary file name.
-    file_name = f"risk_summary_{selected_year}_{selected_month}.csv"
-
-    # This creates the risk summary file path.
-    file_path = REPORTS_FOLDER / file_name
-
-    # This creates the report if it does not exist yet.
-    if not file_path.exists():
-        export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This sends the risk summary file to the browser.
-    return send_file(file_path, as_attachment=True)
-
-
-# This starts the Flask app.
-# debug=True helps us see errors while learning.
-if __name__ == "__main__":
-    app.run(debug=True)
