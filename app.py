@@ -1,15 +1,10 @@
 # This imports Flask tools.
-# Flask creates pages, APIs, redirects, messages, and file downloads.
-from flask import (
-    Flask,
-    flash,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    send_file,
-    url_for,
-)
+# Flask creates the app, messages, redirects, pages, requests, and downloads.
+from flask import Flask, flash, redirect, render_template, request, send_file, url_for
+
+# This imports Path from Python.
+# Path helps us work with folders and files.
+from pathlib import Path
 
 # This imports dashboard routes.
 # These routes control dashboard, API, and invoice detail.
@@ -19,17 +14,9 @@ from routes.dashboard_routes import dashboard_bp
 # These routes control TXT upload, image OCR upload, and PDF pending OCR.
 from routes.upload_routes import upload_bp
 
-# This imports Path from Python.
-# Path helps us work with folders and files.
-from pathlib import Path
-
 # This imports the export function.
 # We use it to create CSV and JSON reports from SQLite.
 from services.exporter import export_invoices_from_sqlite
-
-# This imports invoice data functions.
-# The repository reads invoice data from SQLite.
-from services.invoice_repository import find_invoice_by_number, load_invoices
 
 # This creates the Flask app.
 # template_folder tells Flask where the HTML files are.
