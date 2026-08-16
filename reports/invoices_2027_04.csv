@@ -1,3 +1,0 @@
-source_file;source_type;invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;vat_number;status;risk_score;reasons;invoice_year;invoice_month
-uploads\2027\04\invoice_018_ocr.txt;ocr_image;INV-2027-018;ABC Logistics;2027-04-21;2027-06-25;1345.0;EUR;IE202756221ERG3454;approved;0;All required fields are present;2027;04
-uploads\2027\04\invoice_016_ocr.txt;ocr_image;INV-2027-016;ABC Logistics;2027-04-29;2027-05-22;330.0;EUR;IE2027562212E35677;approved;0;All required fields are present;2027;04
