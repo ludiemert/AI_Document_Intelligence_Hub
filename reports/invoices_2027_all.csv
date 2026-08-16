@@ -1,0 +1,7 @@
+source_file;source_type;invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;vat_number;status;risk_score;reasons;invoice_year;invoice_month
+sample_documents\2027\01\invoice_004.txt;txt;INV-2027-004;Future Tech Supplies;2027-01-15;2027-02-15;4200.0;EUR;;approved;0;All required fields are present;2027;01
+sample_documents\2027\01\invoice_005.txt;txt;INV-2027-005;Future Tech Supplies;2027-01-18;2027-02-19;7200.0;EUR;;needs_review;25;High invoice amount;2027;01
+uploads\invoice_006.txt;txt;INV-2027-006;Future Tech Supplies;2027-02-18;2027-03-19;600.0;EUR;IE2027340021E;approved;0;All required fields are present;2027;02
+uploads\2027\03\invoice_007.txt;txt;INV-2027-007;Future Tech Supplies;2027-03-19;2027-04-20;1600.0;EUR;IE20273400222E;approved;0;All required fields are present;2027;03
+uploads\2027\03\invoice_015_ocr.txt;txt;INV-2027-015;ABC Logistics;2027-03-26;2027-05-21;30.0;EUR;IE2027562212E3452;approved;0;All required fields are present;2027;03
+uploads\2027\04\invoice_016_ocr.txt;ocr_image;INV-2027-016;ABC Logistics;2027-04-29;2027-05-22;330.0;EUR;IE2027562212E35677;approved;0;All required fields are present;2027;04

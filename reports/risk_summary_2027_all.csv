@@ -1,0 +1,3 @@
+status;total_invoices;average_invoice_amount;average_risk_score
+approved;5;1352.0;0.0
+needs_review;1;7200.0;25.0
