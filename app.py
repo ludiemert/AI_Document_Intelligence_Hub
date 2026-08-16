@@ -6,6 +6,10 @@ from flask import Flask, flash, redirect, render_template, request, send_file, u
 # Path helps us work with folders and files.
 from pathlib import Path
 
+# This imports report routes.
+# Report routes control BI report pages.
+from routes.report_routes import report_bp
+
 # This imports dashboard routes.
 # These routes control dashboard, API, and invoice detail.
 from routes.dashboard_routes import dashboard_bp
@@ -34,6 +38,10 @@ app.register_blueprint(dashboard_bp)
 # This registers upload routes.
 # Flask now knows the upload blueprint.
 app.register_blueprint(upload_bp)
+
+# This registers report routes.
+# Flask now knows the BI reports blueprint.
+app.register_blueprint(report_bp)
 
 # This secret key lets Flask show temporary messages.
 # We use this for success and error messages.
@@ -85,13 +93,6 @@ def get_file_extension(filename):
 
     # This returns the file extension.
     return file_extension
-
-
-@app.route("/reports")
-def reports_page():
-    """Show the BI Reports page."""
-    # This sends reports.html to the browser.
-    return render_template("reports.html")
 
 
 @app.route("/export")
