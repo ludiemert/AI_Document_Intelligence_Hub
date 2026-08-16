@@ -1,2 +1,0 @@
-source_file;source_type;invoice_number;supplier_name;invoice_date;due_date;total_amount;currency;vat_number;status;risk_score;reasons;invoice_year;invoice_month
-uploads\2027\05\invoice_017.txt;txt;INV-2027-017;ABC Logistics;2027-05-21;2027-07-15;12345.0;EUR;IE2027562212EERG34;needs_review;25;High invoice amount;2027;05
