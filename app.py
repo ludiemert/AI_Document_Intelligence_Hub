@@ -110,7 +110,9 @@ def export_reports():
     # This checks if the export failed.
     if not export_result["success"]:
         flash(export_result["message"], "error")
-        return redirect(url_for("reports_page"))
+        # This redirects back to the BI reports page.
+        # The route is inside the report blueprint.
+        return redirect(url_for("report.reports_page"))
 
     # This shows a success message to the user.
     flash(
@@ -118,8 +120,9 @@ def export_reports():
         "success",
     )
 
-    # This sends the user back to the BI Reports page.
-    return redirect(url_for("reports_page"))
+    # This redirects back to the BI reports page.
+    # The route is inside the report blueprint.
+    return redirect(url_for("report.reports_page"))
 
 
 @app.route("/download/csv")

@@ -1,0 +1,18 @@
+[
+    {
+        "source_file": "uploads\\2027\\05\\invoice_017.txt",
+        "source_type": "txt",
+        "invoice_number": "INV-2027-017",
+        "supplier_name": "ABC Logistics",
+        "invoice_date": "2027-05-21 00:00:00",
+        "due_date": "2027-07-15",
+        "total_amount": 12345.0,
+        "currency": "EUR",
+        "vat_number": "IE2027562212EERG34",
+        "status": "needs_review",
+        "risk_score": 25,
+        "reasons": "High invoice amount",
+        "invoice_year": "2027",
+        "invoice_month": "05"
+    }
+]
