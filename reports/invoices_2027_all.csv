@@ -4,4 +4,6 @@ sample_documents\2027\01\invoice_005.txt;txt;INV-2027-005;Future Tech Supplies;2
 uploads\invoice_006.txt;txt;INV-2027-006;Future Tech Supplies;2027-02-18;2027-03-19;600.0;EUR;IE2027340021E;approved;0;All required fields are present;2027;02
 uploads\2027\03\invoice_007.txt;txt;INV-2027-007;Future Tech Supplies;2027-03-19;2027-04-20;1600.0;EUR;IE20273400222E;approved;0;All required fields are present;2027;03
 uploads\2027\03\invoice_015_ocr.txt;txt;INV-2027-015;ABC Logistics;2027-03-26;2027-05-21;30.0;EUR;IE2027562212E3452;approved;0;All required fields are present;2027;03
+uploads\2027\04\invoice_018_ocr.txt;ocr_image;INV-2027-018;ABC Logistics;2027-04-21;2027-06-25;1345.0;EUR;IE202756221ERG3454;approved;0;All required fields are present;2027;04
 uploads\2027\04\invoice_016_ocr.txt;ocr_image;INV-2027-016;ABC Logistics;2027-04-29;2027-05-22;330.0;EUR;IE2027562212E35677;approved;0;All required fields are present;2027;04
+uploads\2027\05\invoice_017.txt;txt;INV-2027-017;ABC Logistics;2027-05-21;2027-07-15;12345.0;EUR;IE2027562212EERG34;needs_review;25;High invoice amount;2027;05

@@ -61,8 +61,8 @@
             <h2>Report Filters</h2>
 
             <!-- This form sends report filters to Flask. -->
-            <!-- Flask will use year and month to filter SQLite data. -->
-            <form class="report-form" action="/export" method="GET">
+            <!-- This form sends selected filters to Flask. -->
+            <form class="report-form" method="POST" action="/export">
                 <div class="filter-controls">
                     <!-- This filter selects the report year. -->
                     <label>

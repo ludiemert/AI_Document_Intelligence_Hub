@@ -2,6 +2,10 @@
 # Flask creates the app, messages, redirects, pages, requests, and downloads.
 from flask import Flask, flash, redirect, request, send_file, url_for
 
+# This imports report routes.
+# Report routes control BI reports and exports.
+from routes.report_routes import report_bp
+
 # This imports Path from Python.
 # Path helps us work with folders and files.
 from pathlib import Path

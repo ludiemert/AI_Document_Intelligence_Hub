@@ -2,7 +2,7 @@
 # It keeps report routes outside app.py.
 
 # This imports Flask tools.
-# We use them for pages, messages, redirects, and URLs.
+# We use them for pages, messages, redirects, and form data.
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 # This imports the exporter function.
@@ -21,6 +21,8 @@ def reports_page():
     return render_template("reports.html")
 
 
+# This route receives the report form.
+# It uses POST because the form sends selected filters.
 @report_bp.route("/export", methods=["POST"])
 def export_reports():
     """Generate filtered BI reports."""
