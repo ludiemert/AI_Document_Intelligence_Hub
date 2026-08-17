@@ -95,36 +95,6 @@ def get_file_extension(filename):
     return file_extension
 
 
-@app.route("/export")
-def export_reports():
-    """Export invoice reports from SQLite using selected filters."""
-    # This gets the selected year from the BI Reports page.
-    selected_year = request.args.get("year", "all")
-
-    # This gets the selected month from the BI Reports page.
-    selected_month = request.args.get("month", "all")
-
-    # This exports invoices using the selected filters.
-    export_result = export_invoices_from_sqlite(selected_year, selected_month)
-
-    # This checks if the export failed.
-    if not export_result["success"]:
-        flash(export_result["message"], "error")
-        # This redirects back to the BI reports page.
-        # The route is inside the report blueprint.
-        return redirect(url_for("report.reports_page"))
-
-    # This shows a success message to the user.
-    flash(
-        f"Reports exported: {export_result['csv_file']} and {export_result['json_file']}",
-        "success",
-    )
-
-    # This redirects back to the BI reports page.
-    # The route is inside the report blueprint.
-    return redirect(url_for("report.reports_page"))
-
-
 @app.route("/download/csv")
 def download_csv_report():
     """Download a CSV report."""
