@@ -1013,3 +1013,56 @@ o arquivo report_routes.py vai cuidar de:
 /download/risk
 
 _______________________________________
+A página Architecture mostraria o caminho que os dados fazem.
+Exemplo:
+User uploads invoice
+↓
+Flask receives file
+↓
+OCR/Text reader extracts text
+↓
+Extractor finds fields
+↓
+Validator checks risk
+↓
+SQLite saves invoice
+↓
+Dashboard shows charts
+↓
+BI Reports exports CSV/JSON
+
+__________________
+This is my system flow.
+The upload route receives documents.
+The OCR service reads images.
+The extractor gets invoice fields.
+The validator calculates risk.
+SQLite stores the data.
+The dashboard reads the API.
+_________________________________
+
+Project Structure
+app.py -> starts Flask
+routes/ -> controls pages
+services/ -> business logic
+data/invoices.db -> database
+frontend/ -> web interface
+uploads/ -> uploaded files
+reports/ -> exported files
+O Que Você Aprende Com Isso
+Você aprende a explicar:
+Architecture
+Data flow
+Backend responsibility
+Frontend responsibility
+Database role
+OCR pipeline
+Em inglês A2:
+This page explains how the app works.
+The user uploads a document.
+Python reads and validates the invoice.
+SQLite saves the data.
+The dashboard shows results.
+Não é só “enfeite”. É documentação visual dentro do sistema. Para portfólio, isso fica muito profissional.
+
+_______________________________________________
