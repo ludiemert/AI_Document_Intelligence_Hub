@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- This sets the text format for the page. -->
+    <meta charset="UTF-8">
+
+    <!-- This makes the page work well on desktop and mobile. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Architecture</title>
+
+    <!-- This adds the browser tab icon. -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <!-- This loads the main CSS file. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <main class="dashboard-container">
+        <!-- This button returns to the main dashboard. -->
+        <a class="back-button" href="/">Back to dashboard</a>
+
+        <!-- This is the page hero section. -->
+        <section class="hero">
+            <p class="eyebrow">SYSTEM DESIGN</p>
+            <h1>Project Architecture</h1>
+            <p>
+                This page explains how the AI Document Intelligence Hub works inside.
+            </p>
+        </section>
+
+        <!-- This section shows the current system status. -->
+        <section class="dashboard-section">
+            <h2>System Status</h2>
+
+            <div class="status-grid">
+                <div class="status-item status-active">
+                    <span>Database</span>
+                    <strong>SQLite Active</strong>
+                </div>
+
+                <div class="status-item status-active">
+                    <span>TXT Upload</span>
+                    <strong>Enabled</strong>
+                </div>
+
+                <div class="status-item status-active">
+                    <span>Image OCR</span>
+                    <strong>Enabled</strong>
+                </div>
+
+                <div class="status-item status-pending">
+                    <span>PDF OCR</span>
+                    <strong>Pending</strong>
+                </div>
+
+                <div class="status-item status-active">
+                    <span>BI Reports</span>
+                    <strong>Enabled</strong>
+                </div>
+
+                <div class="status-item status-active">
+                    <span>API</span>
+                    <strong>/api/invoices Active</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- This section shows the data flow. -->
+        <section class="dashboard-section">
+            <h2>Data Flow</h2>
+
+            <div class="flow-line">
+                <div class="flow-step">
+                    <span>1</span>
+                    <strong>Upload</strong>
+                    <p>User uploads TXT, image, or PDF.</p>
+                </div>
+
+                <div class="flow-step">
+                    <span>2</span>
+                    <strong>OCR / Text Reader</strong>
+                    <p>Python reads text from the document.</p>
+                </div>
+
+                <div class="flow-step">
+                    <span>3</span>
+                    <strong>Extractor</strong>
+                    <p>The app extracts invoice fields.</p>
+                </div>
+
+                <div class="flow-step">
+                    <span>4</span>
+                    <strong>Validator</strong>
+                    <p>The app checks risk rules.</p>
+                </div>
+
+                <div class="flow-step">
+                    <span>5</span>
+                    <strong>SQLite</strong>
+                    <p>The invoice is saved in the database.</p>
+                </div>
+
+                <div class="flow-step">
+                    <span>6</span>
+                    <strong>Dashboard</strong>
+                    <p>Charts and tables show business results.</p>
+                </div>
+
+                <div class="flow-step">
+                    <span>7</span>
+                    <strong>BI Reports</strong>
+                    <p>The app exports CSV and JSON reports.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- This section explains project folders. -->
+        <section class="dashboard-section">
+            <h2>Project Structure</h2>
+
+            <div class="structure-grid">
+                <div class="structure-card">
+                    <h3>app.py</h3>
+                    <p>Starts the Flask app and registers routes.</p>
+                </div>
+
+                <div class="structure-card">
+                    <h3>routes/</h3>
+                    <p>Controls dashboard, upload, OCR, reports, and downloads.</p>
+                </div>
+
+                <div class="structure-card">
+                    <h3>services/</h3>
+                    <p>Stores business logic like OCR, extraction, validation, and export.</p>
+                </div>
+
+                <div class="structure-card">
+                    <h3>data/</h3>
+                    <p>Stores the SQLite database file.</p>
+                </div>
+
+                <div class="structure-card">
+                    <h3>frontend/</h3>
+                    <p>Stores HTML, CSS, JavaScript, and the visual dashboard.</p>
+                </div>
+
+                <div class="structure-card">
+                    <h3>uploads/</h3>
+                    <p>Stores uploaded documents and OCR text files by year and month.</p>
+                </div>
+
+                <div class="structure-card">
+                    <h3>reports/</h3>
+                    <p>Stores exported CSV and JSON business reports.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- This section helps explain the project in interviews. -->
+        <section class="dashboard-section">
+            <h2>Interview Explanation</h2>
+
+            <div class="explanation-card">
+                <p>
+                    I built a document automation system with Python, Flask, SQLite, OCR,
+                    Pandas-style reporting logic, and a JavaScript dashboard. The system
+                    receives invoice documents, extracts business data, validates risk,
+                    stores results in SQLite, and generates dashboard insights and BI reports.
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

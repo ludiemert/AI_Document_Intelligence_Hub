@@ -1081,3 +1081,8 @@ The page explains the system flow.
 
 
 ___________________________
+System Status -> mostra o que funciona
+Data Flow -> mostra o caminho dos dados
+Project Structure -> mostra as pastas/arquivos
+Interview Explanation -> frase para entrevista
+_____________________________
