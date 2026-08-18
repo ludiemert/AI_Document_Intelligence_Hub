@@ -43,3 +43,11 @@ def invoice_detail(invoice_number):
 
     # This sends one invoice to the detail page.
     return render_template("invoice_detail.html", invoice=selected_invoice)
+
+
+@dashboard_bp.route("/architecture")
+def architecture_page():
+    """Show the project architecture page."""
+    # This shows the architecture.html page.
+    # This page explains how the system works.
+    return render_template("architecture.html")

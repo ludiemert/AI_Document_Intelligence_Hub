@@ -1066,3 +1066,18 @@ The dashboard shows results.
 Não é só “enfeite”. É documentação visual dentro do sistema. Para portfólio, isso fica muito profissional.
 
 _______________________________________________
+
+@dashboard_bp.route("/architecture")
+Cria o endereço:
+http://127.0.0.1:5000/architecture
+def architecture_page():
+Cria a função que controla essa página.
+return render_template("architecture.html")
+Manda o Flask abrir o arquivo:
+frontend/architecture.html
+Em inglês A2:
+This route opens the architecture page.
+The page explains the system flow.
+
+
+___________________________
