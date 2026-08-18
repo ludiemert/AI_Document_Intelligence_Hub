@@ -1002,3 +1002,14 @@ register_blueprint connects app.py with dashboard_routes.py.
 We remove old routes from app.py to avoid duplicate routes.
 
 ____________________
+
+o arquivo report_routes.py vai cuidar de:
+/reports
+/export
+/download/csv
+/download/json
+/download/monthly
+/download/yearly
+/download/risk
+
+_______________________________________
