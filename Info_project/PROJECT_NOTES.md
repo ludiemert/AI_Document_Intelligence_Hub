@@ -1086,3 +1086,6 @@ Data Flow -> mostra o caminho dos dados
 Project Structure -> mostra as pastas/arquivos
 Interview Explanation -> frase para entrevista
 _____________________________
+start projet web
+python app.py
+____________________________________
