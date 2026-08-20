@@ -852,10 +852,21 @@ function updateDashboardFromFilters() {
   updateText("needs-review", metrics.needsReview);
   updateText("high-risk", metrics.highRisk);
   updateText("average-risk", metrics.averageRisk.toFixed(2));
+  // This shows total amount with European money format.
   updateText(
     "total-amount",
-    `${metrics.totalAmount.toFixed(2)} ${metrics.currency}`,
+    `${formatMoney(metrics.totalAmount)} ${metrics.currency}`,
   );
+
+  // This formats money in European style.
+  // Example: 44300 becomes 44.300,00
+  function formatMoney(value) {
+    return Number(value).toLocaleString("de-DE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
   updateText(
     "needs-review-percentage",
     `${metrics.needsReviewPercentage.toFixed(2)}%`,
@@ -1026,7 +1037,7 @@ function updateInvoiceTable(invoices) {
             <td>${invoice.invoice_number}</td>
             <td>${invoice.supplier_name}</td>
             <td>${invoice.invoice_date}</td>
-            <td>${Number(invoice.total_amount).toFixed(2)} ${invoice.currency}</td>
+            <td>${formatMoney(invoice.total_amount)} ${invoice.currency}</td>
             <td>
               <span class="status-badge ${invoice.status}">
                   ${invoice.status}
@@ -1071,7 +1082,7 @@ function updateRiskAlerts(invoices) {
   highAmountInvoices.forEach((invoice) => {
     const alert = document.createElement("p");
     alert.className = "risk-alert danger";
-    alert.textContent = `High amount invoice detected: ${invoice.invoice_number} (${Number(invoice.total_amount).toFixed(2)} ${invoice.currency}).`;
+    alert.textContent = `High amount invoice detected: ${invoice.invoice_number} (${formatMoney(invoice.total_amount)} ${invoice.currency}).`;
     alertsList.appendChild(alert);
   });
 
@@ -1239,9 +1250,9 @@ startDashboard();
 // This function closes the message box.
 // The user clicks OK and the message disappears.
 function closeMessage() {
-    const messageOverlay = document.getElementById("message-overlay");
+  const messageOverlay = document.getElementById("message-overlay");
 
-    if (messageOverlay) {
-        messageOverlay.style.display = "none";
-    }
+  if (messageOverlay) {
+    messageOverlay.style.display = "none";
+  }
 }
