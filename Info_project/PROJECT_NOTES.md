@@ -1089,3 +1089,16 @@ _____________________________
 start projet web
 python app.py
 ____________________________________
+
+O projeto já tem muita coisa forte:
+Flask
+SQLite
+OCR
+Upload
+Validation
+Risk scoring
+Dashboard
+BI Reports
+Architecture page
+CSV/JSON exports
+__________________________

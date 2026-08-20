@@ -1079,6 +1079,23 @@ tr:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* This adds professional spacing to the architecture page. */
+/* It keeps content away from the screen edges. */
+.architecture-body .dashboard-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 90px;
+}
+
+/* This adds space between architecture sections. */
+.architecture-body .dashboard-section {
+    margin-top: 20px;
+}
+
+/* This improves the architecture page hero spacing. */
+.architecture-body .hero {
+    margin-bottom: 22px;
+}
 
 /* This makes the architecture page work on small screens. */
 @media (max-width: 700px) {
