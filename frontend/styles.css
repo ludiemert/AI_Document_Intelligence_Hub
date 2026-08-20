@@ -936,6 +936,159 @@ tr:hover {
     pointer-events: none;
 }
 
+/* This styles the system status grid. */
+/* It shows what parts of the project are active. */
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+/* This styles each system status item. */
+.status-item {
+    border: 1px solid #dbe3ea;
+    border-radius: 8px;
+    padding: 18px;
+    background: #ffffff;
+}
+
+/* This styles the small status label. */
+.status-item span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* This styles the main status text. */
+.status-item strong {
+    color: #0f172a;
+    font-size: 18px;
+}
+
+/* This adds a green top border for active features. */
+.status-active {
+    border-top: 4px solid #16a34a;
+}
+
+/* This adds an orange top border for pending features. */
+.status-pending {
+    border-top: 4px solid #f59e0b;
+}
+
+/* This styles the full data flow area. */
+.flow-line {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+}
+
+/* This styles each data flow step. */
+.flow-step {
+    min-height: 170px;
+    border: 1px solid #dbe3ea;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f8fafc;
+}
+
+/* This styles the number circle. */
+.flow-step span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+/* This styles the flow step title. */
+.flow-step strong {
+    display: block;
+    color: #0f172a;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+/* This styles the flow step text. */
+.flow-step p {
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* This styles the project structure grid. */
+.structure-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+/* This styles each project structure card. */
+.structure-card {
+    border: 1px solid #dbe3ea;
+    border-left: 4px solid #0f766e;
+    border-radius: 8px;
+    padding: 18px;
+    background: #ffffff;
+}
+
+/* This styles the structure card title. */
+.structure-card h3 {
+    color: #0f172a;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/* This styles the structure card text. */
+.structure-card p {
+    color: #475569;
+    line-height: 1.6;
+}
+
+/* This styles the interview explanation card. */
+.explanation-card {
+    border: 1px solid #dbe3ea;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    padding: 22px;
+    background: #ffffff;
+}
+
+/* This styles the interview explanation text. */
+.explanation-card p {
+    color: #1e293b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* This makes the architecture page responsive. */
+@media (max-width: 1100px) {
+    .status-grid,
+    .structure-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .flow-line {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* This makes the architecture page work on small screens. */
+@media (max-width: 700px) {
+    .status-grid,
+    .structure-grid,
+    .flow-line {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* This improves the detail page on small screens. */
 @media (max-width: 700px) {
     .detail-header {
@@ -971,3 +1124,4 @@ tr:hover {
         font-size: 26px;
     }
 }
+
