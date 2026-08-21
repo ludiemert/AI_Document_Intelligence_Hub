@@ -1089,13 +1089,137 @@ tr:hover {
 
 /* This adds space between architecture sections. */
 .architecture-body .dashboard-section {
-    margin-top: 20px;
+    margin-top: 22px;
 }
 
 /* This improves the architecture page hero spacing. */
 .architecture-body .hero {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
+
+/* This controls the main page width. */
+/* It gives the page space on the left and right. */
+.page-container {
+    width: min(1180px, calc(100% - 48px));
+    margin: 32px auto 80px;
+}
+
+/* This creates a dark hero area like the dashboard. */
+.hero-card {
+    background: #111827;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 40px;
+    margin-bottom: 28px;
+}
+
+/* This styles the small title above the main title. */
+.hero-eyebrow {
+    color: #dbeafe;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+}
+
+/* This controls the hero title. */
+.hero-card h1 {
+    font-size: 42px;
+    line-height: 1.1;
+    margin: 0 0 16px;
+}
+
+/* This controls the hero subtitle. */
+.hero-card p {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+/* This adds better spacing between architecture sections. */
+.architecture-section {
+    margin-top: 28px;
+}
+
+/* This creates responsive card grids. */
+.architecture-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* This styles architecture cards. */
+.architecture-card {
+    background: #ffffff;
+    border: 1px solid #dbe3ea;
+    border-left: 4px solid #0f766e;
+    border-radius: 8px;
+    padding: 22px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+/* This styles warning cards. */
+.architecture-card.warning {
+    border-left-color: #f59e0b;
+}
+
+/* This styles the data flow cards. */
+.flow-card {
+    background: #ffffff;
+    border: 1px solid #dbe3ea;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+/* This styles the number circle in data flow. */
+.flow-number {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    background: #111827;
+    color: #ffffff;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+/* This styles the interview explanation box. */
+.interview-box {
+    background: #ffffff;
+    border: 1px solid #dbe3ea;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    padding: 24px;
+    line-height: 1.7;
+}
+
+/* This makes the architecture page work on tablets. */
+@media (max-width: 900px) {
+    .architecture-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* This makes the architecture page work on phones. */
+@media (max-width: 640px) {
+    .page-container {
+        width: min(100% - 28px, 1180px);
+        margin-top: 20px;
+    }
+
+    .hero-card {
+        padding: 28px;
+    }
+
+    .hero-card h1 {
+        font-size: 32px;
+    }
+
+    .architecture-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 /* This makes the architecture page work on small screens. */
 @media (max-width: 700px) {

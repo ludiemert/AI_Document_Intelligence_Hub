@@ -1117,3 +1117,14 @@ frontend/
 
 
 _______________________________________
+
+4. README
+   Precisa atualizar com:
+Python + Flask
+SQLite
+OCR with Tesseract
+Chart.js dashboard
+BI Reports
+Upload TXT/Image
+Architecture page
+________________________________
