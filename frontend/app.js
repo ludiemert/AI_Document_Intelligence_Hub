@@ -619,7 +619,7 @@ function updateInvoiceTable(invoices) {
   if (invoices.length === 0) {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td colspan="6">No invoices found for this filter.</td>
+      <td colspan="7">No invoices found for this filter.</td>
     `;
     tableBody.appendChild(row);
     return;
@@ -637,6 +637,11 @@ function updateInvoiceTable(invoices) {
       <td>
         <span class="status-badge ${invoice.status}">
           ${invoice.status}
+        </span>
+      </td>
+      <td>
+        <span class="source-badge ${invoice.source_type}">
+          ${invoice.source_type || "unknown"}
         </span>
       </td>
       <td>${invoice.risk_score}</td>
@@ -660,7 +665,10 @@ function updateDashboardFromFilters() {
   updateText("needs-review", metrics.needsReview);
   updateText("high-risk", metrics.highRisk);
   updateText("average-risk", metrics.averageRisk.toFixed(2));
-  updateText("total-amount", `${formatMoney(metrics.totalAmount)} ${metrics.currency}`);
+  updateText(
+    "total-amount",
+    `${formatMoney(metrics.totalAmount)} ${metrics.currency}`,
+  );
   updateText(
     "needs-review-percentage",
     `${metrics.needsReviewPercentage.toFixed(2)}%`,

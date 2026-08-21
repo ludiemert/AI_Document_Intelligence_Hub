@@ -1193,6 +1193,34 @@ tr:hover {
     line-height: 1.7;
 }
 
+/* This styles the source type badge. */
+/* It shows if the invoice came from TXT or OCR. */
+.source-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* This badge means the invoice came from a text file. */
+.source-badge.txt {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+/* This badge means the invoice came from image OCR. */
+.source-badge.ocr_image {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+/* This badge appears if source type is missing. */
+.source-badge.unknown {
+    background: #e5e7eb;
+    color: #374151;
+}
+
 /* This makes the architecture page work on tablets. */
 @media (max-width: 900px) {
     .architecture-grid {
