@@ -1128,3 +1128,21 @@ BI Reports
 Upload TXT/Image
 Architecture page
 ________________________________
+fecha a lógica:
+Dashboard table shows source_type
+Invoice detail page shows source_type
+SQLite stores source_type
+OCR invoices are traceable
+
+____________________________
+1. tualizar README
+   Explicar o projeto com:
+Problem
+Solution
+Tech Stack
+Features
+Architecture
+How to run
+Screenshots
+What I learned
+______________________

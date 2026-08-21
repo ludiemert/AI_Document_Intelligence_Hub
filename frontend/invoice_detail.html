@@ -68,6 +68,13 @@
                     <strong>{{ invoice.reasons }}</strong>
                 </div>
 
+                <!-- This shows where the invoice came from. -->
+                <!-- txt means text upload. ocr_image means image processed by OCR. -->
+                <div class="detail-item">
+                    <span class="detail-label">Source Type</span>
+                    <strong>{{ invoice.source_type }}</strong>
+                </div>
+
                 <div class="detail-item detail-item-wide">
                     <span class="detail-label">Source File</span>
                     <strong>{{ invoice.source_file }}</strong>
