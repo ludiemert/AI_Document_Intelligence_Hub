@@ -1102,3 +1102,18 @@ BI Reports
 Architecture page
 CSV/JSON exports
 __________________________
+separar app.js
+
+
+frontend/
+├── app.js              -> starts the dashboard
+├── api.js              -> loads data from Flask API
+├── filters.js          -> year/month filter logic
+├── metrics.js          -> calculates cards and recommendations
+├── charts.js           -> Chart.js graphs
+├── table.js            -> invoice table and top risk invoices
+├── alerts.js           -> risk alerts
+└── formatters.js       -> formatMoney and helper functions
+
+
+_______________________________________
