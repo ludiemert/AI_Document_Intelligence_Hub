@@ -1146,3 +1146,25 @@ How to run
 Screenshots
 What I learned
 ______________________
+
+ode:
+SELECT
+    invoice_number,
+    invoice_date,
+    total_amount,
+    status,
+    risk_score,
+    source_type,
+    source_file
+FROM invoices
+ORDER BY invoice_date, invoice_number;
+O que esse comando faz
+SELECT -> escolhe quais colunas queremos ver
+FROM invoices -> pega dados da tabela invoices
+ORDER BY -> organiza por data e invoice number
+Em inglês A2:
+SELECT reads data.
+FROM chooses the table.
+ORDER BY sorts the result.
+
+__________________
