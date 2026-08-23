@@ -677,16 +677,18 @@ ________________________________________
 
 ________________________________________
 
+<h4 align="center">Invoice_summary.csv 🥰 🚀</h4>
+
 <div align="center">
     <table>
         <tr>
              <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/20_boxplot_grafic.png" style="width: 90%;" alt="boxplot_grafic">
-                <p style="margin-top: 5px;">boxplot_grafic</p>
+                <img src="Img_Project/10_invoice_summary.csv.png" style="width: 90%;" alt="Invoice_summary">
+                <p style="margin-top: 5px;">Invoice_summary</p>
             </td>
             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/19_grafic_estograma.png" style="width: 90%;" alt="grafic_estograma">
-                <p style="margin-top: 5px;">grafic_estograma</p>
+                <img src="Img_Project/16_invoice_analyzer_This check belongs to invoice_analyzer.png" style="width: 90%;" alt="invoice_analyzer_This check belongs to invoice_analyzer">
+                <p style="margin-top: 5px;">Invoice_analyzer_This check belongs to invoice_analyzer</p>
             </td>
         </tr>
     </table>
