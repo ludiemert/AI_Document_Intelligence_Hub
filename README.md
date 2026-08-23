@@ -701,18 +701,18 @@ ________________________________________
   ________________________________________
 
   
-<h4 align="center">Grafic 🥰 🚀</h4>
+<h4 align="center">Page BI_export 🥰 🚀</h4>
 
 <div align="center">
     <table>
         <tr>
             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/17_varios_graf_varios_valores.png" style="width: 90%;" alt="varios_graf_varios_valores">
-                <p style="margin-top: 5px;">varios_graf_varios_valores</p>
+                <img src="Img_Project/50_BI_export.png" style="width: 90%;" alt="BI_export">
+                <p style="margin-top: 5px;">BI_export</p>
             </td>
             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/18_graf_pontos.png" style="width: 90%;" alt="graf_pontos">
-                <p style="margin-top: 5px;">graf_pontos</p>
+                <img src="Img_Project/53_Front_BI_Dowl_127.0.0.1_5000_reports.png" style="width: 90%;" alt="Front_BI_Dowl_127.0.0.1_5000_reports">
+                <p style="margin-top: 5px;">Front_BI_Dowl_127.0.0.1_5000_reports</p>
             </td>
         </tr>
     </table>
