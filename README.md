@@ -724,16 +724,18 @@ ________________________________________
 
 ________________________________________
 
+<h4 align="center">Front_Project 🥰 🚀</h4>
+
 <div align="center">
     <table>
         <tr>
              <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/5_date_orientado_objet.png" style="width: 90%;" alt="date_orientado_objet">
-                <p style="margin-top: 5px;">Alter_name_index_name</p>
+                <img src="Img_Project/67_Front_Project_127.0.0.1_5000.png" style="width: 90%;" alt="Front_Project_127.0.0.1_5000">
+                <p style="margin-top: 5px;">Front_Project_127.0.0.1_5000</p>
             </td>
             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/6_2_eixos_2_graf_orient_obj.png" style="width: 90%;" alt="eixos_2_graf_orient_obj">
-                <p style="margin-top: 5px;">eixos_2_graf_orient_obj</p>
+                <img src="Img_Project/65_Front_127.0.0.1_5000_msg_invoice_017.png" style="width: 90%;" alt="Front_127.0.0.1_5000_msg_invoice_017">
+                <p style="margin-top: 5px;">Front_127.0.0.1_5000_msg_invoice_017</p>
             </td>
         </tr>
     </table>
@@ -745,18 +747,17 @@ ________________________________________
 
   ________________________________________
 
-<h4 align="center">Grafics 🥰 🚀</h4>
 
 <div align="center">
     <table>
         <tr>
             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/8_interacao_entre_valores.png" style="width: 90%;" alt="interacao_entre_valores">
-                <p style="margin-top: 5px;">interacao_entre_valores</p>
+                <img src="Img_Project/68_SQLite_Project_Beekeeper.png" style="width: 90%;" alt="SQLite_Project_Beekeeper">
+                <p style="margin-top: 5px;">SQLite_Project_Beekeeper</p>
             </td>
             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/9_other_plotagem.png" style="width: 90%;" alt="other_plotagem">
-                <p style="margin-top: 5px;">other_plotagem</p>
+                <img src="Img_Project/38_127.0.0.1_5000__favicon.png" style="width: 90%;" alt="127.0.0.1_5000__favicon">
+                <p style="margin-top: 5px;">127.0.0.1_5000__favicon</p>
             </td>
         </tr>
     </table>
@@ -768,23 +769,6 @@ ________________________________________
 
 ________________________________________
 
-<div align="center">
-    <table>
-        <tr>
-             <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/2_img_eixo_x_y.png" style="width: 90%;" alt="img_eixo_x_y">
-                <p style="margin-top: 5px;">img_eixo_x_y</p>
-            </td>
-            <td style="width: 50%; text-align: center;">
-                <img src="3_Visualization_Data_Matplotlib_img/3_subplot.png" style="width: 90%;" alt="subplot">
-                <p style="margin-top: 5px;">subplot</p>
-            </td>
-        </tr>
-    </table>
-</div>
-
-  <br/>
-  <br/>
 
 ---------
 
@@ -806,7 +790,7 @@ ________________________________________
 
 🛠 Full-Stack Developer <br>
 🖥️ Python | Computer Vision | AI Integrations <br>
-📍 T23 R2RV,  Cork - Irland 
+📍 Cork - Irland 
 ☎ +353 87 243 8690
 
 <a href="https://www.linkedin.com/in/lucianadiemert" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn Badge" height="25"></a>&nbsp;
